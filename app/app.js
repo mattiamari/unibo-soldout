@@ -57,7 +57,13 @@ async function router() {
         page = routes[route];
     }
 
-    document.body.innerHTML = await page.render(params);
+    const rendered = await page.render(params);
+
+    // Scroll to top before changing page. This prevents issues when the page is
+    // scrolled down and the next page has an entry animation
+    document.documentElement.scroll(0, 0);
+    
+    document.body.innerHTML = rendered;
     page.afterRender();
 }
 
