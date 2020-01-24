@@ -1,7 +1,7 @@
 'use strict';
 
 const Card = event => {
-    return /* html */`
+    return /*html*/`
         <div class="card card--big" style="background-image: url(${event.coverImage});">
             <div class="card-content">
                 <div class="eventQuickInfo">
@@ -20,7 +20,7 @@ const EventSlider = {
     render: async params => {
         const events = params.events.map(e => Card(e)).join('\n');
 
-        return /* html */`
+        return /*html*/`
             <div class="slider">
                 <div class="slider-header">
                     <span class="slider-title">${params.title}</span>

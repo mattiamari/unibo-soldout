@@ -4,17 +4,31 @@ import HomePage from './pages/Home.js';
 import Error404 from './pages/Error404.js';
 
 const routes = {
-    '/': HomePage
+    '/': HomePage,
 };
 
 window.addEventListener('DOMContentLoaded', router);
 window.addEventListener('hashchange', router);
 
+let firstLoad = true;
+
 async function router() {
+    const hashIsPage = location.hash.startsWith('#/');
+
+    if (!firstLoad && !hashIsPage) {
+        return;
+    }
+
     const pageContainer = document.body;
     const request = parseRoute(location.hash);
-    let page = Error404;
     let params = {};
+
+    let page = Error404;
+
+    if (firstLoad && !hashIsPage) {
+        page = HomePage;
+        firstLoad = false;
+    }
 
     for (const route in routes) {
         const parsed = parseRoute(route);

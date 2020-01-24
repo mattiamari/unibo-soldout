@@ -27,9 +27,28 @@ const dummyEvents = [
     },
 ];
 
+const dummyEventTabs = [
+    {
+        tabName: 'Teatro',
+        events: dummyEvents.slice(1)
+    },
+    {
+        tabName: 'Concerti',
+        events: dummyEvents.slice(0, 3)
+    },
+    {
+        tabName: 'Maremma maiala',
+        events: dummyEvents.slice(1)
+    },
+];
+
 const Events = {
     getNewEvents: async () => {
         return dummyEvents;
+    },
+
+    getEventsCategorized: async () => {
+        return dummyEventTabs;
     },
 };
 

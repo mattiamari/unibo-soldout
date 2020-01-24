@@ -2,7 +2,7 @@
 
 const NavBar = {
     render: async () => {
-        return /* html */`
+        return /*html*/`
             <nav class="navbar" id="navbar">
                 <a class="navbar-button" href="#"><i class="fa fa-bars"></i></a>
 

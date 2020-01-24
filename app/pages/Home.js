@@ -1,13 +1,14 @@
 'use strict';
 
+import Events from '../services/Events.js';
 import NavBar from '../components/NavBar.js';
 import EventSlider from '../components/EventSlider.js';
-import Events from '../services/Events.js';
+import EventTabs from '../components/EventTabs.js';
 
 const Header = async () => {
     const navbar = await NavBar.render();
 
-    return /* html */`
+    return /*html*/`
         <header class="pageHeader">
             <div class="pageHeader-background"></div>
             <div class="pageHeader-background-filter"></div>
@@ -39,13 +40,21 @@ const HomePage = {
             events: await Events.getNewEvents()
         });
 
+        const sliderCiaoEvents = await EventSlider.render({
+            title: 'Ciao',
+            events: await Events.getNewEvents()
+        });
 
-        return /* html */`
+        const eventTabs = await EventTabs.render(await Events.getEventsCategorized());
+
+        return /*html*/`
             <div class="page page--home">
             ${header}
 
             <main class="pageContent">
                 ${sliderNewEvents}
+                ${sliderCiaoEvents}
+                ${eventTabs}
             </main>
             </div>
         `;
@@ -57,6 +66,7 @@ const HomePage = {
         };
 
         initNavbar(dom.navbar, 56);
+        EventTabs.afterRender();
     }
 };
 
