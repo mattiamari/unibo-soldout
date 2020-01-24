@@ -5,6 +5,7 @@ import Error404 from './pages/Error404.js';
 
 const routes = {
     '/': HomePage,
+    '/404': Error404,
 };
 
 window.addEventListener('DOMContentLoaded', router);
@@ -19,7 +20,6 @@ async function router() {
         return;
     }
 
-    const pageContainer = document.body;
     const request = parseRoute(location.hash);
     let params = {};
 
@@ -30,11 +30,12 @@ async function router() {
         firstLoad = false;
     }
 
+    routesLoop:
     for (const route in routes) {
         const parsed = parseRoute(route);
 
         if (parsed.length != request.length) {
-            break;
+            continue;
         }
     
         for (const [i, frag] of parsed.entries()) {
@@ -44,17 +45,19 @@ async function router() {
                 params[frag.slice(1)] = request[i];
                 continue;
             }
-    
+            
+            // Route didn't match. Go on with the next
             if (frag !== request[i]) {
-                break;
+                params = {};
+                continue routesLoop;
             }
         }
 
-        // Route has been matched
+        // Route matched
         page = routes[route];
     }
 
-    pageContainer.innerHTML = await page.render(params);
+    document.body.innerHTML = await page.render(params);
     page.afterRender();
 }
 
