@@ -531,7 +531,7 @@ ul.eventInfoList {
     width: 100%;
     padding: 10%;
     text-align: center;
-    background: linear-gradient(160deg, #f057ffee -5%, var(--color-background) 60%);
+    background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-background) 60%);
     animation: page-zoom-out .3s ease;
 }
 
