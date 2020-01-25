@@ -9,21 +9,21 @@ const Header = async () => {
     const navbar = await NavBar.render();
 
     return /*html*/`
-        <header class="pageHeader">
-            <div class="pageHeader-background"></div>
-            <div class="pageHeader-background-filter"></div>
-            <div class="pageHeader-background-blend"></div>
+        <header class="header">
+            <div class="header-layer header-bg"></div>
+            <div class="header-layer header-bg-filter"></div>
+            <div class="header-layer header-bg-blend"></div>
 
             ${navbar}
 
-            <div class="pageHeader-content">
+            <div class="header-layer header-content">
                 <div class="app-logo">
                     <span class="logo-sold">sold</span><span class="logo-out">OUT</span>
                 </div>
 
                 <div class="searchbar">
                     <div class="searchbar-inner">
-                        <input type="text" placeholder="Trova un evento...">
+                        <input type="search" placeholder="Trova un evento...">
                     </div>
                 </div>
             </div>

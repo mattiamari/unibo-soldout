@@ -2,13 +2,15 @@
 
 const Card = event => {
     return /*html*/`
-        <div class="card card--big" style="background-image: url(${event.coverImage});">
-            <div class="card-content">
-                <div class="eventQuickInfo">
-                    <div class="eventQuickInfo-title">${event.title}</div>
-                    <div>
-                        <span class="eventQuickInfo-date">${event.date}</span>
-                        <span class="eventQuickInfo-location">${event.locationShort}</span>
+        <div class="slider-slide">
+            <div class="card card--big" style="background-image: url(${event.coverImage});">
+                <div class="card-content">
+                    <div class="eventQuickInfo">
+                        <div class="eventQuickInfo-title">${event.title}</div>
+                        <div>
+                            <span class="eventQuickInfo-date">${event.date}</span>
+                            <span class="eventQuickInfo-location">${event.locationShort}</span>
+                        </div>
                     </div>
                 </div>
             </div>
