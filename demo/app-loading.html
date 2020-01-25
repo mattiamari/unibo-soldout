@@ -7,12 +7,6 @@
     <!-- <base href="http://192.168.1.2:8000/app/"> -->
     <title>soldOUT</title>
 
-    <link rel="stylesheet" type="text/css" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
-    
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="module" src="app.js"></script>
-
     <style>
         html,
         body {
@@ -32,14 +26,13 @@
             width: 100%;
         }
 
-        .app-loading-spinner {
+        .app-loading-inner {
             width: 56px;
             height: 56px;
             margin: auto;
-            box-sizing: border-box;
 
             border-radius: 50%;
-            border-top: 3px solid #D7487D;
+            border-top: 3px solid #f057ff;
             transform-origin: center;
             animation: 1s ease-in-out 0s infinite spin;
         }
@@ -56,7 +49,7 @@
 </head>
 <body>
     <div class="app-loading">
-        <div class="app-loading-spinner"></div>
+        <div class="app-loading-inner"></div>
     </div>
 </body>
 </html>
