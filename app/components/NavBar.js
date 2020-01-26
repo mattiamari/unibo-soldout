@@ -1,5 +1,7 @@
 'use strict';
 
+import throttle from '../../node_modules/lodash-es/throttle.js';
+
 const NavBar = {
     render: async () => {
         return /*html*/`
@@ -14,11 +16,22 @@ const NavBar = {
         `;
     },
 
-    onScrollTop: (node) => {
+    afterRender: node => {
+        window.addEventListener('scroll', throttle(() => {
+            if (document.documentElement.scrollTop < 56) {
+                NavBar.onScrollTop(node);
+                return;
+            }
+
+            NavBar.onScrollMiddle(node);
+        }, 100));
+    },
+
+    onScrollTop: node => {
         node.classList.remove('navbar--raised');
     },
 
-    onScrollMiddle: (node) => {
+    onScrollMiddle: node => {
         node.classList.add('navbar--raised');
     }
 };
