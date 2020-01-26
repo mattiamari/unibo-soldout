@@ -5,7 +5,8 @@ const Tab = {
         const id = formatId(name);
     
         return /*html*/`
-            <a class="tabbedContainer-tab" href="#${id}">${name}</a>
+            <button class="tabbedContainer-tab" data-slide-id="${id}">${name}</button>
+            
         `;
     },
     select: node => {
@@ -46,11 +47,11 @@ const Slide = (name, events) => {
 
 const EventTabs = {
     render: async params => {
-        const tabs = params.map(e => Tab.render(e.tabName)).join('\n');
-        const slides = params.map(e => Slide(e.tabName, e.events)).join('\n');
+        const tabs = params.tabs.map(e => Tab.render(e.tabName)).join('\n');
+        const slides = params.tabs.map(e => Slide(e.tabName, e.events)).join('\n');
 
         return /*html*/`
-            <div class="tabbedContainer">
+            <div class="tabbedContainer" id="${params.id}">
                 <nav class="tabbedContainer-tabs">
                     ${tabs}
                 </nav>
@@ -61,9 +62,17 @@ const EventTabs = {
             </div>
         `;
     },
-    afterRender: () => {
-        document.querySelectorAll('.tabbedContainer-tab').forEach(e => {
-            e.onclick = () => Tab.select(e)
+    afterRender: node => {
+        const container = node.querySelector('.tabbedContainer-content');
+
+        node.querySelectorAll('.tabbedContainer-tab').forEach(tab => {
+            const slide = document.getElementById(tab.dataset.slideId);
+
+            tab.onclick = () => {
+                Tab.select(tab);
+                container.scrollTo(slide.offsetLeft, 0);
+            };
+            
         });
     }
 };

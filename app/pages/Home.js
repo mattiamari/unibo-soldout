@@ -32,20 +32,25 @@ const Header = async () => {
 };
 
 const HomePage = {
-    render: async (params) => {
+    render: async params => {
         const header = await Header();
 
         const sliderNewEvents = await EventSlider.render({
+            id: 'sliderNewEvents',
             title: 'Nuovi',
             events: await Events.getNewEvents()
         });
 
         const sliderCiaoEvents = await EventSlider.render({
+            id: 'sliderCiaoEvents',
             title: 'Ciao',
             events: await Events.getNewEvents()
         });
 
-        const eventTabs = await EventTabs.render(await Events.getEventsCategorized());
+        const eventTabs = await EventTabs.render({
+            id: 'eventTabs',
+            tabs: await Events.getEventsCategorized()
+        });
 
         return /*html*/`
             <div class="page page--home">
@@ -62,23 +67,15 @@ const HomePage = {
 
     afterRender: async () => {
         const dom = {
-            'navbar': document.querySelector('.navbar'),
+            navbar: document.getElementById('navbar'),
+            sliderNewEvents: document.getElementById('sliderNewEvents'),
+            sliderCiaoEvents: document.getElementById('sliderCiaoEvents'),
+            eventTabs: document.getElementById('eventTabs'),
         };
 
-        initNavbar(dom.navbar, 56);
-        EventTabs.afterRender();
+        NavBar.afterRender(dom.navbar);
+        EventTabs.afterRender(dom.eventTabs);
     }
 };
-
-function initNavbar(node, raiseAt) {
-    window.addEventListener('scroll', () => {
-        if (document.documentElement.scrollTop < raiseAt) {
-            window.requestAnimationFrame(() => NavBar.onScrollTop(node));
-            return;
-        }
-
-        window.requestAnimationFrame(() => NavBar.onScrollMiddle(node));
-    });
-}
 
 export default HomePage;
