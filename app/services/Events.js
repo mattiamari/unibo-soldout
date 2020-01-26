@@ -5,25 +5,25 @@ const dummyEvents = [
         title: "Linkin Park @ Firenze Rocks",
         date: "2 agosto 2020",
         locationShort: "Firenze, Italia",
-        coverImage: "i/p-linkin-park.jpg"
+        coverImage: {url: "i/l-linkin-park.jpg", alt: "linkin park band photo"}
     },
     {
         title: "Rise Against",
         date: "10 luglio 2020",
         locationShort: "Monza, Italia",
-        coverImage: "i/p-rise-against.jpg"
+        coverImage: {url: "i/l-rise-against.jpg", alt: "rise against band photo"}
     },
     {
         title: "System Of A Down",
         date: "20 luglio 2020",
         locationShort: "Monza, Italia",
-        coverImage: "i/p-soad.jpg"
+        coverImage: {url: "i/l-soad.jpg", alt: "system of a down band logo"}
     },
     {
         title: "NF",
         date: "5 agosto 2020",
         locationShort: "Monza, Italia",
-        coverImage: "i/p-nf.jpg"
+        coverImage: {url: "i/l-nf.jpg", alt: "nf's 'therapy session' album cover"}
     },
 ];
 

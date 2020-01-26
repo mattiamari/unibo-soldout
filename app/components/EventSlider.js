@@ -3,7 +3,9 @@
 const Card = event => {
     return /*html*/`
         <div class="slider-slide">
-            <div class="card card--big" style="background-image: url(${event.coverImage});">
+            <div class="card card--big">
+                <img alt="${event.coverImage.alt}" src="${event.coverImage.url}">
+
                 <div class="card-content">
                     <div class="eventQuickInfo">
                         <div class="eventQuickInfo-title">${event.title}</div>
@@ -23,7 +25,7 @@ const EventSlider = {
         const events = params.events.map(e => Card(e)).join('\n');
 
         return /*html*/`
-            <div class="slider">
+            <div class="slider" id="${params.id}">
                 <div class="slider-header">
                     <span class="slider-title">${params.title}</span>
                     <a class="slider-showMore button button--flat" href="#">Vedi tutti</a>

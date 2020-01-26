@@ -20,7 +20,7 @@ const Tab = {
 
 const Card = event => {
     return /*html*/`
-        <div class="card card--small" style="background-image: url(${event.coverImage});">
+        <div class="card card--small" style="background-image: url(${event.coverImage.url});">
             <div class="card-content">
                 <div class="eventQuickInfo">
                     <div class="eventQuickInfo-title">${event.title}</div>
