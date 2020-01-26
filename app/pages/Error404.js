@@ -9,7 +9,8 @@ const Error404 = {
                 <a href="#/" class="button button--flat">Torna alla pagina principale</a>
             </div>
         `;
-    }
+    },
+    afterRender: () => {},
 };
 
 export default Error404;
