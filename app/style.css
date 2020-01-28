@@ -3,13 +3,18 @@
     --color-text-contrast: #000;
     --color-text-secondary: #e7e7e7;
     --color-primary: #D7487D;
+    --color-primary-rgb: 215, 72, 125;
     --color-primary-lighter: #E56C99;
     --color-primary-darker: #C52761;
     --color-secondary: #F77853;
     --color-secondary-lighter: #FF9778;
     --color-secondary-darker: #E2552C;
-    --color-background: #121212;
+    --color-background: #161616;
     --color-background-contrast: #eeeeee;
+
+    --color-background-1: hsl(0, 0%, 15%);
+    --color-background-2: hsl(0, 0%, 21%);
+    --color-background-3: hsl(0, 0%, 27%);
 
     --overlay-opacity-1: 0.05;
     --overlay-opacity-2: 0.07;
@@ -17,13 +22,15 @@
     --overlay-opacity-4: 0.09;
     --overlay-opacity-5: 0.11;
 
-    --shadow-1: 0px 1px 2px 1px rgba(0,0,0,0.30);
-    --shadow-2: 0px 1px 6px 4px rgba(0,0,0,0.30);
-    --shadow-3: 0px 1px 12px 4px rgba(0,0,0,0.30);
+    --shadow-1: 0px 1px 3px 0px rgba(0,0,0,0.30);
+    --shadow-2: 0px 1px 6px 1px rgba(0,0,0,0.30);
+    --shadow-3: 0px 1px 9px 1px rgba(0,0,0,0.30);
+    --shadow-4: 0px 1px 12px 1px rgba(0,0,0,0.30);
 }
 
 html,
 body,
+#app,
 .page {
     width: 100%;
     height: 100%;
@@ -33,6 +40,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 * {
@@ -40,14 +48,14 @@ body {
 }
 
 body {
-    background-color: var(--color-background);
+    background-color: var(--color-background) !important;
     color: var(--color-text);
 
     font-family: "Noto Sans", sans-serif;
     font-size: 14pt;
 }
 
-@keyframes page-zoom-out {
+@keyframes zoom-out {
     0% {
         opacity: 0;
         transform: scale(1.1);
@@ -58,7 +66,7 @@ body {
     }
 }
 
-@keyframes page-zoom-in {
+@keyframes zoom-in {
     0% {
         opacity: 0;
         transform: scale(0.9);
@@ -67,6 +75,61 @@ body {
         opacity: 1;
         transform: scale(1);
     }
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-out-left {
+    0% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+}
+
+@keyframes slide-in-left {
+    0% {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    font-weight: 900;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.5em 0;
 }
 
 /* 
@@ -114,12 +177,13 @@ body {
     height: 56px;
     width: 100%;
     padding: 4px;
-    z-index: 1;
+    z-index: 100;
     transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 .navbar--raised {
     box-shadow: var(--shadow-1);
+    background-color: var(--color-primary);
 }
 
 .navbar-button {
@@ -192,7 +256,7 @@ a.navbar-button:active {
 .slider-header {
     display: flex;
     align-items: center;
-    padding: 0 16px;
+    padding-left: 16px;
     margin-bottom: -8px;
 }
 
@@ -302,6 +366,7 @@ a.navbar-button:active {
 .button {
     display: inline-block;
     padding: 8px 16px;
+    background-color: transparent;
     font-size: 0.9em;
     font-weight: bold;
     text-transform: uppercase;
@@ -427,7 +492,7 @@ a.button {
     Homepage
 */
 .page.page--home {
-    animation: page-zoom-out .3s ease;
+    animation: zoom-out .3s ease;
 }
 
 .page--home .header {
@@ -452,10 +517,6 @@ a.button {
 
 .page--home .header-bg-blend {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, var(--color-background) 100%);
-}
-
-.page--home .navbar--raised {
-    background-color: var(--color-primary);
 }
 
 .page--home main {
@@ -490,8 +551,6 @@ a.button {
 .page--event .header-title {
     margin-top: auto;
     margin-bottom: 48px;
-    font-size: 2em;
-    font-weight: 900;
     text-align: center;
 }
 
@@ -514,24 +573,107 @@ a.button {
 ul.eventInfoList {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding-left: 1.5em; /* the .5 is there to account for the 1em width of .eventInfoList li>i */
+    text-indent: -1em;
 }
 
 .eventInfoList li {
-    height: 2em;
-    vertical-align: middle;
+    line-height: 1.8em;
 }
 
 .eventInfoList li>i {
     width: 1em;
     font-size: 0.7em;
     text-align: center;
-    margin-right: 1em;
 }
 
 .buyButtonContainer {
     text-align: center;
     margin-bottom: 24px;
+}
+
+/*
+    Buy page
+*/
+.page.page--buy {
+    animation: fade-in .5s ease-out;
+}
+
+.page--buy {
+    background: linear-gradient(180deg, rgba(var(--color-primary-rgb), 1), var(--color-background) 200px);
+}
+
+.page--buy .btnNext {
+    margin-top: auto;
+}
+
+.page--buy .ticketTypeList {
+    margin-top: 40px;
+    animation: slide-up .5s ease;
+}
+
+.buyStepScreen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 24px;
+    padding-top: 56px;
+}
+
+.buyStepScreen.buyStepScreen--hidden {
+    display: none;
+}
+
+.ticketTypeList {
+    list-style: none;
+    padding: 0;
+}
+
+.ticketTypeList > li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+
+    background-color: var(--color-background-1);
+    box-shadow: var(--shadow-1);
+    border-left: 2px solid transparent;
+
+    transition: background-color .3s ease, box-shadow .3s ease, border-left .3s ease;
+}
+
+.ticketTypeList > li.ticketType--selected {
+    background-color: var(--color-background-3);
+    box-shadow: var(--shadow-3);
+    border-left: 2px solid var(--color-primary);
+}
+
+.ticketTypeList > li .ticketType-name {
+    margin-right: 1em;
+}
+
+.ticketTypeList > li .ticketType-price {
+    margin-left: auto;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+.quantitySelector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.quantitySelector {
+    margin: 24px auto 0 auto;
+}
+
+.quantitySelector > span {
+    margin: 0 16px;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--color-text);
 }
 
 /*
@@ -543,7 +685,7 @@ ul.eventInfoList {
     padding: 10%;
     text-align: center;
     background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-background) 60%);
-    animation: page-zoom-out .3s ease;
+    animation: zoom-out .3s ease;
 }
 
 .page--error404 img {
