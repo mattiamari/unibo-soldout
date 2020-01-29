@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cart</title>
+
+    <link rel="stylesheet" type="text/css" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../app/style.css">
+</head>
+<body>
+    <div class="page page--cart">
+        <nav class="navbar" id="navbar">
+            <a class="button button--icononly" href="#"><i class="button-icon fa fa-bars"></i></a>
+
+            <div class="navbar-buttons-right">
+                <a class="button button--icononly" href="#/profile"><i class="button-icon fa fa-user"></i></a>
+                <a class="button button--icononly" href="#/cart"><i class="button-icon fa fa-shopping-cart"></i></a>
+            </div>
+        </nav>
+
+        <header class="header">
+            <div class="header-content">
+                <h1>Il tuo carrello</h1>
+            </div>
+        </header>
+
+        <main>
+            <ul class="cartList">
+                <li>
+                    <div>
+                        <span class="event-name" aria-label="Event name">Linkin Park @ Firenze Rocks</span>
+                        <span class="event-location" aria-label="Event location">Ippodromo del Visarno, Firenze, Italia</span>
+                        <span class="event-date" aria-label="Event date">10/07/2020</span>
+
+                        <ul class="priceList">
+                            <li>
+                                <span class="ticket-type" aria-label="Ticket type">Poltrona</span>
+                                <span class="ticket-price" aria-label="Ticket price">€ 100.00</span>
+                            </li>
+                            <li>
+                                <span class="ticket-type" aria-label="Ticket type">Supplemento per la gente che ti sventola quando hai caldo</span>
+                                <span class="ticket-price" aria-label="Ticket price">€ 200,000.00</span>
+                            </li>
+                            <li class="ticket-totalPrice">
+                                <span>Totale</span>
+                                <span class="ticket-price" aria-label="Ticket price">€ 200,100.00</span>
+                            </li>
+                        </ul>                
+                    </div>
+
+                    <button class="button button--flat btnRemove" aria-label="Remove from cart">Rimuovi</button>
+                </li>
+
+                <li>
+                    <div>
+                        <span class="event-name" aria-label="Event name">NF</span>
+                        <span class="event-location" aria-label="Event location">Ippodromo del Visarno, Firenze, Italia</span>
+                        <span class="event-date" aria-label="Event date">10/07/2020</span>
+
+                        <ul class="priceList">
+                            <li>
+                                <span class="ticket-type" aria-label="Ticket type">Parterre</span>
+                                <span class="ticket-price" aria-label="Ticket price">€ 100.00</span>
+                            </li>
+                            <li>
+                                <span class="ticket-type" aria-label="Ticket type">Prevendita</span>
+                                <span class="ticket-price" aria-label="Ticket price">€ 10.00</span>
+                            </li>
+                            <li class="ticket-totalPrice">
+                                <span>Totale</span>
+                                <span class="ticket-price" aria-label="Ticket price">€ 110.00</span>
+                            </li>
+                        </ul>                
+                    </div>
+
+                    <button class="button button--flat btnRemove" aria-label="Remove from cart">Rimuovi</button>
+                </li>
+                
+            </ul>
+
+            <button class="button button--outline btnNext">Procedi all'acquisto</button>
+        </main>
+
+</body>
+</html>
