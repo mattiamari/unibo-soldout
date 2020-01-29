@@ -7,29 +7,43 @@
     <!-- <base href="http://192.168.1.2:8000/app/"> -->
     <title>soldOUT</title>
 
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+    <link rel="preload" href="res/header-bg.jpg" as="image">
+    
+    <script type="module" src="app.js"></script>
+    
     <link rel="stylesheet" type="text/css" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
-    
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="module" src="app.js"></script>
+
+    <link rel="shortcut icon" href="favicon.ico">
+	<link rel="icon" sizes="16x16 32x32 64x64" href="favicon.ico">
+	<link rel="icon" type="image/png" sizes="196x196" href="res/favicon-192.png">
+	<link rel="icon" type="image/png" sizes="160x160" href="res/favicon-160.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="res/favicon-96.png">
+	<link rel="icon" type="image/png" sizes="64x64" href="res/favicon-64.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="res/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="res/favicon-16.png">
 
     <style>
         html,
         body {
-            height: 100%;
-            width: 100%;
             margin: 0;
         }
-        body {
-            background: #121212;
+
+        body,
+        .app-loading {
+            background: #161616;
         }
 
         .app-loading {
+            position: fixed;
             display: flex;
             flex-direction: column;
             align-items: center;
             height: 100%;
             width: 100%;
+            z-index: 9000;
         }
 
         .app-loading-spinner {
@@ -55,8 +69,10 @@
     </style>
 </head>
 <body>
-    <div class="app-loading">
-        <div class="app-loading-spinner"></div>
+    <div id="app">
+        <div class="app-loading" id="app-loading">
+            <div class="app-loading-spinner"></div>
+        </div>
     </div>
 </body>
 </html>

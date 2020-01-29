@@ -3,7 +3,7 @@
 const Card = event => {
     return /*html*/`
         <div class="slider-slide">
-            <div class="card card--big">
+            <div class="card card--big" data-event-id="${event.id}">
                 <img alt="${event.coverImage.alt}" src="${event.coverImage.url}">
 
                 <div class="card-content">
@@ -35,7 +35,15 @@ const EventSlider = {
                 </div>
             </div>
         `;
-    }
+    },
+
+    afterRender: node => {
+        node.querySelectorAll('.card').forEach(e => {
+            e.onclick = () => {
+                window.location.hash = '#/event/' + e.dataset.eventId;
+            };
+        });
+    },
 };
 
 export default EventSlider;

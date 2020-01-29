@@ -2,33 +2,25 @@
 
 import HomePage from './pages/Home.js';
 import Error404 from './pages/Error404.js';
+import EventPage from './pages/Event.js';
+import BuyPage from './pages/Buy.js';
 
 const routes = {
     '/': HomePage,
     '/404': Error404,
+    '/event/:id': EventPage,
+    '/event/:id/buy': BuyPage,
 };
+
+const mountpoint = 'app';
 
 window.addEventListener('DOMContentLoaded', router);
 window.addEventListener('hashchange', router);
 
-let firstLoad = true;
-
 async function router() {
-    const hashIsPage = location.hash.startsWith('#/');
-
-    if (!firstLoad && !hashIsPage) {
-        return;
-    }
-
     const request = parseRoute(location.hash);
     let params = {};
-
     let page = Error404;
-
-    if (firstLoad && !hashIsPage) {
-        page = HomePage;
-        firstLoad = false;
-    }
 
     routesLoop:
     for (const route in routes) {
@@ -63,7 +55,7 @@ async function router() {
     // scrolled down and the next page has an entry animation
     document.documentElement.scroll(0, 0);
     
-    document.body.innerHTML = rendered;
+    document.getElementById(mountpoint).innerHTML = rendered;
     page.afterRender();
 }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-import Events from '../services/Events.js';
+import Events from '../model/Events.js';
 import NavBar from '../components/NavBar.js';
 import EventSlider from '../components/EventSlider.js';
 import EventTabs from '../components/EventTabs.js';
@@ -74,6 +74,8 @@ const HomePage = {
         };
 
         NavBar.afterRender(dom.navbar);
+        EventSlider.afterRender(dom.sliderNewEvents);
+        EventSlider.afterRender(dom.sliderCiaoEvents);
         EventTabs.afterRender(dom.eventTabs);
     }
 };
