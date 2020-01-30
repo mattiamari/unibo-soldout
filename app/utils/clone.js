@@ -1,3 +1,7 @@
 'use strict';
 
-export default clone = e => JSON.parse(JSON.stringify(e));
+function clone(e) {
+    return JSON.parse(JSON.stringify(e));
+};
+
+export default clone;
