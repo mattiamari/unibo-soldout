@@ -51,7 +51,7 @@ const dummyEventDetails = {
     title: "Linkin Park @ Firenze Rocks",
     date: "10 luglio 2020",
     location: 'Ippodromo del Visarno, Firenze, Italia',
-    basePrice: '€ 49',
+    basePrice: 49.00,
     images: {
         card: {url: "i/l-linkin-park.jpg", alt: "linkin park band photo"},
         detailsBackground: {url: "i/p-linkin-park.jpg", alt: "linkin park band photo"}

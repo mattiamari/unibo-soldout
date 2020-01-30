@@ -1,6 +1,7 @@
 'use strict';
 
 import Events from '../model/Events.js';
+import Language from '../model/Language.js';
 
 import NavBar from '../components/NavBar.js';
 
@@ -39,7 +40,7 @@ const EventPage = {
                             </li>
                             <li>
                                 <i class="fa fa-ticket-alt" aria-label="Ticket price"></i>
-                                <span>da ${event.basePrice}</span>
+                                <span>da ${Language.formatCurrency(event.basePrice)}</span>
                             </li>
                         </ul>
 
