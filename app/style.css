@@ -80,7 +80,7 @@ body {
 @keyframes slide-up {
     0% {
         opacity: 0;
-        transform: translateY(50px);
+        transform: translateY(35px);
     }
     100% {
         opacity: 1;
@@ -183,7 +183,7 @@ h2 {
 
 .navbar--raised {
     box-shadow: var(--shadow-1);
-    background-color: var(--color-primary);
+    background-color: rgba(50, 50, 50, 0.9);
 }
 
 .navbar-button {
@@ -560,6 +560,10 @@ a.button {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, var(--color-background) 100%);
 }
 
+.page--home .navbar--raised {
+    background-color: var(--color-primary);
+}
+
 .page--home main {
     height: 1000px;
 }
@@ -597,10 +601,6 @@ a.button {
     margin-top: auto;
     margin-bottom: 48px;
     text-align: center;
-}
-
-.page--event .navbar--raised {
-    background-color: rgba(50, 50, 50, 0.9);
 }
 
 .page--event main {
@@ -655,7 +655,7 @@ ul.eventInfoList {
 
 .page--buy .ticketTypeList {
     margin-top: 40px;
-    animation: slide-up .5s ease;
+    animation: slide-up .3s ease;
 }
 
 .page--buy .buttons {
@@ -761,7 +761,7 @@ ul.eventInfoList {
     margin: 0;
     padding: 0;
 
-    animation: slide-up .5s ease;
+    animation: slide-up .3s ease;
 }
 
 .cartList > li {

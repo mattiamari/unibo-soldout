@@ -4,10 +4,12 @@ import HomePage from './pages/Home.js';
 import Error404 from './pages/Error404.js';
 import EventPage from './pages/Event.js';
 import BuyPage from './pages/Buy.js';
+import CartPage from './pages/Cart.js';
 
 const routes = {
     '/': HomePage,
     '/404': Error404,
+    '/cart': CartPage,
     '/event/:id': EventPage,
     '/event/:id/buy': BuyPage,
 };
