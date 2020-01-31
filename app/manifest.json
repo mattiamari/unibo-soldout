@@ -1,0 +1,26 @@
+{
+    "name": "soldOUT",
+    "short_name": "soldOUT",
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#D7487D",
+    "background_color": "#161616",
+    "description": "Biglietti per eventi",
+    "icons": [
+        {
+            "src": "res/favicon-32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "res/favicon-64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },
+        {
+            "src": "res/favicon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+  }
