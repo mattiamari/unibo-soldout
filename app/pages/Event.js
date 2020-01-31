@@ -5,9 +5,13 @@ import Language from '../model/Language.js';
 
 import NavBar from '../components/NavBar.js';
 
-const EventPage = {
-    render: async params => {
-        const event = await Events.getEventDetails(params.id);
+class EventPage {
+    constructor(params) {
+        this.eventId = params.id;
+    }
+
+    async render() {
+        const event = await Events.getEventDetails(this.eventId);
         const navbar = await NavBar.render();
 
         return /*html*/`
@@ -50,11 +54,11 @@ const EventPage = {
                 </main>
             </div>
         `;
-    },
+    }
 
-    afterRender: () => {
+    afterRender() {
         NavBar.afterRender(document.querySelector('.page.page--event .navbar'));
-    },
+    }
 };
 
 export default EventPage;

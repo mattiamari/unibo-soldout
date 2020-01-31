@@ -1,7 +1,10 @@
 'use strict';
 
-const Error404 = {
-    render: async () => {
+class Error404 {
+    constructor() {
+    }
+
+    async render() {
         return /* html */`
             <div class="page page--error404">
                 <img src="res/404.png">
@@ -9,8 +12,9 @@ const Error404 = {
                 <a href="#/" class="button button--flat">Torna alla pagina principale</a>
             </div>
         `;
-    },
-    afterRender: () => {},
+    }
+
+    afterRender() {}
 };
 
 export default Error404;

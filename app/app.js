@@ -51,14 +51,15 @@ async function router() {
         page = routes[route];
     }
 
-    const rendered = await page.render(params);
+    const pageInstance = new page(params);
+    const rendered = await pageInstance.render();
 
     // Scroll to top before changing page. This prevents issues when the page is
     // scrolled down and the next page has an entry animation
     document.documentElement.scroll(0, 0);
     
     document.getElementById(mountpoint).innerHTML = rendered;
-    page.afterRender();
+    pageInstance.afterRender();
 }
 
 function parseRoute(route) {

@@ -1,7 +1,6 @@
 'use strict';
 
 import Cart from '../model/Cart.js';
-
 import NavBar from '../components/NavBar.js';
 
 const PriceRow = priceDetail => {
@@ -38,8 +37,11 @@ const Card = ticket => {
     `;
 };
 
-const CartPage = {
-    render: async params => {
+class CartPage {
+    constructor(params) {
+    }
+
+    async render() {
         const navbar = await NavBar.render();
         await Cart.init();
         const tickets = Cart.tickets;
@@ -60,15 +62,15 @@ const CartPage = {
                         ${ticketCards}
                     </ul>
 
-                    <button class="button button--outline btnNext">Completa l'ordine</button>
+                    <a class="button button--outline btnNext" href="#/purchase-complete">Completa l'ordine</a>
                 </main>
             </div>
         `;
-    },
+    }
 
-    afterRender: () => {
+    afterRender() {
         NavBar.afterRender(document.getElementById('navbar'));
-    },
+    }
 };
 
 export default CartPage;

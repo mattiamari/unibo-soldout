@@ -31,8 +31,11 @@ const Header = async () => {
     `;
 };
 
-const HomePage = {
-    render: async params => {
+class HomePage {
+    constructor(params) {
+    }
+
+    async render() {
         const header = await Header();
 
         const sliderNewEvents = await EventSlider.render({
@@ -63,9 +66,9 @@ const HomePage = {
             </main>
             </div>
         `;
-    },
+    }
 
-    afterRender: async () => {
+    async afterRender() {
         const dom = {
             navbar: document.getElementById('navbar'),
             sliderNewEvents: document.getElementById('sliderNewEvents'),
@@ -78,6 +81,6 @@ const HomePage = {
         EventSlider.afterRender(dom.sliderCiaoEvents);
         EventTabs.afterRender(dom.eventTabs);
     }
-};
+}
 
 export default HomePage;
