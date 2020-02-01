@@ -186,28 +186,6 @@ h2 {
     background-color: rgba(50, 50, 50, 0.9);
 }
 
-.navbar-button {
-    display: inline-block;
-    height: 48px;
-    padding: 12px;
-    font-size: 24px;
-}
-
-/* From: https://fontawesome.com/how-to-use/on-the-web/styling/sizing-icons#scale */
-.button-icon.fa {
-    vertical-align: 25%;
-}
-
-.navbar-button:nth-child(1) {
-    margin-left: 0;
-}
-
-a.navbar-button,
-a.navbar-button:visited,
-a.navbar-button:active {
-    color: var(--color-text);
-}
-
 .navbar-title {
     margin-left: auto;
     align-self: center;
@@ -403,6 +381,10 @@ a.button {
     box-shadow: var(--shadow-1);
 }
 
+.button--round {
+    border-radius: 50%;
+}
+
 .button--icononly {
     height: 48px;
     padding: 12px;
@@ -411,6 +393,11 @@ a.button {
 
 .button-icon {
     font-size: 24px;
+}
+
+/* From: https://fontawesome.com/how-to-use/on-the-web/styling/sizing-icons#scale */
+.button-icon.fa {
+    vertical-align: 25%;
 }
 
 .buttons {

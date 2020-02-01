@@ -5,6 +5,7 @@ import Error404 from './pages/Error404.js';
 import EventPage from './pages/Event.js';
 import BuyPage from './pages/Buy.js';
 import CartPage from './pages/Cart.js';
+import BuyEndPage from './pages/BuyEnd.js';
 
 const routes = {
     '/': HomePage,
@@ -12,6 +13,7 @@ const routes = {
     '/cart': CartPage,
     '/event/:id': EventPage,
     '/event/:id/buy': BuyPage,
+    '/purchase-complete': BuyEndPage,
 };
 
 const mountpoint = 'app';

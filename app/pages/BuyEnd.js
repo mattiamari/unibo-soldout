@@ -1,0 +1,36 @@
+'use strict';
+
+import NavBar from '../components/NavBar.js';
+
+class BuyEndPage {
+    constructor(params) {
+    }
+
+    async render() {
+        const navbar = await NavBar.render();
+
+        return /*html*/`
+            <div class="page page--buy">
+                ${navbar}
+
+                <main>
+                    <section class="buyStep">
+                        <h2>Acquisto completato! 🎉</h2>
+                        <p>Puoi trovare i tuoi biglietti nel tuo profilo utente.</p>
+
+                        <nav class="buttons buttons--vertical">
+                            <a class="button button--outline" href="#/profile">Vai al profilo</a>
+                            <a class="button button--flat" href="#/">Torna alla home</a>
+                        </nav>
+                    </section>
+                </main>
+            </div>
+        `;
+    }
+
+    afterRender() {
+
+    }
+}
+
+export default BuyEndPage;
