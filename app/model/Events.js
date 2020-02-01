@@ -2,28 +2,28 @@
 
 const dummyEvents = [
     {
-        id: 'abcdef',
+        id: 'abcd1',
         title: "Linkin Park @ Firenze Rocks",
         date: "2 agosto 2020",
         locationShort: "Firenze, Italia",
         coverImage: {url: "i/l-linkin-park.jpg", alt: "linkin park band photo"}
     },
     {
-        id: 'abcdef',
+        id: 'abcd2',
         title: "Rise Against",
         date: "10 luglio 2020",
         locationShort: "Monza, Italia",
         coverImage: {url: "i/l-rise-against.jpg", alt: "rise against band photo"}
     },
     {
-        id: 'abcdef',
+        id: 'abcd3',
         title: "System Of A Down",
         date: "20 luglio 2020",
         locationShort: "Monza, Italia",
         coverImage: {url: "i/l-soad.jpg", alt: "system of a down band logo"}
     },
     {
-        id: 'abcdef',
+        id: 'abcd4',
         title: "NF",
         date: "5 agosto 2020",
         locationShort: "Monza, Italia",
@@ -47,7 +47,7 @@ const dummyEventTabs = [
 ];
 
 const dummyEventDetails = {
-    id: 'abcdefghij',
+    id: 'abcd1',
     title: "Linkin Park @ Firenze Rocks",
     date: "10 luglio 2020",
     location: 'Ippodromo del Visarno, Firenze, Italia',

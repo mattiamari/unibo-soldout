@@ -7,9 +7,9 @@ const tickets = [];
 
 const Cart = {
     async init() {
-        const dummyTicket = new CartItem(await Events.getEventDetails('abc'));
-        dummyTicket.addPriceDetail('Poltrona', 100.00)
-                   .addPriceDetail('Prevendita', 9.90);
+        const dummyTicket = new CartItem(await Events.getEventDetails('abcd1'));
+        dummyTicket.ticketTypeId = 'abc1';
+        dummyTicket.addAdditionalPrice('Prevendita', 9.90);
         this.addTicket(dummyTicket);
     },
 
@@ -22,7 +22,7 @@ const Cart = {
     },
 
     removeTicket(ticket) {
-        const idx = tickets.findIndex((a,b) => a === ticket);
+        const idx = tickets.findIndex(e => e === ticket);
         
         if (idx == -1) {
             return;
