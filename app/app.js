@@ -55,12 +55,15 @@ async function router() {
 
     const pageInstance = new page(params);
     const rendered = await pageInstance.render();
+    
+    const mountpointElement = document.getElementById(mountpoint);
+    mountpointElement.innerHTML = '';
 
     // Scroll to top before changing page. This prevents issues when the page is
     // scrolled down and the next page has an entry animation
     document.documentElement.scroll(0, 0);
-    
-    document.getElementById(mountpoint).innerHTML = rendered;
+
+    mountpointElement.append(rendered);
     pageInstance.afterRender();
 }
 

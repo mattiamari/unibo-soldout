@@ -4,17 +4,19 @@ import Events from '../model/Events.js';
 import Language from '../model/Language.js';
 
 import NavBar from '../components/NavBar.js';
+import htmlToElement from '../utils/htmlToElement.js';
 
 class EventPage {
     constructor(params) {
         this.eventId = params.id;
+        this.page = null;
     }
 
     async render() {
         const event = await Events.getEventDetails(this.eventId);
         const navbar = await NavBar.render();
 
-        return /*html*/`
+        const template = /*html*/`
             <div class="page page--event">
                 ${navbar}
 
@@ -54,10 +56,13 @@ class EventPage {
                 </main>
             </div>
         `;
+
+        this.page = htmlToElement(template);
+        return this.page;
     }
 
     afterRender() {
-        NavBar.afterRender(document.querySelector('.page.page--event .navbar'));
+        NavBar.afterRender(document.getElementById('navbar'));
     }
 };
 

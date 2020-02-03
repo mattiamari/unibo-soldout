@@ -4,6 +4,7 @@ import Events from '../model/Events.js';
 import NavBar from '../components/NavBar.js';
 import EventSlider from '../components/EventSlider.js';
 import EventTabs from '../components/EventTabs.js';
+import htmlToElement from '../utils/htmlToElement.js';
 
 const Header = async () => {
     const navbar = await NavBar.render();
@@ -33,6 +34,7 @@ const Header = async () => {
 
 class HomePage {
     constructor(params) {
+        this.page = null;
     }
 
     async render() {
@@ -55,7 +57,7 @@ class HomePage {
             tabs: await Events.getEventsCategorized()
         });
 
-        return /*html*/`
+        const template = /*html*/`
             <div class="page page--home">
             ${header}
 
@@ -66,9 +68,12 @@ class HomePage {
             </main>
             </div>
         `;
+
+        this.page = htmlToElement(template);
+        return this.page;
     }
 
-    async afterRender() {
+    afterRender() {
         const dom = {
             navbar: document.getElementById('navbar'),
             sliderNewEvents: document.getElementById('sliderNewEvents'),

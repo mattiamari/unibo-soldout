@@ -1,6 +1,7 @@
 'use strict';
 
 import NavBar from '../components/NavBar.js';
+import htmlToElement from '../utils/htmlToElement.js';
 
 class BuyEndPage {
     constructor(params) {
@@ -9,7 +10,7 @@ class BuyEndPage {
     async render() {
         const navbar = await NavBar.render();
 
-        return /*html*/`
+        const template = /*html*/`
             <div class="page page--buy">
                 ${navbar}
 
@@ -26,10 +27,12 @@ class BuyEndPage {
                 </main>
             </div>
         `;
+
+        return htmlToElement(template);
     }
 
     afterRender() {
-
+        NavBar.afterRender(document.getElementById('navbar'));
     }
 }
 

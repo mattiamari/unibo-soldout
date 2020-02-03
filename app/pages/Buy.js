@@ -4,6 +4,7 @@ import Events from '../model/Events.js'
 import Purchase from '../model/Purchase.js';
 import Language from '../model/Language.js';
 import NavBar from '../components/NavBar.js';
+import htmlToElement from '../utils/htmlToElement.js';
 
 
 const ticketTypeRow = ticketType => {
@@ -19,6 +20,7 @@ const ticketTypeRow = ticketType => {
 class BuyPage {
     constructor(params) {
         this.eventId = params.id;
+        this.page = null;
         this.purchase = null;
     }
 
@@ -29,7 +31,7 @@ class BuyPage {
 
         const ticketTypes = event.ticketTypes.map(e => ticketTypeRow(e)).join('\n');
 
-        return /*html*/`
+        const template = /*html*/`
             <div class="page page--buy">
                 ${navbar}
 
@@ -67,6 +69,9 @@ class BuyPage {
                 </main>
             </div>
         `;
+
+        this.page = htmlToElement(template);
+        return this.page;
     }
 
     onTicketTypeClick(node) {
@@ -74,9 +79,9 @@ class BuyPage {
     }
 
     afterRender() {
-        /* NavBar.afterRender(document.getElementById('navbar'));
+        NavBar.afterRender(document.getElementById('navbar'));
 
-        document.querySelector('.ticketTypeList > li').forEach(e => {
+        /*document.querySelector('.ticketTypeList > li').forEach(e => {
             e.onclick = clickEvent => onTicketTypeClick(clickEvent.targetElement);
         }); */
     }
