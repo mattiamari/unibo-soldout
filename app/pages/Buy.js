@@ -5,6 +5,7 @@ import Purchase from '../model/Purchase.js';
 import Language from '../model/Language.js';
 import NavBar from '../components/NavBar.js';
 import htmlToElement from '../utils/htmlToElement.js';
+import Statusbar from '../utils/statusbar.js';
 
 
 const ticketTypeRow = ticketType => {
@@ -80,10 +81,7 @@ class BuyPage {
 
     afterRender() {
         NavBar.afterRender(document.getElementById('navbar'));
-
-        /*document.querySelector('.ticketTypeList > li').forEach(e => {
-            e.onclick = clickEvent => onTicketTypeClick(clickEvent.targetElement);
-        }); */
+        Statusbar.setColor('#323232');
     }
 };
 

@@ -1,6 +1,7 @@
 'use strict';
 
 import htmlToElement from "../utils/htmlToElement.js";
+import Statusbar from "../utils/statusbar.js";
 
 class Error404 {
     constructor() {
@@ -18,7 +19,9 @@ class Error404 {
         return htmlToElement(template);
     }
 
-    afterRender() {}
+    afterRender() {
+        Statusbar.setColor('#d7487d');
+    }
 };
 
 export default Error404;

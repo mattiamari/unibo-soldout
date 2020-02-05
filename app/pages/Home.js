@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar.js';
 import EventSlider from '../components/EventSlider.js';
 import EventTabs from '../components/EventTabs.js';
 import htmlToElement from '../utils/htmlToElement.js';
+import Statusbar from '../utils/statusbar.js';
 
 const Header = async () => {
     const navbar = await NavBar.render();
@@ -34,7 +35,6 @@ const Header = async () => {
 
 class HomePage {
     constructor(params) {
-        this.page = null;
     }
 
     async render() {
@@ -69,22 +69,19 @@ class HomePage {
             </div>
         `;
 
-        this.page = htmlToElement(template);
-        return this.page;
+        return htmlToElement(template);
     }
 
     afterRender() {
-        const dom = {
-            navbar: document.getElementById('navbar'),
-            sliderNewEvents: document.getElementById('sliderNewEvents'),
-            sliderCiaoEvents: document.getElementById('sliderCiaoEvents'),
-            eventTabs: document.getElementById('eventTabs'),
-        };
+        let dom = document.getElementById.bind(document);
 
-        NavBar.afterRender(dom.navbar);
-        EventSlider.afterRender(dom.sliderNewEvents);
-        EventSlider.afterRender(dom.sliderCiaoEvents);
-        EventTabs.afterRender(dom.eventTabs);
+        // FIXME Bindings like this result in detached HTMLElements every time page is changed
+        NavBar.afterRender(dom('navbar'));
+        EventSlider.afterRender(dom('sliderNewEvents'));
+        EventSlider.afterRender(dom('sliderCiaoEvents'));
+        EventTabs.afterRender(dom('eventTabs'));
+
+        Statusbar.setColor('#d7487d');
     }
 }
 

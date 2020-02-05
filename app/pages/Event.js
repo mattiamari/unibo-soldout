@@ -5,6 +5,7 @@ import Language from '../model/Language.js';
 
 import NavBar from '../components/NavBar.js';
 import htmlToElement from '../utils/htmlToElement.js';
+import Statusbar from '../utils/statusbar.js';
 
 class EventPage {
     constructor(params) {
@@ -63,6 +64,7 @@ class EventPage {
 
     afterRender() {
         NavBar.afterRender(document.getElementById('navbar'));
+        Statusbar.setColor('#323232');
     }
 };
 
