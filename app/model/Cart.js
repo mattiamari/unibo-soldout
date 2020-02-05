@@ -1,24 +1,23 @@
 'use strict';
 
-import CartItem from './CartItem.js';
-import Events from './Events.js';
-
 const tickets = [];
+const onChangeHandlers = [];
 
 const Cart = {
     async init() {
-        const dummyTicket = new CartItem(await Events.getEventDetails('abcd1'));
-        dummyTicket.ticketTypeId = 'abc1';
-        dummyTicket.addAdditionalPrice('Prevendita', 9.90);
-        this.addTicket(dummyTicket);
+        // TODO fetch cart from API
+        notifyChange();
     },
 
     get tickets() {
         return tickets;
     },
 
-    addTicket(ticket) {
+    async addTicket(ticket) {
         tickets.push(ticket);
+        notifyChange();
+
+        // TODO sync cart with API
     },
 
     removeTicket(ticket) {
@@ -29,11 +28,28 @@ const Cart = {
         }
 
         tickets.splice(idx, 1);
+        notifyChange();
+
+        // TODO sync cart with API
     },
 
     clear() {
         tickets.splice(0, tickets.length);
+        notifyChange();
+        // TODO sync cart with API
     },
+
+    isEmpty() {
+        return tickets.length == 0;
+    },
+
+    addOnChangeHandler(handler) {
+        onChangeHandlers.push(handler);
+    },
+}
+
+function notifyChange() {
+    onChangeHandlers.forEach(h => h());
 }
 
 export default Cart;

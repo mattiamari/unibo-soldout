@@ -1,7 +1,7 @@
 :root {
     --color-text: #ffffff;
     --color-text-contrast: #000;
-    --color-text-secondary: #e7e7e7;
+    --color-text-secondary: #818181;
     --color-primary: #D7487D;
     --color-primary-rgb: 215, 72, 125;
     --color-primary-lighter: #E56C99;
@@ -66,6 +66,10 @@ h2 {
     font-size: 1.5em;
     font-weight: bold;
     margin: 0.5em 0;
+}
+
+.hidden {
+    display: none !important;
 }
 
 /* 
@@ -286,16 +290,25 @@ h2 {
     text-transform: uppercase;
     text-align: center;
     color: var(--color-text);
+    cursor: pointer;
+    transition: color .2s ease, border-color .2s ease;
 }
 
 a.button {
     text-decoration: none;
 }
 
+.button--disabled {
+    cursor: initial !important;
+    color: var(--color-text-secondary) !important;
+    border-color: var(--color-text-secondary) !important;
+    pointer-events: none;
+}
+
 .button--flat {
     border: 1px solid transparent;
     border-radius: 4px;
-    color: var(--color-primary) !important;
+    color: var(--color-primary);
 }
 
 
@@ -306,14 +319,14 @@ a.button {
 .button--outline {
     border: 1px solid var(--color-primary);
     border-radius: 4px;
-    color: var(--color-primary) !important;
+    color: var(--color-primary);
 }
 
 .button--raised {
     background: var(--color-primary-darker);
     border: 1px solid var(--color-primary-darker);
     border-radius: 6px;
-    color: var(--color-text) !important;
+    color: var(--color-text);
     box-shadow: var(--shadow-1);
 }
 
@@ -597,6 +610,11 @@ ul.eventInfoList {
     display: none;
 }
 
+.buyStep--quantity span.ticketType {
+    color: var(--color-primary);
+    font-style: italic;
+}
+
 .ticketTypeList {
     list-style: none;
     padding: 0;
@@ -614,7 +632,7 @@ ul.eventInfoList {
     box-shadow: var(--shadow-1);
     border-left: 2px solid transparent;
 
-    transition: background-color .3s ease, box-shadow .3s ease, border-left .3s ease;
+    transition: background-color .1s ease, box-shadow .1s ease, border-left .1s ease;
 }
 
 .ticketTypeList > li.ticketType--selected {
@@ -633,6 +651,10 @@ ul.eventInfoList {
     white-space: nowrap;
 }
 
+.ticketTypeList > li * {
+    pointer-events: none;
+}
+
 .quantitySelector {
     display: flex;
     flex-direction: row;
@@ -643,7 +665,6 @@ ul.eventInfoList {
 .quantitySelector > span {
     margin: 0 16px;
     padding: 8px 16px;
-    border-bottom: 1px solid var(--color-text);
 }
 
 .quantitySelector > .button {
@@ -677,6 +698,15 @@ ul.eventInfoList {
 
 .page--cart .btnNext {
     margin-top: 40px;
+}
+
+.page--cart .cartEmpty {
+    text-align: center;
+    animation: fade-in .2s ease;
+}
+
+.page--cart .cartEmpty .button {
+    width: 100%;
 }
 
 .cartList {
