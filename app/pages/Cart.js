@@ -18,7 +18,7 @@ const PriceRow = priceDetail => {
 class Card {
     constructor(ticket) {
         this.ticket = ticket;
-        this.card = null;
+        this.element = null;
     }
 
     render() {
@@ -45,21 +45,21 @@ class Card {
             </li>
         `;
 
-        this.card = htmlToElement(template);
+        this.element = htmlToElement(template);
 
-        this.card.querySelector('button.btnRemove').onclick = () => {
+        this.element.querySelector('button.btnRemove').onclick = () => {
             Cart.removeTicket(this.ticket);
             this.animateRemove();
         };
 
-        return this.card;
+        return this.element;
     }
 
     animateRemove() {
-        this.card.classList.add('animate--removeListItem');
+        this.element.classList.add('animate--removeListItem');
 
         window.setTimeout(() => {
-            this.card.remove();
+            this.element.remove();
         }, 2000);
     }
 }
@@ -84,8 +84,12 @@ class CartPage {
                 </header>
 
                 <main>
-                    <ul class="cartList">  
-                    </ul>
+                    <ul class="cartList"></ul>
+
+                    <div class="cartEmpty hidden">
+                        <h3>Il tuo carrello è vuoto</h3>
+                        <a class="button button--flat" href="#/">Torna alla home</a>
+                    </div>
 
                     <a class="button button--outline btnNext" href="#/purchase-complete">Completa l'ordine</a>
                 </main>
@@ -93,16 +97,36 @@ class CartPage {
         `;
 
         this.page = htmlToElement(template);
-        this.updateList();
+        this.refreshDisplay();
 
+        Cart.addOnChangeHandler(() => {
+            this.toggleCartEmpty();
+        });
+        
         return this.page;
     }
 
-    async updateList() {
-        const ticketCards = Cart.tickets.map(e => new Card(e).render());
+    refreshDisplay() {
         const cartList = this.page.querySelector('.cartList');
+
+        const ticketCards = Cart.tickets.map(e => new Card(e).render());
         cartList.innerHTML = '';
         ticketCards.forEach(e => cartList.append(e));
+
+        this.toggleCartEmpty();
+    }
+
+    toggleCartEmpty() {
+        const cartEmpty = this.page.querySelector('.cartEmpty');
+        const btnNext = this.page.querySelector('.btnNext');
+
+        if (Cart.isEmpty()) {
+            cartEmpty.classList.remove('hidden');
+            btnNext.classList.add('hidden');
+        } else {
+            cartEmpty.classList.add('hidden');
+            btnNext.classList.remove('hidden');
+        }
     }
 
     afterRender() {
