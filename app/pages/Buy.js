@@ -131,7 +131,7 @@ class BuyPage {
 
     afterRender() {
         NavBar.afterRender(document.getElementById('navbar'));
-        Statusbar.setColor('#323232');
+        Statusbar.setColor('#d7487d');
     }
 };
 

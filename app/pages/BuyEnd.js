@@ -33,6 +33,7 @@ class BuyEndPage {
 
     afterRender() {
         NavBar.afterRender(document.getElementById('navbar'));
+        Statusbar.setColor('#d7487d');
     }
 }
 
