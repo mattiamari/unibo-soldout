@@ -1,6 +1,6 @@
 'use strict';
 
-import throttle from '../../node_modules/lodash-es/throttle.js';
+import throttle from '../utils/throttle.js';
 
 const NavBar = {
     render: async () => {
@@ -17,14 +17,15 @@ const NavBar = {
     },
 
     afterRender: node => {
-        window.addEventListener('scroll', throttle(() => {
+        window.addEventListener('scroll', throttle(100, () => {
             if (document.documentElement.scrollTop < 56) {
                 NavBar.onScrollTop(node);
                 return;
             }
 
             NavBar.onScrollMiddle(node);
-        }, 100));
+            console.log('scroll');
+        }));
     },
 
     onScrollTop: node => {
