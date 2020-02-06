@@ -24,9 +24,7 @@ const Header = async () => {
                 </div>
 
                 <div class="searchbar">
-                    <div class="searchbar-inner">
-                        <input type="search" placeholder="Trova un evento...">
-                    </div>
+                    <input type="search" placeholder="Trova un evento...">
                 </div>
             </div>
         </header>

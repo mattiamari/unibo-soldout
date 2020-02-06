@@ -17,10 +17,10 @@
     --color-background-3: hsl(0, 0%, 27%);
 
     --overlay-opacity-1: 0.05;
-    --overlay-opacity-2: 0.07;
-    --overlay-opacity-3: 0.08;
-    --overlay-opacity-4: 0.09;
-    --overlay-opacity-5: 0.11;
+    --overlay-opacity-2: 0.08;
+    --overlay-opacity-3: 0.11;
+    --overlay-opacity-4: 0.14;
+    --overlay-opacity-5: 0.17;
 
     --shadow-1: 0px 1px 3px 0px rgba(0,0,0,0.30);
     --shadow-2: 0px 1px 6px 1px rgba(0,0,0,0.30);
@@ -45,6 +45,18 @@ body {
 
 * {
     box-sizing: border-box;
+}
+
+input,
+button,
+a {
+    outline: none;
+}
+
+input:focus,
+button:focus,
+a:focus {
+    outline: 2px solid var(--color-primary);
 }
 
 body {
@@ -144,22 +156,16 @@ h2 {
     margin: auto 16px;
 }
 
-.searchbar-inner {
-    width: 100%;
-    height: 100%;
-    padding: 0 16px;
-    background-color: var(--color-background-contrast);
-    box-shadow: var(--shadow-2);
-    border-radius: 6px;
-}
-
 .searchbar input {
     border: none;
     width: 100%;
     height: 100%;
-    background-color: transparent;
+    padding: 4px 16px;
+    background-color: var(--color-background-contrast);
     color: var(--color-text-contrast);
     font-size: 0.9em;
+    box-shadow: var(--shadow-2);
+    border-radius: 6px;
 }
 
 /* 
@@ -776,6 +782,51 @@ ul.eventInfoList {
 .cartList .priceList .ticket-totalPrice {
     font-weight: bold;
 }
+
+/*
+    Login page
+*/
+.page.page--login,
+.page.page--signup {
+    padding: 0 24px;
+    background: linear-gradient(165deg, rgba(var(--color-primary-rgb), 0.2), var(--color-background) 50%);
+    animation: fade-in .3s ease-out;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginForm label {
+    display: block;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.loginForm input {
+    height: 48px;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    background-color: rgba(255,255,255, var(--overlay-opacity-1));
+    color: var(--color-text);
+    font-size: 1em;
+}
+
+.loginForm button[type=submit] {
+    margin-top: 24px;
+}
+
+.page--login .loginForm .btnSignup {
+    margin-top: 24px;
+}
+
+/*
+    Signup page
+*/
+
 
 /*
     404 page
