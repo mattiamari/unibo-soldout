@@ -22,7 +22,7 @@ class EventPage {
                 ${navbar}
 
                 <header class="header">
-                    <div class="header-layer header-bg" style="background-image: url(${event.images.detailsBackground.url})"></div>
+                    <div class="header-layer header-bg" style="background-image: url(${event.getImage('vertical').url})"></div>
                     <div class="header-layer header-bg-blend"></div>
 
                     <div class="header-layer header-content">
