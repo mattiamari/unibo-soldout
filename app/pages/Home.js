@@ -1,9 +1,9 @@
 'use strict';
 
-import Events from '../model/Events.js';
+import Shows from '../model/Shows.js';
 import NavBar from '../components/NavBar.js';
-import EventSlider from '../components/EventSlider.js';
-import EventTabs from '../components/EventTabs.js';
+import ShowSlider from '../components/ShowSlider.js';
+import ShowTabs from '../components/ShowTabs.js';
 import htmlToElement from '../utils/htmlToElement.js';
 import Statusbar from '../utils/statusbar.js';
 
@@ -38,21 +38,21 @@ class HomePage {
     async render() {
         const header = await Header();
 
-        const sliderNewEvents = await EventSlider.render({
-            id: 'sliderNewEvents',
+        const sliderNewShows = await ShowSlider.render({
+            id: 'sliderNewShows',
             title: 'Nuovi',
-            events: await Events.getNewEvents()
+            shows: await Shows.getNewShows()
         });
 
-        const sliderCiaoEvents = await EventSlider.render({
-            id: 'sliderCiaoEvents',
+        const sliderCiaoShows = await ShowSlider.render({
+            id: 'sliderCiaoShows',
             title: 'Ciao',
-            events: await Events.getNewEvents()
+            shows: await Shows.getNewShows()
         });
 
-        const eventTabs = await EventTabs.render({
-            id: 'eventTabs',
-            tabs: await Events.getEventsCategorized()
+        const showTabs = await ShowTabs.render({
+            id: 'showTabs',
+            tabs: await Shows.getShowsCategorized()
         });
 
         const template = /*html*/`
@@ -60,9 +60,9 @@ class HomePage {
             ${header}
 
             <main class="pageContent">
-                ${sliderNewEvents}
-                ${sliderCiaoEvents}
-                ${eventTabs}
+                ${sliderNewShows}
+                ${sliderCiaoShows}
+                ${showTabs}
             </main>
             </div>
         `;
@@ -75,9 +75,9 @@ class HomePage {
 
         // FIXME Bindings like this result in detached HTMLElements every time page is changed
         NavBar.afterRender(dom('navbar'));
-        EventSlider.afterRender(dom('sliderNewEvents'));
-        EventSlider.afterRender(dom('sliderCiaoEvents'));
-        EventTabs.afterRender(dom('eventTabs'));
+        ShowSlider.afterRender(dom('sliderNewShows'));
+        ShowSlider.afterRender(dom('sliderCiaoShows'));
+        ShowTabs.afterRender(dom('showTabs'));
 
         Statusbar.setColor('#d7487d');
     }

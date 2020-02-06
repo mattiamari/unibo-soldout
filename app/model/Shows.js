@@ -34,15 +34,15 @@ const dummyEvents = [
 const dummyEventTabs = [
     {
         tabName: 'Teatro',
-        events: dummyEvents.slice(1)
+        shows: dummyEvents.slice(1)
     },
     {
         tabName: 'Concerti',
-        events: dummyEvents.slice(0, 3)
+        shows: dummyEvents.slice(0, 3)
     },
     {
         tabName: 'Maremma maiala',
-        events: dummyEvents.slice(1)
+        shows: dummyEvents.slice(1)
     },
 ];
 
@@ -76,20 +76,20 @@ class Show {
     }
 }
 
-const dummyEventDetails = Object.assign(new Show(), d);
+const dummyShowDetails = Object.assign(new Show(), d);
 
-const Events = {
-    getEventDetails: async eventId => {
-        return dummyEventDetails;
+const Shows = {
+    getShowDetails: async showId => {
+        return dummyShowDetails;
     },
 
-    getNewEvents: async () => {
+    getNewShows: async () => {
         return dummyEvents;
     },
 
-    getEventsCategorized: async () => {
+    getShowsCategorized: async () => {
         return dummyEventTabs;
     },
 };
 
-export default Events;
+export default Shows;

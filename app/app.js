@@ -2,7 +2,7 @@
 
 import HomePage from './pages/Home.js';
 import Error404 from './pages/Error404.js';
-import EventPage from './pages/Event.js';
+import ShowPage from './pages/Show.js';
 import BuyPage from './pages/Buy.js';
 import CartPage from './pages/Cart.js';
 import BuyEndPage from './pages/BuyEnd.js';
@@ -11,8 +11,8 @@ const routes = {
     '/': HomePage,
     '/404': Error404,
     '/cart': CartPage,
-    '/event/:id': EventPage,
-    '/event/:id/buy': BuyPage,
+    '/show/:id': ShowPage,
+    '/show/:id/buy': BuyPage,
     '/purchase-complete': BuyEndPage,
 };
 

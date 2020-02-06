@@ -27,9 +27,9 @@ class Card {
         const template = /*html*/`
             <li>
                 <div>
-                    <span class="event-name" aria-label="Event name">${this.ticket.event.title}</span>
-                    <span class="event-location" aria-label="Event location">${this.ticket.event.location}</span>
-                    <span class="event-date" aria-label="Event date">${this.ticket.event.date}</span>
+                    <span class="show-name" aria-label="Show name">${this.ticket.show.title}</span>
+                    <span class="show-location" aria-label="Show location">${this.ticket.show.location}</span>
+                    <span class="show-date" aria-label="Show date">${this.ticket.show.date}</span>
 
                     <ul class="priceList">
                         ${priceList}

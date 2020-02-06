@@ -2,6 +2,7 @@
 
 import NavBar from '../components/NavBar.js';
 import htmlToElement from '../utils/htmlToElement.js';
+import Statusbar from '../utils/statusbar.js';
 
 class BuyEndPage {
     constructor(params) {

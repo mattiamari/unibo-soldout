@@ -1,6 +1,6 @@
 'use strict';
 
-import Events from '../model/Events.js'
+import Shows from '../model/Shows.js'
 import Language from '../model/Language.js';
 import CartItem from '../model/CartItem.js';
 import Cart from '../model/Cart.js';
@@ -49,16 +49,16 @@ class TicketTypeRow {
 
 class BuyPage {
     constructor(params) {
-        this.eventId = params.id;
+        this.showId = params.id;
         this.page = null;
         this.cartItem = null;
     }
 
     async render() {
         const navbar = await NavBar.render();
-        const event = await Events.getEventDetails(this.eventId);
-        this.cartItem = new CartItem(event);
-        const ticketTypes = event.ticketTypes.map(e => new TicketTypeRow(e, this.cartItem));
+        const show = await Shows.getShowDetails(this.showId);
+        this.cartItem = new CartItem(show);
+        const ticketTypes = show.ticketTypes.map(e => new TicketTypeRow(e, this.cartItem));
         const quantitySelector = new QuantitySelector(this.cartItem);
 
         const template = /*html*/`
@@ -87,7 +87,7 @@ class BuyPage {
 
                         <nav class="buttons buttons--vertical">
                             <a class="button button--outline" href="#/cart">Vai al carrello</a>
-                            <a class="button button--flat" href="#/event/${event.id}">Torna all'evento</a>
+                            <a class="button button--flat" href="#/show/${show.id}">Torna all'evento</a>
                         </nav>
                     </section>
                 </main>

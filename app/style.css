@@ -436,24 +436,24 @@ a.button {
 }
 
 /*
-    Event info
+    Show info
 */
-.eventQuickInfo-title {
+.showSummary-title {
     font-size: 1em;
 }
 
-.eventQuickInfo-location,
-.eventQuickInfo-date {
+.showSummary-location,
+.showSummary-date {
     display: inline-block;
     font-size: 0.7em;
 }
 
-.eventQuickInfo-date {
+.showSummary-date {
     margin-right: 0.5em;
 }
 
-.eventQuickInfo-location::before,
-.eventQuickInfo-date::before {
+.showSummary-location::before,
+.showSummary-date::before {
     display: inline-block;
     content: '\f3c5';
     font-family: "Font Awesome 5 Free";
@@ -463,11 +463,11 @@ a.button {
     vertical-align: middle;
 }
 
-.eventQuickInfo-location::before {
+.showSummary-location::before {
     content: '\f3c5';
 }
 
-.eventQuickInfo-date::before {
+.showSummary-date::before {
     content: '\f073';
 }
 
@@ -515,60 +515,60 @@ a.button {
 }
 
 /*
-    Event page
+    Show page
 */
-.page.page--event {
+.page.page--show {
     animation: fade-in .3s ease;
 }
 
-.page--event .header {
+.page--show .header {
     height: 50%;
 }
 
-.page--event .header-bg {
+.page--show .header-bg {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
 }
 
-.page--event .header-bg-blend {
+.page--show .header-bg-blend {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, var(--color-background) 100%);
 }
 
-.page--event .header-content {
+.page--show .header-content {
     padding: 0 32px;
 }
 
-.page--event .header-title {
+.page--show .header-title {
     margin-top: auto;
     margin-bottom: 48px;
     text-align: center;
 }
 
-.page--event main {
+.page--show main {
     padding: 0 24px 24px 24px;
 }
 
-.page--event h4 {
+.page--show h4 {
     margin: 24px 0 8px 0;
 }
 
-.page--event p {
+.page--show p {
     margin: 0;
 }
 
-ul.eventInfoList {
+ul.showInfoList {
     list-style: none;
     margin: 0;
-    padding-left: 1.5em; /* the .5 is there to account for the 1em width of .eventInfoList li>i */
+    padding-left: 1.5em; /* the .5 is there to account for the 1em width of .showInfoList li>i */
     text-indent: -1em;
 }
 
-.eventInfoList li {
+.showInfoList li {
     line-height: 1.8em;
 }
 
-.eventInfoList li>i {
+.showInfoList li>i {
     width: 1em;
     font-size: 0.7em;
     text-align: center;
@@ -740,18 +740,18 @@ ul.eventInfoList {
     margin-right: -16px;
 }
 
-.cartList .event-name,
-.cartList .event-location,
-.cartList .event-date {
+.cartList .show-name,
+.cartList .show-location,
+.cartList .show-date {
     display: block;
 }
 
-.cartList .event-name {
+.cartList .show-name {
     font-size: 1.1em;
 }
 
-.cartList .event-location,
-.cartList .event-date {
+.cartList .show-location,
+.cartList .show-date {
     font-size: 0.8em;
 }
 
