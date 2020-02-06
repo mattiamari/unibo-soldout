@@ -20,11 +20,9 @@ const NavBar = {
         window.addEventListener('scroll', throttle(100, () => {
             if (document.documentElement.scrollTop < 56) {
                 NavBar.onScrollTop(node);
-                return;
+            } else {
+                NavBar.onScrollMiddle(node);
             }
-
-            NavBar.onScrollMiddle(node);
-            console.log('scroll');
         }));
     },
 

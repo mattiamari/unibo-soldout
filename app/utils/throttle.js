@@ -1,13 +1,17 @@
 'use strict';
 
 function throttle(delay, func) {
-    let t = Date.now();
+    let tmr = null;
 
     return () => {
-        if (Date.now() - t > delay) {
-            func();
-            t = Date.now();
+        if (tmr) {
+            return;
         }
+
+        tmr = setTimeout(() => {
+            func();
+            tmr = null;
+        }, delay);
     };
 }
 
