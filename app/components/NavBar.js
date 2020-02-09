@@ -17,7 +17,7 @@ const NavBar = {
     },
 
     afterRender: node => {
-        window.addEventListener('scroll', throttle(100, () => {
+        window.addEventListener('scroll', throttle(200, () => {
             if (document.documentElement.scrollTop < 56) {
                 NavBar.onScrollTop(node);
             } else {

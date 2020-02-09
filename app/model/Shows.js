@@ -38,7 +38,7 @@ const dummyEventTabs = [
     },
     {
         tabName: 'Concerti',
-        shows: dummyEvents.slice(0, 3)
+        shows: dummyEvents.concat(dummyEvents)
     },
     {
         tabName: 'Maremma maiala',
