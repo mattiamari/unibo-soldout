@@ -249,6 +249,9 @@ h2 {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+
+    color: var(--color-text);
+    text-decoration: none;
 }
 
 .card.card--small {
@@ -405,9 +408,9 @@ a.button {
 .tabbedContainer > nav {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     width: 100%;
     overflow-x: scroll;
+    white-space: nowrap;
 }
 
 .tabbedContainer-slides {
@@ -424,6 +427,10 @@ a.button {
     width: 100%;
     padding: 16px 24px;
     scroll-snap-align: start;
+}
+
+.tabbedContainer-slide > * {
+    margin-bottom: 8px;
 }
 
 /* .tabbedContainer-tabs {

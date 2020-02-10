@@ -3,9 +3,10 @@
 import Shows from '../model/Shows.js';
 import NavBar from '../components/NavBar.js';
 import ShowSlider from '../components/ShowSlider.js';
-import ShowTabs from '../components/ShowTabs.js';
 import htmlToElement from '../utils/htmlToElement.js';
 import Statusbar from '../utils/statusbar.js';
+import TabbedContainer from '../components/TabbedContainer.js';
+import { CardSmall } from '../components/ShowCard.js';
 
 const Header = async () => {
     const navbar = await NavBar.render();
@@ -33,6 +34,7 @@ const Header = async () => {
 
 class HomePage {
     constructor(params) {
+        this.page = null;
     }
 
     async render() {
@@ -50,10 +52,14 @@ class HomePage {
             shows: await Shows.getNewShows()
         });
 
-        const showTabs = await ShowTabs.render({
-            id: 'showTabs',
-            tabs: await Shows.getShowsCategorized()
+        const showsCategorized = (await Shows.getShowsCategorized()).map(category => {
+            return {
+                name: category.name,
+                content: category.shows.map(e => CardSmall(e))
+            };
         });
+
+        const showTabs = new TabbedContainer(showsCategorized);
 
         const template = /*html*/`
             <div class="page page--home">
@@ -62,12 +68,16 @@ class HomePage {
             <main class="pageContent">
                 ${sliderNewShows}
                 ${sliderCiaoShows}
-                ${showTabs}
             </main>
             </div>
         `;
 
-        return htmlToElement(template);
+        this.page = htmlToElement(template);
+        const content = this.page.querySelector('main');
+
+        content.append(showTabs.render());
+
+        return this.page;
     }
 
     afterRender() {
@@ -77,7 +87,6 @@ class HomePage {
         NavBar.afterRender(dom('navbar'));
         ShowSlider.afterRender(dom('sliderNewShows'));
         ShowSlider.afterRender(dom('sliderCiaoShows'));
-        ShowTabs.afterRender(dom('showTabs'));
 
         Statusbar.setColor('#d7487d');
     }

@@ -3,7 +3,7 @@
 const Card = show => {
     return /*html*/`
         <div class="slider-slide">
-            <div class="card card--big" data-show-id="${show.id}">
+            <a class="card card--big" href="#/show/${show.id}">
                 <img alt="${show.coverImage.alt}" src="${show.coverImage.url}">
 
                 <div class="card-content">
@@ -15,7 +15,7 @@ const Card = show => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     `;
 };
@@ -38,11 +38,6 @@ const ShowSlider = {
     },
 
     afterRender: node => {
-        node.querySelectorAll('.card').forEach(e => {
-            e.onclick = () => {
-                window.location.hash = '#/show/' + e.dataset.showId;
-            };
-        });
     },
 };
 

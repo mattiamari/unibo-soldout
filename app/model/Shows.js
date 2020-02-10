@@ -33,15 +33,19 @@ const dummyEvents = [
 
 const dummyEventTabs = [
     {
-        tabName: 'Teatro',
+        name: 'Teatro',
         shows: dummyEvents.slice(1)
     },
     {
-        tabName: 'Concerti',
+        name: 'Concerti',
         shows: dummyEvents.concat(dummyEvents)
     },
     {
-        tabName: 'Maremma maiala',
+        name: 'Maremma maiala',
+        shows: dummyEvents.slice(1)
+    },
+    {
+        name: 'Qualcos\'altro',
         shows: dummyEvents.slice(1)
     },
 ];

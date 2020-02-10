@@ -2,19 +2,54 @@
 
 import htmlToElement from "../utils/htmlToElement.js";
 
+const bindings = new WeakMap();
+
 const Slide = content => {
     const element = document.createElement('section');
     element.classList.add('tabbedContainer-slide');
-    element.append(content);
+
+    if (content instanceof Array) {
+        element.append(...content);
+    } else {
+        element.append(content);
+    }
+
     return element;
 };
 
-const TabButton = name => {
-    const element = document.createElement('button');
-    element.classList.add('button', 'button--tab');
-    element.innerHTML = name;
-    return element;
-};
+class TabButton {
+    constructor(name, slide, container) {
+        this.element = null;
+        this.name = name;
+        this.slide = slide;
+        this.container = container;
+    }
+
+    render() {
+        this.element = document.createElement('button');
+        this.element.classList.add('button', 'button--tab');
+        this.element.innerHTML = this.name;
+        this.element.onclick = () => {
+            this.select();
+        };
+
+        bindings.set(this.element, this);
+        return this.element;
+    }
+
+    select() {
+        this.element.parentElement.querySelectorAll('.button--tab').forEach(e => {
+            bindings.get(e).deselect();
+        });
+
+        this.element.classList.add('button--active');
+        this.container.scrollTo(this.slide.offsetLeft, 0);
+    }
+
+    deselect() {
+        this.element.classList.remove('button--active');
+    }
+}
 
 class TabbedContainer {
     constructor(content) {
@@ -36,12 +71,11 @@ class TabbedContainer {
         const slides = this.element.querySelector('.tabbedContainer-slides');
 
         for (let tab of this.content) {
-            nav.append(TabButton(tab.name));
+            const slide = Slide(tab.content);
+            nav.append((new TabButton(tab.name, slide, slides)).render());
+            slides.append(slide);
         }
 
-        nav.append(...this.content.map(e => TabButton(e.name)));
-        slids.append(...this.content.map(e => Slide(e.content)));
-        
         return this.element;
     }
 }
