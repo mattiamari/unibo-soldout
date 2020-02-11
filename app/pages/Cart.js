@@ -119,7 +119,7 @@ class CartPage {
         const cartEmpty = this.page.querySelector('.cartEmpty');
         const btnNext = this.page.querySelector('.btnNext');
 
-        if (Cart.isEmpty()) {
+        if (Cart.isEmpty) {
             cartEmpty.classList.remove('hidden');
             btnNext.classList.add('hidden');
         } else {

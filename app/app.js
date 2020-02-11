@@ -7,6 +7,9 @@ import BuyPage from './pages/Buy.js';
 import CartPage from './pages/Cart.js';
 import BuyEndPage from './pages/BuyEnd.js';
 import ProfilePage from './pages/Profile.js';
+import LoginPage from './pages/Login.js';
+import SignupPage from './pages/Signup.js';
+import Account from './model/Account.js';
 
 const routes = {
     '/': HomePage,
@@ -16,9 +19,14 @@ const routes = {
     '/show/:id/buy': BuyPage,
     '/purchase-complete': BuyEndPage,
     '/profile': ProfilePage,
+    '/login': LoginPage,
+    '/signup': SignupPage,
 };
 
 const mountpoint = 'app';
+
+// Init some stuff
+Account.init();
 
 window.addEventListener('DOMContentLoaded', router);
 window.addEventListener('hashchange', router);
@@ -66,7 +74,10 @@ async function router() {
     document.documentElement.scroll(0, 0);
 
     mountpointElement.append(rendered);
-    pageInstance.afterRender();
+
+    if (pageInstance.afterRender) {
+        pageInstance.afterRender();
+    }
 }
 
 function parseRoute(route) {

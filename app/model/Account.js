@@ -34,17 +34,43 @@ const dummyOrders = [
 ];
 
 const Account = {
-    isLoggedIn() {
-        return true;
+    _user: null,
+
+    init() {
+        this._user = JSON.parse(localStorage.getItem('user'));
     },
 
-    getUser() {
-        return dummyUser;
+    get isLoggedIn() {
+        return !!this._user;
+    },
+
+    get user() {
+        return this._user;
+    },
+
+    async login(loginData) {
+        // TODO login to API
+        this._user = dummyUser;
+        this.updateLocalStorage();
+
+        return Promise.resolve();
+    },
+
+    async signup(signupData) {
+        // TODO signup with API
+        this._user = dummyUser;
+        this.updateLocalStorage();
+
+        return Promise.resolve();
     },
 
     async getOrders() {
         return dummyOrders;
-    }
+    },
+
+    updateLocalStorage() {
+        localStorage.setItem('user', JSON.stringify(this._user));
+    },
 };
 
 export default Account;

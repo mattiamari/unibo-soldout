@@ -39,7 +39,7 @@ const Cart = {
         // TODO sync cart with API
     },
 
-    isEmpty() {
+    get isEmpty() {
         return tickets.length == 0;
     },
 

@@ -434,7 +434,7 @@ a.button {
 }
 
 .tabbedContainer-slide > * {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 /*
@@ -824,7 +824,17 @@ ul.showInfoList {
     animation: fade-in .3s ease-out;
 }
 
-.page--login .loginForm .btnSignup {
+.page--login main,
+.page--signup main {
+    padding-bottom: 24px;
+}
+
+.page--login .header-content > h1,
+.page--signup .header-content > h1 {
+    margin-top: 0;
+}
+
+.page--login .form .btnSignup {
     margin-top: 24px;
 }
 

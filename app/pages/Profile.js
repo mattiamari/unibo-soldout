@@ -27,22 +27,22 @@ const UserPersonalInfo = profile => {
     return htmlToElement(/*html*/ `
         <form class="form" action="#">
             <label for="firstname">Nome</label>
-            <input type="text" name="firstname" value="${profile.firstname}">
+            <input type="text" id="firstname" name="firstname" value="${profile.firstname}">
 
             <label for="lastname">Cognome</label>
-            <input type="text" name="lastname" value="${profile.lastname}">
+            <input type="text" id="lastname" name="lastname" value="${profile.lastname}">
 
             <label for="birthdate">Data di nascita</label>
-            <input type="date" name="birthdate" value="${profile.birthdate}">
+            <input type="date" id="birthdate" name="birthdate" value="${profile.birthdate}">
             
             <label for="email">Email</label>
-            <input type="email" name="email" value="${profile.email}">
+            <input type="email" id="email" name="email" value="${profile.email}">
 
             <label for="password">Password</label>
-            <input type="password" name="password">
+            <input type="password" id="password" name="password">
 
             <label for="passwordRepeat">Ripeti password</label>
-            <input type="password" name="passwordRepeat">
+            <input type="password" id="passwordRepeat" name="passwordRepeat">
 
             <button type="submit" class="button button--raised">Salva</button>
         </form>
@@ -83,8 +83,8 @@ class ProfilePage {
     }
 
     async render() {
-        const profileCard = ProfileCard(Account.getUser());
-        const userInfo = UserPersonalInfo(Account.getUser());
+        const profileCard = ProfileCard(Account.user);
+        const userInfo = UserPersonalInfo(Account.user);
         const orderList = OrderList(await Account.getOrders());
 
         const tabs = [
