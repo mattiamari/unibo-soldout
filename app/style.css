@@ -303,7 +303,7 @@ h2 {
     text-align: center;
     color: var(--color-text);
     cursor: pointer;
-    transition: color .2s ease, border-color .2s ease;
+    transition: color .2s ease, border .2s ease;
 }
 
 a.button {
@@ -347,6 +347,7 @@ a.button {
 
 .button--tab {
     border: none;
+    border-bottom: 2px solid transparent;
 }
 
 .button--tab.button--active {
@@ -410,6 +411,7 @@ a.button {
     flex-direction: row;
     width: 100%;
     overflow-x: scroll;
+    scroll-behavior: smooth;
     white-space: nowrap;
 }
 
@@ -432,53 +434,6 @@ a.button {
 .tabbedContainer-slide > * {
     margin-bottom: 8px;
 }
-
-/* .tabbedContainer-tabs {
-    display: flex;
-    flex-direction: row;
-    padding: 0 16px;
-}
-
-.tabbedContainer-tab {
-    list-style: none;
-    padding: 4px;
-    margin-right: 8px;
-
-    color: var(--color-primary-lighter);
-    font-size: 1em;
-    background: none;
-    border: none;
-
-    transform: scale(0.8);
-    transition: color 0.3s ease-out, transform 0.3s ease-out;
-}
-
-.tabbedContainer-tab--active {
-    border-bottom: 2px solid var(--color-primary);
-    color: var(--color-primary);
-    transform: scale(1);
-}
-
-.tabbedContainer-content {
-    display: flex;
-    flex-direction: row;
-    padding: 16px 0;
-    
-    overflow: scroll;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-}
-
-.tabbedContainer-slide {
-    flex-shrink: 0;
-    width: 100%;
-    scroll-snap-align: start;
-    padding: 0 16px;
-}
-
-.tabbedContainer-slide .card.card--small {
-    margin-bottom: 16px;
-} */
 
 /*
     Forms
