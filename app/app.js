@@ -6,6 +6,7 @@ import ShowPage from './pages/Show.js';
 import BuyPage from './pages/Buy.js';
 import CartPage from './pages/Cart.js';
 import BuyEndPage from './pages/BuyEnd.js';
+import ProfilePage from './pages/Profile.js';
 
 const routes = {
     '/': HomePage,
@@ -14,6 +15,7 @@ const routes = {
     '/show/:id': ShowPage,
     '/show/:id/buy': BuyPage,
     '/purchase-complete': BuyEndPage,
+    '/profile': ProfilePage,
 };
 
 const mountpoint = 'app';

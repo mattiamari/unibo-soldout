@@ -275,7 +275,7 @@ h2 {
 .card-content {
     width: 100%;
     padding: 8px 16px;
-    background: rgba(40, 40, 40, 0.9);
+    background: rgba(20, 20, 20, 0.9);
 }
 .card--big .card-content {
     position: absolute;
@@ -839,17 +839,21 @@ ul.showInfoList {
     margin-bottom: 16px;
 }
 
+.page--profile .tabbedContainer > nav {
+    justify-content: center;
+}
+
 .profileCard {
     display: flex;
     flex-direction: row;
-    max-width: 100%;
-    padding: 16px;
+    max-width: 400px;
+    margin: 0 auto;
     border-radius: 8px;
-    background: rgba(255,255,255, var(--overlay-opacity-1));
+    /* background: rgba(255,255,255, var(--overlay-opacity-1)); */
 }
 
 .profileCard .profilePic {
-    width: 30%;
+    width: 25%;
     margin-right: 16px;
 }
 
@@ -878,9 +882,16 @@ ul.showInfoList {
     display: flex;
     align-items: center;
     padding: 8px 16px;
+    margin-bottom: 8px;
     background: var(--color-background-1);
     border-radius: 6px;
     box-shadow: var(--shadow-1);
+    
+}
+
+a.orderList-row {
+    color: var(--color-text);
+    text-decoration: none;
 }
 
 .orderList-row > i {
