@@ -1,5 +1,7 @@
 'use strict';
 
+import Language from "../model/Language.js";
+
 const Card = show => {
     return /*html*/`
         <div class="slider-slide">
@@ -10,7 +12,7 @@ const Card = show => {
                     <div class="showSummary">
                         <div class="showSummary-title">${show.title}</div>
                         <div>
-                            <span class="showSummary-date">${show.date}</span>
+                            <span class="showSummary-date">${Language.formatDateMedium(show.date)}</span>
                             <span class="showSummary-location">${show.locationShort}</span>
                         </div>
                     </div>

@@ -4,28 +4,28 @@ const dummyEvents = [
     {
         id: 'abcd1',
         title: "Linkin Park @ Firenze Rocks",
-        date: "2 agosto 2020",
+        date: '2020-08-02T21:00',
         locationShort: "Firenze, Italia",
         coverImage: {url: "i/l-linkin-park.jpg", alt: "linkin park band photo"}
     },
     {
         id: 'abcd2',
         title: "Rise Against",
-        date: "10 luglio 2020",
+        date: '2020-06-10T21:00',
         locationShort: "Monza, Italia",
         coverImage: {url: "i/l-rise-against.jpg", alt: "rise against band photo"}
     },
     {
         id: 'abcd3',
         title: "System Of A Down",
-        date: "20 luglio 2020",
+        date: '2020-07-21T21:00',
         locationShort: "Monza, Italia",
         coverImage: {url: "i/l-soad.jpg", alt: "system of a down band logo"}
     },
     {
         id: 'abcd4',
         title: "NF",
-        date: "5 agosto 2020",
+        date: '2020-08-13T21:00',
         locationShort: "Monza, Italia",
         coverImage: {url: "i/l-nf.jpg", alt: "nf's 'therapy session' album cover"}
     },
@@ -53,7 +53,7 @@ const dummyEventTabs = [
 const d = {
     id: 'abcd1',
     title: "Linkin Park @ Firenze Rocks",
-    date: "10 luglio 2020",
+    date: '2020-08-02T21:00',
     location: 'Ippodromo del Visarno, Firenze, Italia',
     basePrice: 49.00,
     images: [

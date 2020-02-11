@@ -39,7 +39,7 @@ class ShowPage {
                         <ul class="showInfoList">
                             <li>
                                 <i class="fa fa-calendar-alt" aria-label="Show date"></i>
-                                <span>${show.date}</span>
+                                <span>${Language.formatDateLong(show.date)}</span>
                             </li>
                             <li>
                                 <i class="fa fa-map-marker-alt" aria-label="Show location"></i>
