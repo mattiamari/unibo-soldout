@@ -55,7 +55,6 @@ class BuyPage {
     }
 
     async render() {
-        const navbar = await NavBar.render();
         const show = await Shows.getShowDetails(this.showId);
         this.cartItem = new CartItem(show);
         const ticketTypes = show.ticketTypes.map(e => new TicketTypeRow(e, this.cartItem));
@@ -63,7 +62,7 @@ class BuyPage {
 
         const template = /*html*/`
             <div class="page page--buy">
-                ${navbar}
+                <header class="header"></header>
 
                 <main>
                     <section class="buyStep buyStep--ticketType">
@@ -95,9 +94,12 @@ class BuyPage {
         `;
 
         this.page = htmlToElement(template);
+        const header = this.page.querySelector('header');
         const ticketTypeList = this.page.querySelector('.ticketTypeList');
         const ticketTypeName = this.page.querySelector('.buyStep--quantity .ticketType');
         const btnGoQuantityStep = this.page.querySelector('.buyStep--ticketType .btnNext');
+
+        header.insertBefore((new NavBar()).render(), header.firstChild);
 
         for (let ticketRow of ticketTypes) {
             ticketTypeList.append(ticketRow.render());

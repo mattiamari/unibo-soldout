@@ -4,6 +4,7 @@ import htmlToElement from '../utils/htmlToElement.js';
 import Account from '../model/Account.js';
 import Language from '../model/Language.js';
 import TabbedContainer from '../components/TabbedContainer.js';
+import NavBar from '../components/NavBar.js';
 
 const ProfileCard = profile => {
     return /*html*/ `
@@ -93,10 +94,11 @@ class ProfilePage {
 
         const template = /*html*/`
             <div class="page page--profile">
-                <header>
-                    <h1>Il tuo profilo</h1>
-
-                    ${profileCard}
+                <header class="header">
+                    <div class="header-content">
+                        <h1>Il tuo profilo</h1>
+                        ${profileCard}
+                    </div>
                 </header>
 
                 <main></main>
@@ -104,6 +106,9 @@ class ProfilePage {
         `;
 
         this.page = htmlToElement(template);
+        const header = this.page.querySelector('header');
+
+        header.insertBefore((new NavBar()).render(), header.firstChild);
         
         const tabContainer = new TabbedContainer(tabs);
         this.page.querySelector('main').append(tabContainer.render());

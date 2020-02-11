@@ -1,11 +1,16 @@
 'use strict';
 
 import throttle from '../utils/throttle.js';
+import htmlToElement from '../utils/htmlToElement.js';
 
-const NavBar = {
-    render: async () => {
-        return /*html*/`
-            <nav class="navbar" id="navbar">
+class NavBar {
+    constructor() {
+        this.element = null;
+    }
+
+    render() {
+        const template = /*html*/`
+            <nav class="navbar">
                 <a class="button button--icononly" href="#" aria-label="App menu"><i class="button-icon fa fa-bars"></i></a>
 
                 <div class="navbar-buttons-right">
@@ -14,25 +19,27 @@ const NavBar = {
                 </div>
             </nav>
         `;
-    },
 
-    afterRender: node => {
+        this.element = htmlToElement(template);
+
         window.addEventListener('scroll', throttle(200, () => {
             if (document.documentElement.scrollTop < 56) {
-                NavBar.onScrollTop(node);
+                this.onScrollTop();
             } else {
-                NavBar.onScrollMiddle(node);
+                this.onScrollMiddle();
             }
         }));
-    },
 
-    onScrollTop: node => {
-        node.classList.remove('navbar--raised');
-    },
-
-    onScrollMiddle: node => {
-        node.classList.add('navbar--raised');
+        return this.element;
     }
-};
+
+    onScrollTop() {
+        this.element.classList.remove('navbar--raised');
+    }
+
+    onScrollMiddle() {
+        this.element.classList.add('navbar--raised');
+    }
+}
 
 export default NavBar;

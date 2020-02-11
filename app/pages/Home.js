@@ -8,38 +8,12 @@ import Statusbar from '../utils/statusbar.js';
 import TabbedContainer from '../components/TabbedContainer.js';
 import { CardSmall } from '../components/ShowCard.js';
 
-const Header = async () => {
-    const navbar = await NavBar.render();
-
-    return /*html*/`
-        <header class="header">
-            <div class="header-layer header-bg"></div>
-            <div class="header-layer header-bg-filter"></div>
-            <div class="header-layer header-bg-blend"></div>
-
-            ${navbar}
-
-            <div class="header-layer header-content">
-                <div class="app-logo">
-                    <span class="logo-sold">sold</span><span class="logo-out">OUT</span>
-                </div>
-
-                <div class="searchbar">
-                    <input type="search" placeholder="Trova un evento...">
-                </div>
-            </div>
-        </header>
-    `;
-};
-
 class HomePage {
     constructor(params) {
         this.page = null;
     }
 
     async render() {
-        const header = await Header();
-
         const sliderNewShows = await ShowSlider.render({
             id: 'sliderNewShows',
             title: 'Nuovi',
@@ -63,7 +37,21 @@ class HomePage {
 
         const template = /*html*/`
             <div class="page page--home">
-            ${header}
+            <header class="header">
+                <div class="header-layer header-bg"></div>
+                <div class="header-layer header-bg-filter"></div>
+                <div class="header-layer header-bg-blend"></div>
+
+                <div class="header-layer header-content">
+                    <div class="app-logo">
+                        <span class="logo-sold">sold</span><span class="logo-out">OUT</span>
+                    </div>
+
+                    <div class="searchbar">
+                        <input type="search" placeholder="Trova un evento...">
+                    </div>
+                </div>
+            </header>
 
             <main class="pageContent">
                 ${sliderNewShows}
@@ -73,8 +61,10 @@ class HomePage {
         `;
 
         this.page = htmlToElement(template);
+        const header = this.page.querySelector('header');
         const content = this.page.querySelector('main');
 
+        header.insertBefore((new NavBar()).render(), header.firstChild);
         content.append(showTabs.render());
 
         return this.page;
@@ -84,7 +74,6 @@ class HomePage {
         let dom = document.getElementById.bind(document);
 
         // FIXME Bindings like this result in detached HTMLElements every time page is changed
-        NavBar.afterRender(dom('navbar'));
         ShowSlider.afterRender(dom('sliderNewShows'));
         ShowSlider.afterRender(dom('sliderCiaoShows'));
 

@@ -15,12 +15,9 @@ class ShowPage {
 
     async render() {
         const show = await Shows.getShowDetails(this.showId);
-        const navbar = await NavBar.render();
 
         const template = /*html*/`
             <div class="page page--show">
-                ${navbar}
-
                 <header class="header">
                     <div class="header-layer header-bg" style="background-image: url(${show.getImage('vertical').url})"></div>
                     <div class="header-layer header-bg-blend"></div>
@@ -59,11 +56,13 @@ class ShowPage {
         `;
 
         this.page = htmlToElement(template);
+        const header = this.page.querySelector('header');
+        header.insertBefore((new NavBar()).render(), header.firstChild);
+
         return this.page;
     }
 
     afterRender() {
-        NavBar.afterRender(document.getElementById('navbar'));
         Statusbar.setColor('#323232');
     }
 };

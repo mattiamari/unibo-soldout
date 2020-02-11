@@ -70,13 +70,8 @@ class CartPage {
     }
 
     async render() {
-        const navbar = await NavBar.render();
-        await Cart.init();
-
         const template = /*html*/`
             <div class="page page--cart">
-                ${navbar}
-
                 <header class="header">
                     <div class="header-content">
                         <h1>Il tuo carrello</h1>
@@ -96,7 +91,11 @@ class CartPage {
             </div>
         `;
 
+        await Cart.init();
         this.page = htmlToElement(template);
+        const header = this.page.querySelector('header');
+        header.insertBefore((new NavBar()).render(), header.firstChild);
+
         this.refreshDisplay();
 
         Cart.addOnChangeHandler(() => {
@@ -130,7 +129,6 @@ class CartPage {
     }
 
     afterRender() {
-        NavBar.afterRender(document.getElementById('navbar'));
         Statusbar.setColor('#d7487d');
     }
 };
