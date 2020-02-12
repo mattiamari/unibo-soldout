@@ -3,6 +3,7 @@
 import htmlToElement from '../utils/htmlToElement.js';
 import NavBar from '../components/NavBar.js';
 import Account from '../model/Account.js';
+import formToObject from '../utils/formToObject.js';
 
 class SignupPage {
     constructor() {
@@ -51,8 +52,7 @@ class SignupPage {
 
         form.addEventListener('submit', e => {
             e.preventDefault();
-            const formdata = new FormData(form);
-            Account.signup(formdata).then(() => window.location.hash = '#/profile');
+            Account.signup(formToObject(form)).then(() => window.location.hash = '#/profile');
         });
 
         return this.page;

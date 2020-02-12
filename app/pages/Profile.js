@@ -85,13 +85,6 @@ class ProfilePage {
 
     async render() {
         const profileCard = ProfileCard(Account.user);
-        const userInfo = UserPersonalInfo(Account.user);
-        const orderList = OrderList(await Account.getOrders());
-
-        const tabs = [
-            {name: 'I tuoi dati', content: userInfo},
-            {name: 'Ordini', content: orderList},
-        ];
 
         const template = /*html*/`
             <div class="page page--profile">
@@ -106,11 +99,20 @@ class ProfilePage {
             <div>
         `;
 
+        // Header
         this.page = htmlToElement(template);
         const header = this.page.querySelector('header');
-
         header.insertBefore((new NavBar()).render(), header.firstChild);
         
+        // Tabs
+        const userInfo = UserPersonalInfo(Account.user);
+        const orderList = OrderList(await Account.getOrders());
+
+        const tabs = [
+            {name: 'I tuoi dati', content: userInfo},
+            {name: 'Ordini', content: orderList},
+        ];
+
         const tabContainer = new TabbedContainer(tabs);
         this.page.querySelector('main').append(tabContainer.render());
 
