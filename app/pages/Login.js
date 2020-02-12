@@ -3,6 +3,7 @@
 import htmlToElement from '../utils/htmlToElement.js';
 import NavBar from '../components/NavBar.js';
 import Account from '../model/Account.js';
+import formToObject from '../utils/formToObject.js';
 
 class LoginPage {
     constructor() {
@@ -20,10 +21,10 @@ class LoginPage {
                 <main>
                     <form class="form" action="#">
                         <label for="email">Email</label>
-                        <input type="text" id="email" name="email">
+                        <input type="email" id="email" name="email" required>
 
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password">
+                        <input type="password" id="password" name="password" required>
 
                         <button type="submit" class="button button--raised">Accedi</button>
 
@@ -41,8 +42,7 @@ class LoginPage {
 
         form.addEventListener('submit', e => {
             e.preventDefault();
-            const formdata = new FormData(form);
-            Account.login(formdata).then(() => window.location.hash = '#/profile');
+            Account.login(formToObject(form)).then(() => window.location.hash = '#/profile');
         });
         
         return this.page;

@@ -1,10 +1,16 @@
 'use strict';
 
+import Account from "./Account.js";
+
 const tickets = [];
 const onChangeHandlers = [];
 
 const Cart = {
     async init() {
+        if (!Account.isLoggedIn) {
+            return;
+        }
+
         // TODO fetch cart from API
         notifyChange();
     },

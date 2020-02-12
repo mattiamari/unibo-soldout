@@ -5,6 +5,7 @@ import Account from '../model/Account.js';
 import Language from '../model/Language.js';
 import TabbedContainer from '../components/TabbedContainer.js';
 import NavBar from '../components/NavBar.js';
+import formToObject from '../utils/formToObject.js';
 
 const ProfileCard = profile => {
     return /*html*/ `
@@ -27,16 +28,16 @@ const UserPersonalInfo = profile => {
     return htmlToElement(/*html*/ `
         <form class="form" action="#">
             <label for="firstname">Nome</label>
-            <input type="text" id="firstname" name="firstname" value="${profile.firstname}">
+            <input type="text" id="firstname" name="firstname" required value="${profile.firstname}">
 
             <label for="lastname">Cognome</label>
-            <input type="text" id="lastname" name="lastname" value="${profile.lastname}">
+            <input type="text" id="lastname" name="lastname" required value="${profile.lastname}">
 
             <label for="birthdate">Data di nascita</label>
-            <input type="date" id="birthdate" name="birthdate" value="${profile.birthdate}">
+            <input type="date" id="birthdate" name="birthdate" required value="${profile.birthdate}">
             
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="${profile.email}">
+            <input type="email" id="email" name="email" required value="${profile.email}">
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password">
@@ -112,6 +113,11 @@ class ProfilePage {
         
         const tabContainer = new TabbedContainer(tabs);
         this.page.querySelector('main').append(tabContainer.render());
+
+        userInfo.addEventListener('submit', e => {
+            e.preventDefault();
+            Account.updateUserInfo(formToObject(userInfo));
+        });
 
         return this.page;
     }

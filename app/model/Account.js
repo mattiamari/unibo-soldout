@@ -64,6 +64,12 @@ const Account = {
         return Promise.resolve();
     },
 
+    async updateUserInfo(userInfo) {
+        // TODO send new user info to API
+
+        return Promise.resolve();
+    },
+
     async getOrders() {
         return dummyOrders;
     },

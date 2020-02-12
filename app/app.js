@@ -10,6 +10,7 @@ import ProfilePage from './pages/Profile.js';
 import LoginPage from './pages/Login.js';
 import SignupPage from './pages/Signup.js';
 import Account from './model/Account.js';
+import Cart from './model/Cart.js';
 
 const routes = {
     '/': HomePage,
@@ -27,6 +28,7 @@ const mountpoint = 'app';
 
 // Init some stuff
 Account.init();
+Cart.init();
 
 window.addEventListener('DOMContentLoaded', router);
 window.addEventListener('hashchange', router);
