@@ -14,6 +14,9 @@ class NavBar {
                 <a class="button button--icononly" href="#" aria-label="App menu"><i class="button-icon fa fa-bars"></i></a>
 
                 <div class="navbar-buttons-right">
+                    <a class="button button--icononly" href="#/notifications" aria-label="Notifications">
+                        <i class="button-icon fa fa-bell"></i>
+                    </a>
                     <a class="button button--icononly" href="#/${Account.isLoggedIn ? 'profile' : 'login'}" aria-label="User profile">
                         <i class="button-icon fa fa-user"></i>
                     </a>

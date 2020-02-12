@@ -33,6 +33,17 @@ const dummyOrders = [
     }
 ];
 
+const dummyNotifications = [
+    {
+        date: '2020-02-12T08:00',
+        content: 'Questa è una notifica qualsiasi, non fare caso a me'
+    },
+    {
+        date: '2020-02-12T11:00',
+        content: 'Ciao! Sono un\'altra notifica di test. Sono più nuova dell\'altra e quindi dovrei stare sopra. Se sono sotto sei un cane a programmare.'
+    },
+];
+
 const Account = {
     _user: null,
 
@@ -72,6 +83,10 @@ const Account = {
 
     async getOrders() {
         return dummyOrders;
+    },
+
+    async getNotifications() {
+        return dummyNotifications;
     },
 
     updateLocalStorage() {

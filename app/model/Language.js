@@ -12,7 +12,13 @@ const Language = {
 
     formatDate(date, options) {
         const formatter = new Intl.DateTimeFormat(this.lang, options);
-        return formatter.format(Date.parse(date));
+
+        let parsed = date;
+        if (!(date instanceof Date)) {
+            parsed = Date.parse(date);
+        }
+
+        return formatter.format(parsed);
     },
 
     formatDateLong(date) {

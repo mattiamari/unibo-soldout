@@ -11,6 +11,7 @@ import LoginPage from './pages/Login.js';
 import SignupPage from './pages/Signup.js';
 import Account from './model/Account.js';
 import Cart from './model/Cart.js';
+import NotificationsPage from './pages/Notifications.js';
 
 const routes = {
     '/': HomePage,
@@ -22,6 +23,7 @@ const routes = {
     '/profile': ProfilePage,
     '/login': LoginPage,
     '/signup': SignupPage,
+    '/notifications': NotificationsPage,
 };
 
 const mountpoint = 'app';
