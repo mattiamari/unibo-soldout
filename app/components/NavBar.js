@@ -6,7 +6,6 @@ import Account from '../model/Account.js';
 
 class NavBar {
     constructor() {
-        this.element = null;
     }
 
     render() {
@@ -27,23 +26,23 @@ class NavBar {
 
         this.element = htmlToElement(template);
 
-        window.addEventListener('scroll', throttle(200, () => {
+        this.onScroll = throttle(200, () => {
             if (document.documentElement.scrollTop < 56) {
-                this.onScrollTop();
+                this.element.classList.remove('navbar--raised');
             } else {
-                this.onScrollMiddle();
+                this.element.classList.add('navbar--raised');
             }
-        }));
+        });
+
+        window.addEventListener('scroll', this.onScroll);
 
         return this.element;
     }
 
-    onScrollTop() {
-        this.element.classList.remove('navbar--raised');
-    }
-
-    onScrollMiddle() {
-        this.element.classList.add('navbar--raised');
+    destroy() {
+        window.removeEventListener('scroll', this.onScroll);
+        this.onScroll = null;
+        this.element = null;
     }
 }
 

@@ -1,46 +1,36 @@
 'use strict';
 
-import Language from "../model/Language.js";
+import { CardBig } from '../components/ShowCard.js';
+import htmlToElement from '../utils/htmlToElement.js';
 
-const Card = show => {
-    return /*html*/`
-        <div class="slider-slide">
-            <a class="card card--big" href="#/show/${show.id}">
-                <img alt="${show.coverImage.alt}" src="${show.coverImage.url}">
+class ShowSlider {
+    constructor(content) {
+        this.content = content;
+    }
 
-                <div class="card-content">
-                    <div class="showSummary">
-                        <div class="showSummary-title">${show.title}</div>
-                        <div>
-                            <span class="showSummary-date">${Language.formatDateMedium(show.date)}</span>
-                            <span class="showSummary-location">${show.locationShort}</span>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-    `;
-};
-
-const ShowSlider = {
-    render: async params => {
-        const shows = params.shows.map(e => Card(e)).join('\n');
-
-        return /*html*/`
-            <div class="slider" id="${params.id}">
+    render() {
+        const template = /*html*/`
+            <div class="slider">
                 <div class="slider-header">
-                    <span class="slider-title">${params.title}</span>
+                    <span class="slider-title">${this.content.title}</span>
                     <a class="slider-showMore button button--flat" href="#">Vedi tutti</a>
                 </div>
                 <div class="slider-content">
-                    ${shows}
                 </div>
             </div>
         `;
-    },
 
-    afterRender: node => {
-    },
+        const element = htmlToElement(template);
+        const container = element.querySelector('.slider-content');
+        const shows = this.content.shows.map(e => CardBig(e));
+
+        for (let show of shows) {
+            container.appendChild(show);
+        }
+
+        return element;
+    }
+
 };
 
 export default ShowSlider;

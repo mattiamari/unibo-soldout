@@ -9,32 +9,10 @@ import TabbedContainer from '../components/TabbedContainer.js';
 import { CardSmall } from '../components/ShowCard.js';
 
 class HomePage {
-    constructor(params) {
-        this.page = null;
+    constructor() {
     }
 
     async render() {
-        const sliderNewShows = await ShowSlider.render({
-            id: 'sliderNewShows',
-            title: 'Nuovi',
-            shows: await Shows.getNewShows()
-        });
-
-        const sliderCiaoShows = await ShowSlider.render({
-            id: 'sliderCiaoShows',
-            title: 'Ciao',
-            shows: await Shows.getNewShows()
-        });
-
-        const showsCategorized = (await Shows.getShowsCategorized()).map(category => {
-            return {
-                name: category.name,
-                content: category.shows.map(e => CardSmall(e))
-            };
-        });
-
-        const showTabs = new TabbedContainer(showsCategorized);
-
         const template = /*html*/`
             <div class="page page--home">
             <header class="header">
@@ -53,31 +31,53 @@ class HomePage {
                 </div>
             </header>
 
-            <main class="pageContent">
-                ${sliderNewShows}
-                ${sliderCiaoShows}
-            </main>
+            <main class="pageContent"></main>
             </div>
         `;
 
-        this.page = htmlToElement(template);
-        const header = this.page.querySelector('header');
-        const content = this.page.querySelector('main');
+        this.element = htmlToElement(template);
+        const header = this.element.querySelector('header');
+        const content = this.element.querySelector('main');
 
-        header.insertBefore((new NavBar()).render(), header.firstChild);
-        content.append(showTabs.render());
+        this.navbar = new NavBar();
+        header.insertBefore(this.navbar.render(), header.firstChild);
 
-        return this.page;
+        const sliderNewShows = new ShowSlider({
+            title: 'Nuovi',
+            shows: await Shows.getNewShows()
+        });
+
+        const sliderNearYouShows = new ShowSlider({
+            title: 'Vicino a te',
+            shows: await Shows.getNewShows()
+        });
+
+        const showsCategorized = (await Shows.getShowsCategorized()).map(category => {
+            return {
+                name: category.name,
+                content: category.shows.map(e => CardSmall(e))
+            };
+        });
+
+        this.showTabs = new TabbedContainer(showsCategorized);
+
+        content.appendChild(sliderNewShows.render());
+        content.appendChild(sliderNearYouShows.render());
+        content.appendChild(this.showTabs.render());
+
+        return this.element;
     }
 
     afterRender() {
-        let dom = document.getElementById.bind(document);
-
-        // FIXME Bindings like this result in detached HTMLElements every time page is changed
-        ShowSlider.afterRender(dom('sliderNewShows'));
-        ShowSlider.afterRender(dom('sliderCiaoShows'));
-
         Statusbar.setColor('#d7487d');
+    }
+
+    destroy() {
+        this.element = null;
+        this.navbar.destroy();
+        this.navbar = null;
+        this.showTabs.destroy();
+        this.showTabs = null;
     }
 }
 

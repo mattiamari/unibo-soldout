@@ -31,6 +31,8 @@ Account.init();
 window.addEventListener('DOMContentLoaded', router);
 window.addEventListener('hashchange', router);
 
+let pageInstance = null;
+
 async function router() {
     const request = parseRoute(location.hash);
     let params = {};
@@ -63,7 +65,11 @@ async function router() {
         page = routes[route];
     }
 
-    const pageInstance = new page(params);
+    if (pageInstance && pageInstance.destroy) {
+        pageInstance.destroy();
+    }
+
+    pageInstance = new page(params);
     const rendered = await pageInstance.render();
     
     const mountpointElement = document.getElementById(mountpoint);

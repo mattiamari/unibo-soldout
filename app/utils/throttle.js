@@ -1,6 +1,6 @@
 'use strict';
 
-function throttle(delay, func) {
+const throttle = (delay, func) => {
     let tmr = null;
 
     return () => {
@@ -13,6 +13,6 @@ function throttle(delay, func) {
             tmr = null;
         }, delay);
     };
-}
+};
 
 export default throttle;

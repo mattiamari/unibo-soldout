@@ -5,7 +5,6 @@ import throttle from '../utils/throttle.js';
 
 class Slide {
     constructor(name, content, container) {
-        this.element = null;
         this.name = name;
         this.content = content;
         this.container = container;
@@ -37,7 +36,6 @@ class Slide {
 
 class TabButton {
     constructor(name, container) {
-        this.element = null;
         this.name = name;
         this.container = container;
     }
@@ -69,14 +67,12 @@ class TabButton {
         ) {
             this.element.parentElement.scrollTo(this.element.offsetLeft, 0);
         }
-        
     }
 }
 
 class TabbedContainer {
     constructor(content) {
         this.content = content;
-        this.element = null;
         this.activeTab = null;
     }
 
@@ -92,7 +88,7 @@ class TabbedContainer {
 
         const nav = this.element.querySelector('nav');
         const slides = this.element.querySelector('.tabbedContainer-slides');
-        let slideObjs = [];
+        const slideObjs = [];
 
         for (let tab of this.content) {
             const button = new TabButton(tab.name, this);
@@ -103,9 +99,8 @@ class TabbedContainer {
             slides.append(slide.render());
         }
 
-        slideObjs = slideObjs.sort((a,b) => a.element.offsetLeft - b.element.offsetLeft);
-
         slides.addEventListener('scroll', throttle(200, () => {
+            // This is the slide the user is scrolling to
             const currentSlide = slideObjs.find(e => e.midpointOffset >= slides.scrollLeft
                 && e.midpointOffset < slides.scrollLeft + slides.clientWidth);
             
@@ -127,6 +122,11 @@ class TabbedContainer {
     selectTab(name) {
         this.activeTab = name;
         this.element.dispatchEvent(new Event('tabChanged'));
+    }
+
+    destroy() {
+        this.element.remove()
+        this.element = null;
     }
 }
 
