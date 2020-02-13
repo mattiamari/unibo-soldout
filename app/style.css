@@ -3,28 +3,23 @@
     --color-text-contrast: #000000;
     --color-text-secondary: #8a8181;
     --color-text-secondary-1: #b3b3b3;
-
     --color-primary: #D7487D;
     --color-primary-rgb: 215, 72, 125;
     --color-primary-lighter: #E56C99;
-    --color-primary-darker: #C52761;
-
+    --color-primary-darker: hsla(338, 67%, 40%, 1);
     --color-secondary: #F77853;
     --color-secondary-lighter: #FF9778;
     --color-secondary-darker: #E2552C;
-
     --color-background: hsl(0, 0%, 6%);
     --color-background-contrast: hsl(0, 0%, 94%);
     --color-background-1: hsl(0, 0%, 12%);
     --color-background-2: hsl(0, 0%, 18%);
     --color-background-3: hsl(0, 0%, 24%);
-
     --overlay-opacity-1: 0.05;
     --overlay-opacity-2: 0.08;
     --overlay-opacity-3: 0.11;
     --overlay-opacity-4: 0.14;
     --overlay-opacity-5: 0.17;
-
     --shadow-1: 0px 1px 4px 1px rgba(0,0,0,0.30);
     --shadow-2: 0px 1px 7px 1px rgba(0,0,0,0.30);
     --shadow-3: 0px 1px 10px 2px rgba(0,0,0,0.30);
@@ -65,7 +60,6 @@ a:focus {
 body {
     background-color: var(--color-background) !important;
     color: var(--color-text);
-
     font-family: "Noto Sans", sans-serif;
     font-size: 14pt;
 }
@@ -536,6 +530,10 @@ ul.list {
     animation: fade-in .3s ease-out;
 }
 
+.page > header > .header-content > h1 {
+    /* margin-top: 0; */
+}
+
 /*
     Homepage
 */
@@ -603,7 +601,7 @@ ul.list {
     padding: 0 32px;
 }
 
-.page--show .header-title {
+.page.page--show .header-title {
     margin-top: auto;
     margin-bottom: 48px;
     text-align: center;
@@ -747,10 +745,6 @@ ul.showInfoList {
     padding-right: 24px;
 }
 
-.page--cart .header h1 {
-    margin-top: 0;
-}
-
 .page--cart main {
     display: flex;
     flex-direction: column;
@@ -853,11 +847,6 @@ ul.showInfoList {
     padding-bottom: 24px;
 }
 
-.page--login .header-content > h1,
-.page--signup .header-content > h1 {
-    margin-top: 0;
-}
-
 .page--login .form .btnSignup {
     margin-top: 24px;
 }
@@ -869,10 +858,6 @@ ul.showInfoList {
     padding-left: 24px;
     padding-right: 24px;
     margin-bottom: 16px;
-}
-
-.page--profile .header-content > h1 {
-    margin-top: 0;
 }
 
 .page--profile .tabbedContainer > nav {
@@ -918,7 +903,7 @@ ul.showInfoList {
     display: flex;
     align-items: center;
     padding: 8px 16px;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     background: var(--color-background-1);
     border-radius: 6px;
     box-shadow: var(--shadow-1);
@@ -968,6 +953,95 @@ a.orderList-row {
 
 .page--notifications main {
     padding: 0 16px;
+}
+
+/*
+    Order details page
+*/
+.page.page--orderdetails .header-content {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.page.page--orderdetails main {
+    /* padding: 0 24px; */
+    padding-bottom: 24px;
+}
+
+.page--orderdetails .orderInfo {
+    margin: 0 24px;
+}
+
+.page--orderdetails .orderInfo th {
+    text-align: left;
+    padding-right: 16px;
+}
+
+.page--orderdetails .ticketList {
+    list-style: none;
+    margin: 24px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.page--orderdetails .ticketList li {
+    padding: 16px 24px;
+}
+
+.page--orderdetails .ticketList .ticket {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 8px;
+    border-top: 4px dashed var(--color-primary-darker);
+    border-bottom: 4px dashed var(--color-background-contrast);
+    font-size: 1.1em;
+    max-width: 400px;
+    min-width: 248px;
+    box-shadow: var(--shadow-3);
+}
+
+.page--orderdetails .infoContainer,
+.page--orderdetails .qrContainer {
+    width: 100%;
+    padding: 16px;
+}
+
+.page--orderdetails .infoContainer {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-primary-darker);
+}
+
+.page--orderdetails .infoContainer > span.label {
+    margin-bottom: 0;
+    color: #f1f1f1;
+    font-size: 0.8em;
+    font-weight: normal;
+}
+
+.page--orderdetails .infoContainer > span {
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.page--orderdetails .infoContainer .showTitle {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.page--orderdetails .qrContainer {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-background-contrast);
+}
+
+.page--orderdetails .qrContainer img {
+    max-width: 200px;
+    align-self: center;
 }
 
 /*
