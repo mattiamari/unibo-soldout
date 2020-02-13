@@ -31,6 +31,10 @@ const Language = {
 
     formatDateShort(date) {
         return this.formatDate(date, {day: 'numeric', month: '2-digit', year: 'numeric'});
+    },
+
+    formatDateTime(date) {
+        return this.formatDate(date, {day: 'numeric', month: '2-digit', year: 'numeric', hour: 'numeric', minute: 'numeric'});
     }
 
 };

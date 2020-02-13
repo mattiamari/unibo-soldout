@@ -9,7 +9,7 @@ const ListRow = notification => {
     return /*html*/ `
         <li class="list-item">
             <p>${notification.content}</p>
-            <span class="text--small">${Language.formatDateShort(notification.date)}</span>
+            <span class="text--small">${Language.formatDateTime(notification.date)}</span>
         </li>
     `;
 };
