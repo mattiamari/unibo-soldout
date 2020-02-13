@@ -3,7 +3,6 @@ version: '3'
 services:
   web:
     image: nginx:alpine
-    container_name: web
     restart: unless-stopped
     depends_on:
       - php
@@ -14,7 +13,6 @@ services:
       - 9080:80
   php:
     build: ./docker/php
-    container_name: php
     restart: unless-stopped
     depends_on:
       - db
@@ -22,12 +20,9 @@ services:
       - ./:/www:ro
   db:
     image: mariadb
-    container_name: db
     restart: unless-stopped
     volumes:
       - db-data:/var/lib/mysql
-    ports:
-      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: mysql
       MYSQL_USER: soldout
@@ -35,16 +30,20 @@ services:
       MYSQL_DATABASE: soldout
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
     restart: unless-stopped
     depends_on:
       - db
     ports:
       - 9000:80
-    links:
-      - db:db
     environment:
       PMA_USER: soldout
       PMA_PASSWORD: soldout
+      PMA_HOST: db
+  adminer:
+    image: adminer
+    depends_on:
+      - db
+    ports:
+      - 9001:8080
 volumes:
   db-data:
