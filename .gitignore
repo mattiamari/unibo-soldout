@@ -1,3 +1,4 @@
 node_modules
 app/i/*
 !app/i/.gitkeep
+api/vendor
