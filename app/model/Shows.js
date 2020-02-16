@@ -55,7 +55,6 @@ const d = {
     title: "Linkin Park @ Firenze Rocks",
     date: '2020-08-02T21:00',
     location: 'Ippodromo del Visarno, Firenze, Italia',
-    basePrice: 49.00,
     images: [
         {type: 'horizontal', url: "i/l-linkin-park.jpg", alt: "linkin park band photo"},
         {type: 'vertical', url: "i/p-linkin-park.jpg", alt: "linkin park band photo"}
@@ -67,12 +66,15 @@ const d = {
         {id: 'abc3', name: "Poltrona Platinum", price: 200.00},
         {id: 'abc4', name: "Tribuna", price: 80.00},
     ],
-    maxTicketsPerPurchase: 5,
+    maxTicketsPerOrder: 5,
 };
 
 class Show {
     constructor() {
+    }
 
+    get lowestPrice() {
+        return Math.min(...this.ticketTypes.map(e => e.price));
     }
 
     getImage(type) {

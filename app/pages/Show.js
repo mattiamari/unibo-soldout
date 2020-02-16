@@ -44,7 +44,7 @@ class ShowPage {
                             </li>
                             <li>
                                 <i class="fa fa-ticket-alt" aria-label="Ticket price"></i>
-                                <span>da ${Language.formatCurrency(show.basePrice)}</span>
+                                <span>da ${Language.formatCurrency(show.lowestPrice)}</span>
                             </li>
                         </ul>
 

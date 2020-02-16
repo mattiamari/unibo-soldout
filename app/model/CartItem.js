@@ -56,7 +56,7 @@ class CartItem {
     }
 
     quantityPlus() {
-        if (this.quantity < this.show.maxTicketsPerPurchase) {
+        if (this.quantity < this.show.maxTicketsPerOrder) {
             this.quantity += 1;
             this.notifyChange();
         }
