@@ -1,48 +1,7 @@
 'use strict';
 
-const dummyUser = {
-    firstname: 'Pinco',
-    lastname: 'Pallino',
-    email: 'pinco@pallino.com',
-    birthdate: '1980-03-20',
-    ordersCount: 3,
-    coinsBalance: 340,
-};
-
-const dummyOrders = [
-    {
-        id: 'abcd1234',
-        reference: '1234',
-        date: '2020-01-10',
-        contentSummary: 'Linkin Park @ Firenze Rocks',
-        hasMoreTickets: true
-    },
-    {
-        id: 'afgh2314',
-        reference: '5719',
-        date: '2020-01-02',
-        contentSummary: 'System Of A Down',
-        hasMoreTickets: false
-    },
-    {
-        id: 'ijklm1234',
-        reference: '2876',
-        date: '2020-01-12',
-        contentSummary: 'NF',
-        hasMoreTickets: false
-    }
-];
-
-const dummyNotifications = [
-    {
-        date: '2020-02-12T08:00',
-        content: 'Questa è una notifica qualsiasi, non fare caso a me'
-    },
-    {
-        date: '2020-02-12T11:00',
-        content: 'Ciao! Sono un\'altra notifica di test. Sono più nuova dell\'altra e quindi dovrei stare sopra. Se sono sotto sei un cane a programmare.'
-    },
-];
+const headers = new Headers();
+headers.set('Content-Type', 'application/json');
 
 const Account = {
     _user: null,
@@ -59,20 +18,42 @@ const Account = {
         return this._user;
     },
 
-    async login(loginData) {
-        // TODO login to API
-        this._user = dummyUser;
-        this.updateLocalStorage();
+    async login(credentials) {
+        const req = new Request('/api/login', {
+            method: 'POST',
+            body: JSON.stringify(credentials),
+            headers: headers
+        });
+        const res = await fetch(req);
 
-        return Promise.resolve();
+        if (!res.ok) {
+            return;
+        }
+
+        let account = await fetch('/api/account');
+        account = await account.json();
+
+        this._user = account.account;
+        this.updateLocalStorage();
     },
 
     async signup(signupData) {
-        // TODO signup with API
-        this._user = dummyUser;
-        this.updateLocalStorage();
+        const req = new Request('/api/signup', {
+            method: 'POST',
+            body: JSON.stringify(signupData),
+            headers: headers
+        });
+        const res = await fetch(req);
 
-        return Promise.resolve();
+        if (!res.ok) {
+            return;
+        }
+
+        let account = await fetch('/api/account');
+        account = await account.json();
+        
+        this._user = account.account;
+        this.updateLocalStorage();
     },
 
     async updateUserInfo(userInfo) {
@@ -82,11 +63,15 @@ const Account = {
     },
 
     async getOrders() {
-        return dummyOrders;
+        let res = await fetch('/api/orders');
+        res = await res.json();
+        return res.orders;
     },
 
     async getNotifications() {
-        return dummyNotifications;
+        let res = await fetch('/api/notifications');
+        res = await res.json();
+        return res.notifications;
     },
 
     updateLocalStorage() {

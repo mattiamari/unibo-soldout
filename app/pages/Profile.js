@@ -17,7 +17,7 @@ const ProfileCard = profile => {
                 <span class="profileCard-name">${profile.firstname} ${profile.lastname}</span>
                 <div class="profileCard-moreInfo">
                     <span>Ordini effettuati: </span><span class="profileCard-ordersCount">${profile.ordersCount}</span><br>
-                    <span>soldOUT coins: </span><span class="profileCard-coinsCount">${profile.coinsBalance}</span><br>
+                    <!--<span>soldOUT coins: </span><span class="profileCard-coinsCount">${profile.coinsBalance}</span><br>-->
                 </div>
             </div>
         </div>
