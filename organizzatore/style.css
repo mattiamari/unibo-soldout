@@ -1,0 +1,34 @@
+:root {
+    --color-text: #ffffff;
+    --color-text-contrast: #000;
+    --color-text-secondary: #818181;
+    --color-primary: #D7487D;
+    --color-primary-rgb: 215, 72, 125;
+    --color-primary-lighter: #E56C99;
+    --color-primary-darker: #C52761;
+    --color-secondary: #F77853;
+    --color-secondary-lighter: #FF9778;
+    --color-secondary-darker: #E2552C;
+    --color-background: #161616;
+    --color-background-contrast: #eeeeee;
+
+    --color-background-1: hsl(0, 0%, 15%);
+    --color-background-2: hsl(0, 0%, 21%);
+    --color-background-3: hsl(0, 0%, 27%);
+
+    --overlay-opacity-1: 0.05;
+    --overlay-opacity-2: 0.07;
+    --overlay-opacity-3: 0.08;
+    --overlay-opacity-4: 0.09;
+    --overlay-opacity-5: 0.11;
+
+    --shadow-1: 0px 1px 3px 0px rgba(0,0,0,0.30);
+    --shadow-2: 0px 1px 6px 1px rgba(0,0,0,0.30);
+    --shadow-3: 0px 1px 9px 1px rgba(0,0,0,0.30);
+    --shadow-4: 0px 1px 12px 1px rgba(0,0,0,0.30);
+}
+
+.title {
+    color: black;
+    position: ;
+}
