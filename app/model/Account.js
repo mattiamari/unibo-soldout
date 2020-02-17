@@ -1,5 +1,7 @@
 'use strict';
 
+import Order from "./Order.js";
+
 const headers = new Headers();
 headers.set('Content-Type', 'application/json');
 
@@ -92,6 +94,12 @@ const Account = {
         let res = await fetch('/api/orders', {headers: this.authHeaders});
         res = await res.json();
         return res.orders;
+    },
+
+    async getOrderDetails(orderId) {
+        let res = await fetch('/api/order/' + orderId, {headers: this.authHeaders});
+        res = await res.json();
+        return Object.assign(new Order(), res.order);
     },
 
     async getNotifications() {

@@ -20,8 +20,7 @@ const ProfileCard = (profile, ordersCount) => {
                     <!--<span>soldOUT coins: </span><span class="profileCard-coinsCount">${profile.coinsBalance}</span><br>-->
                 </div>
             </div>
-        </div>
-    `;
+        </div>`;
 };
 
 const UserPersonalInfo = profile => {
@@ -46,14 +45,13 @@ const UserPersonalInfo = profile => {
             <input type="password" id="passwordRepeat" name="passwordRepeat">
 
             <button type="submit" class="button button--raised">Salva</button>
-        </form>
-    `);
+        </form>`);
 };
 
 const OrderRow = order => {
     return /*html*/ `
         <li>
-            <a class="orderList-row" href="#/order/${order.id}">
+            <a class="orderList-row" href="#/order/${order.cart_id}">
                 <div>
                     <div>
                         <span class="order-contentSummary">${order.contentSummary}</span>
@@ -67,8 +65,7 @@ const OrderRow = order => {
                 
                 <i class="fa fa-arrow-right"></i>
             </a>
-        </li>
-    `;
+        </li>`;
 };
 
 const OrderList = orders => {
