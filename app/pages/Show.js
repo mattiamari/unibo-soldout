@@ -1,6 +1,6 @@
 'use strict';
 
-import Shows from '../model/Shows.js';
+import { Shows } from '../model/Shows.js';
 import Language from '../model/Language.js';
 
 import NavBar from '../components/NavBar.js';
@@ -10,7 +10,6 @@ import Statusbar from '../utils/statusbar.js';
 class ShowPage {
     constructor(params) {
         this.showId = params.id;
-        this.page = null;
     }
 
     async render() {
@@ -55,11 +54,11 @@ class ShowPage {
             </div>
         `;
 
-        this.page = htmlToElement(template);
-        const header = this.page.querySelector('header');
+        const page = htmlToElement(template);
+        const header = page.querySelector('header');
         header.insertBefore((new NavBar()).render(), header.firstChild);
 
-        return this.page;
+        return page;
     }
 
     afterRender() {

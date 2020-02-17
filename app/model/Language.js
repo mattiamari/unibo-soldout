@@ -6,7 +6,6 @@ const Language = {
 
     formatCurrency(num) {
         const formatter = new Intl.NumberFormat(this.lang, {style: 'currency', currency: this.currency});
-
         return formatter.format(num);
     },
 

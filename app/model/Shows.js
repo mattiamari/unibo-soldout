@@ -1,55 +1,5 @@
 'use strict';
 
-const dummyEvents = [
-    {
-        id: 'abcd1',
-        title: "Linkin Park @ Firenze Rocks",
-        date: '2020-08-02T21:00',
-        locationShort: "Firenze, Italia",
-        coverImage: {url: "i/l-linkin-park.jpg", alt: "linkin park band photo"}
-    },
-    {
-        id: 'abcd2',
-        title: "Rise Against",
-        date: '2020-06-10T21:00',
-        locationShort: "Monza, Italia",
-        coverImage: {url: "i/l-rise-against.jpg", alt: "rise against band photo"}
-    },
-    {
-        id: 'abcd3',
-        title: "System Of A Down",
-        date: '2020-07-21T21:00',
-        locationShort: "Monza, Italia",
-        coverImage: {url: "i/l-soad.jpg", alt: "system of a down band logo"}
-    },
-    {
-        id: 'abcd4',
-        title: "NF",
-        date: '2020-08-13T21:00',
-        locationShort: "Monza, Italia",
-        coverImage: {url: "i/l-nf.jpg", alt: "nf's 'therapy session' album cover"}
-    },
-];
-
-const dummyEventTabs = [
-    {
-        name: 'Teatro',
-        shows: dummyEvents.slice(1)
-    },
-    {
-        name: 'Concerti',
-        shows: dummyEvents.concat(dummyEvents)
-    },
-    {
-        name: 'Maremma maiala',
-        shows: dummyEvents.slice(1)
-    },
-    {
-        name: 'Qualcos\'altro',
-        shows: dummyEvents.slice(1)
-    },
-];
-
 class Show {
     constructor() {
     }
@@ -77,8 +27,29 @@ const Shows = {
     },
 
     getShowsCategorized: async () => {
-        return dummyEventTabs;
+        const res = await fetch('/api/shows');
+        const shows = await res.json();
+        const tmp = {};
+
+        for (let show of shows.shows) {
+            if (!tmp[show.category]) {
+                tmp[show.category] = [];
+            }
+            tmp[show.category].push(show);
+        }
+
+        return Object.entries(tmp).map(([k,v]) => {return {name: k, shows: v}});
+    },
+
+    getVenueDetails: async venueId => {
+        const res = await fetch('/api/venue/' + venueId);
+        return (await res.json()).venue;
+    },
+
+    getArtistDetails: async artistId => {
+        const res = await fetch('/api/artist/' + artistId);
+        return (await res.json()).artist;
     },
 };
 
-export default Shows;
+export {Shows, Show};

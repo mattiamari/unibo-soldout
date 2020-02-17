@@ -577,47 +577,65 @@ ul.list {
 }
 
 /*
-    Show page
+    Show, Artist and Venue pages
 */
-.page.page--show {
+.page.page--show,
+.page.page--artist,
+.page.page--venue {
     background: unset;
 }
 
-.page--show .header {
+.page--show .header,
+.page--artist .header,
+.page--venue .header {
     height: 50%;
 }
 
-.page--show .header-bg {
+.page--show .header-bg,
+.page--artist .header-bg,
+.page--venue .header-bg {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
 }
 
-.page--show .header-bg-blend {
+.page--show .header-bg-blend,
+.page--artist .header-bg-blend,
+.page--venue .header-bg-blend {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, var(--color-background) 100%);
 }
 
-.page--show .header-content {
+.page--show .header-content,
+.page--artist .header-content,
+.page--venue .header-content {
     padding: 0 24px;
 }
 
-.page.page--show .header-title {
+.page.page--show .header-title,
+.page.page--artist .header-title,
+.page.page--venue .header-title {
     margin-top: auto;
     margin-bottom: 48px;
     text-align: center;
 }
 
-.page--show main {
+.page--show main,
+.page--artist main,
+.page--venue main {
     position: relative;
     margin-top: -24px;
     padding: 0 24px 24px 24px;
 }
 
-.page--show h4 {
+.page--show h4,
+.page--artist h4,
+.page--venue h4 {
     margin: 24px 0 8px 0;
 }
 
-.page--show p {
+.page--show p,
+.page--artist p,
+.page--venue p {
     margin: 0;
 }
 
