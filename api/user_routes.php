@@ -75,7 +75,8 @@ $orderDetailsRoute = function (Request $request, ResponseInterface $response, $a
 
     $sql = "SELECT `show`.title, `show`.date,
             CONCAT(venue.name, ', ', city.name, ', ', country.name) AS location,
-            ticket_type.name AS ticketType
+            ticket_type.name AS `type`,
+            ticket_type.price
         FROM cart_item
         JOIN cart ON cart.id = cart_item.cart_id
         JOIN `order` ON `order`.cart_id = cart.id
