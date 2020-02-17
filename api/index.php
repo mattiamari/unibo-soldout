@@ -76,7 +76,23 @@ $app->get('/notifications', $notificationsRoute)
     ->add($authMiddleware);
 
 $app->post('/login', $loginRoute);
+$app->get('/logout', $logoutRoute);
 $app->post('/signup', $signupRoute);
+
+$app->get('/cart', $cartRoute)
+    ->add($authMiddleware);
+
+$app->put('/cart', $cartAddRoute)
+    ->add($authMiddleware);
+
+$app->delete('/cart/{ticket_type_id}', $cartRemoveRoute)
+    ->add($authMiddleware);
+
+$app->delete('/cart', $cartClearRoute)
+    ->add($authMiddleware);
+
+$app->put('/cart/place-order', $makeOrderRoute)
+    ->add($authMiddleware);
 
 $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($request, $response) {
     throw new HttpNotFoundException($request);

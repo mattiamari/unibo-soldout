@@ -16,11 +16,3 @@ function generateOrderRef() {
 function generateId() {
     return generateKey(8); // 11 chars
 }
-
-function generateApiKey() {
-    return generateKey(24); // 32 chars
-}
-
-function generateSalt() {
-    return generateKey(24); // 32 chars
-}

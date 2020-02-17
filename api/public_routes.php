@@ -14,10 +14,9 @@ $showsSummaryByCategoryRoute = function (Request $request, ResponseInterface $re
         JOIN venue ON venue.id = `show`.venue_id
         JOIN city ON city.id = venue.city_id
         JOIN country ON country.id = city.country_id
-        JOIN image ON image.subject_id = `show`.id AND image.subject = 'show'
+        LEFT JOIN image ON image.subject_id = `show`.id AND image.subject = 'show' AND image.type = 'horizontal'
         WHERE `show`.enabled=1
-            AND `show`.show_category_id = :category
-            AND image.type = 'horizontal'";
+            AND `show`.show_category_id = :category";
 
     $q = $this->get('db')->prepare($sql);
     $q->bindValue(':category', $args['category_id'], PDO::PARAM_STR);

@@ -5,6 +5,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Psr7\Response;
 
+require_once 'auth.php';
+
 $corsMiddleware = function (Request $request, RequestHandler $handler) {
     $response = $handler->handle($request);
 
@@ -25,22 +27,16 @@ $jsonHeaderMiddleware = function (Request $request, RequestHandler $handler) {
 };
 
 $authMiddleware = function (Request $request, RequestHandler $handler) {
-    if (!$request->hasHeader('Authorization')) {
+    if (!$request->hasHeader('x-auth')) {
         $response = new Response();
-        return $response->withHeader('WWW-Authenticate', 'Basic')->withStatus(401);
+        return $response->withStatus(401);
     }
 
-    $auth = $request->getHeader('Authorization');
-
     try {
-        $auth = explode(' ', $auth[0]); // Split "Basic" from the actual base64 key
-        $auth = base64_decode($auth[1]);
-        
-        // Basic auth. $auth[0] = user_id, $auth[1] = api_key
-        $auth = explode(':', $auth);
+        $auth = parseAuthHeader($request->getHeader('x-auth')[0]);
     } catch (Exception $e) {
         $response = new Response();
-        return $response->withHeader('WWW-Authenticate', 'Basic')->withStatus(401);
+        return $response->withStatus(401);
     }
     
     $sql = "SELECT COUNT(*) FROM api_key
@@ -59,7 +55,7 @@ $authMiddleware = function (Request $request, RequestHandler $handler) {
 
     if (!$q->fetchColumn()) {
         $response = new Response();
-        return $response->withHeader('WWW-Authenticate', 'Basic')->withStatus(401);
+        return $response->withStatus(401);
     }
 
     $request = $request->withAttribute('user_id', $auth[0]);
