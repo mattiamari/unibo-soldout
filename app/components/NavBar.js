@@ -1,39 +1,52 @@
 'use strict';
 
-import throttle from '../../node_modules/lodash-es/throttle.js';
+import throttle from '../utils/throttle.js';
+import htmlToElement from '../utils/htmlToElement.js';
+import Account from '../model/Account.js';
 
-const NavBar = {
-    render: async () => {
-        return /*html*/`
-            <nav class="navbar" id="navbar">
+class NavBar {
+    constructor() {
+    }
+
+    render() {
+        const template = /*html*/`
+            <nav class="navbar">
                 <a class="button button--icononly" href="#" aria-label="App menu"><i class="button-icon fa fa-bars"></i></a>
 
                 <div class="navbar-buttons-right">
-                    <a class="button button--icononly" href="#/profile" aria-label="User profile"><i class="button-icon fa fa-user"></i></a>
-                    <a class="button button--icononly" href="#/cart" aria-label="Shopping cart"><i class="button-icon fa fa-shopping-cart"></i></a>
+                    <a class="button button--icononly" href="#/notifications" aria-label="Notifications">
+                        <i class="button-icon fa fa-bell"></i>
+                    </a>
+                    <a class="button button--icononly" href="#/${Account.isLoggedIn ? 'profile' : 'login'}" aria-label="User profile">
+                        <i class="button-icon fa fa-user"></i>
+                    </a>
+                    <a class="button button--icononly" href="#/cart" aria-label="Shopping cart">
+                        <i class="button-icon fa fa-shopping-cart"></i>
+                    </a>
                 </div>
             </nav>
         `;
-    },
 
-    afterRender: node => {
-        window.addEventListener('scroll', throttle(() => {
+        this.element = htmlToElement(template);
+
+        this.onScroll = throttle(200, () => {
             if (document.documentElement.scrollTop < 56) {
-                NavBar.onScrollTop(node);
-                return;
+                this.element.classList.remove('navbar--raised');
+            } else {
+                this.element.classList.add('navbar--raised');
             }
+        });
 
-            NavBar.onScrollMiddle(node);
-        }, 100));
-    },
+        window.addEventListener('scroll', this.onScroll);
 
-    onScrollTop: node => {
-        node.classList.remove('navbar--raised');
-    },
-
-    onScrollMiddle: node => {
-        node.classList.add('navbar--raised');
+        return this.element;
     }
-};
+
+    destroy() {
+        window.removeEventListener('scroll', this.onScroll);
+        this.onScroll = null;
+        this.element = null;
+    }
+}
 
 export default NavBar;

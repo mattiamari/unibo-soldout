@@ -2,24 +2,40 @@
 
 import HomePage from './pages/Home.js';
 import Error404 from './pages/Error404.js';
-import EventPage from './pages/Event.js';
+import ShowPage from './pages/Show.js';
 import BuyPage from './pages/Buy.js';
 import CartPage from './pages/Cart.js';
 import BuyEndPage from './pages/BuyEnd.js';
+import ProfilePage from './pages/Profile.js';
+import LoginPage from './pages/Login.js';
+import SignupPage from './pages/Signup.js';
+import Account from './model/Account.js';
+import Cart from './model/Cart.js';
+import NotificationsPage from './pages/Notifications.js';
 
 const routes = {
     '/': HomePage,
     '/404': Error404,
     '/cart': CartPage,
-    '/event/:id': EventPage,
-    '/event/:id/buy': BuyPage,
+    '/show/:id': ShowPage,
+    '/show/:id/buy': BuyPage,
     '/purchase-complete': BuyEndPage,
+    '/profile': ProfilePage,
+    '/login': LoginPage,
+    '/signup': SignupPage,
+    '/notifications': NotificationsPage,
 };
 
 const mountpoint = 'app';
 
+// Init some stuff
+Account.init();
+Cart.init();
+
 window.addEventListener('DOMContentLoaded', router);
 window.addEventListener('hashchange', router);
+
+let pageInstance = null;
 
 async function router() {
     const request = parseRoute(location.hash);
@@ -53,7 +69,11 @@ async function router() {
         page = routes[route];
     }
 
-    const pageInstance = new page(params);
+    if (pageInstance && pageInstance.destroy) {
+        pageInstance.destroy();
+    }
+
+    pageInstance = new page(params);
     const rendered = await pageInstance.render();
     
     const mountpointElement = document.getElementById(mountpoint);
@@ -64,7 +84,10 @@ async function router() {
     document.documentElement.scroll(0, 0);
 
     mountpointElement.append(rendered);
-    pageInstance.afterRender();
+
+    if (pageInstance.afterRender) {
+        pageInstance.afterRender();
+    }
 }
 
 function parseRoute(route) {

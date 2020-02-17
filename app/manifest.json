@@ -1,7 +1,7 @@
 {
     "name": "soldOUT",
     "short_name": "soldOUT",
-    "start_url": ".",
+    "start_url": "/app",
     "display": "standalone",
     "theme_color": "#D7487D",
     "background_color": "#161616",
@@ -20,6 +20,11 @@
         {
             "src": "res/favicon-192.png",
             "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "res/favicon-512.png",
+            "sizes": "512x512",
             "type": "image/png"
         }
     ]

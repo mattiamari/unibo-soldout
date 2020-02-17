@@ -2,17 +2,16 @@
 
 import NavBar from '../components/NavBar.js';
 import htmlToElement from '../utils/htmlToElement.js';
+import Statusbar from '../utils/statusbar.js';
 
 class BuyEndPage {
     constructor(params) {
     }
 
     async render() {
-        const navbar = await NavBar.render();
-
         const template = /*html*/`
             <div class="page page--buy">
-                ${navbar}
+                <header class="header"></header>
 
                 <main>
                     <section class="buyStep">
@@ -28,11 +27,15 @@ class BuyEndPage {
             </div>
         `;
 
-        return htmlToElement(template);
+        const page = htmlToElement(template);
+        const header = page.querySelector('header');
+        header.insertBefore((new NavBar()).render(), header.firstChild);
+
+        return page;
     }
 
     afterRender() {
-        NavBar.afterRender(document.getElementById('navbar'));
+        Statusbar.setColor('#d7487d');
     }
 }
 

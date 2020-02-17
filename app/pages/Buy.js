@@ -1,6 +1,6 @@
 'use strict';
 
-import Events from '../model/Events.js'
+import Shows from '../model/Shows.js'
 import Language from '../model/Language.js';
 import CartItem from '../model/CartItem.js';
 import Cart from '../model/Cart.js';
@@ -49,21 +49,20 @@ class TicketTypeRow {
 
 class BuyPage {
     constructor(params) {
-        this.eventId = params.id;
+        this.showId = params.id;
         this.page = null;
         this.cartItem = null;
     }
 
     async render() {
-        const navbar = await NavBar.render();
-        const event = await Events.getEventDetails(this.eventId);
-        this.cartItem = new CartItem(event);
-        const ticketTypes = event.ticketTypes.map(e => new TicketTypeRow(e, this.cartItem));
+        const show = await Shows.getShowDetails(this.showId);
+        this.cartItem = new CartItem(show);
+        const ticketTypes = show.ticketTypes.map(e => new TicketTypeRow(e, this.cartItem));
         const quantitySelector = new QuantitySelector(this.cartItem);
 
         const template = /*html*/`
             <div class="page page--buy">
-                ${navbar}
+                <header class="header"></header>
 
                 <main>
                     <section class="buyStep buyStep--ticketType">
@@ -87,7 +86,7 @@ class BuyPage {
 
                         <nav class="buttons buttons--vertical">
                             <a class="button button--outline" href="#/cart">Vai al carrello</a>
-                            <a class="button button--flat" href="#/event/${event.id}">Torna all'evento</a>
+                            <a class="button button--flat" href="#/show/${show.id}">Torna all'evento</a>
                         </nav>
                     </section>
                 </main>
@@ -95,9 +94,12 @@ class BuyPage {
         `;
 
         this.page = htmlToElement(template);
+        const header = this.page.querySelector('header');
         const ticketTypeList = this.page.querySelector('.ticketTypeList');
         const ticketTypeName = this.page.querySelector('.buyStep--quantity .ticketType');
         const btnGoQuantityStep = this.page.querySelector('.buyStep--ticketType .btnNext');
+
+        header.insertBefore((new NavBar()).render(), header.firstChild);
 
         for (let ticketRow of ticketTypes) {
             ticketTypeList.append(ticketRow.render());
@@ -130,8 +132,7 @@ class BuyPage {
     }
 
     afterRender() {
-        NavBar.afterRender(document.getElementById('navbar'));
-        Statusbar.setColor('#323232');
+        Statusbar.setColor('#d7487d');
     }
 };
 

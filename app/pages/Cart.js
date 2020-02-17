@@ -27,9 +27,9 @@ class Card {
         const template = /*html*/`
             <li>
                 <div>
-                    <span class="event-name" aria-label="Event name">${this.ticket.event.title}</span>
-                    <span class="event-location" aria-label="Event location">${this.ticket.event.location}</span>
-                    <span class="event-date" aria-label="Event date">${this.ticket.event.date}</span>
+                    <span class="show-name" aria-label="Show name">${this.ticket.show.title}</span>
+                    <span class="show-location" aria-label="Show location">${this.ticket.show.location}</span>
+                    <span class="show-date" aria-label="Show date">${Language.formatDateMedium(this.ticket.show.date)}</span>
 
                     <ul class="priceList">
                         ${priceList}
@@ -70,13 +70,8 @@ class CartPage {
     }
 
     async render() {
-        const navbar = await NavBar.render();
-        await Cart.init();
-
         const template = /*html*/`
             <div class="page page--cart">
-                ${navbar}
-
                 <header class="header">
                     <div class="header-content">
                         <h1>Il tuo carrello</h1>
@@ -96,7 +91,11 @@ class CartPage {
             </div>
         `;
 
+        await Cart.init();
         this.page = htmlToElement(template);
+        const header = this.page.querySelector('header');
+        header.insertBefore((new NavBar()).render(), header.firstChild);
+
         this.refreshDisplay();
 
         Cart.addOnChangeHandler(() => {
@@ -120,7 +119,7 @@ class CartPage {
         const cartEmpty = this.page.querySelector('.cartEmpty');
         const btnNext = this.page.querySelector('.btnNext');
 
-        if (Cart.isEmpty()) {
+        if (Cart.isEmpty) {
             cartEmpty.classList.remove('hidden');
             btnNext.classList.add('hidden');
         } else {
@@ -130,8 +129,7 @@ class CartPage {
     }
 
     afterRender() {
-        NavBar.afterRender(document.getElementById('navbar'));
-        Statusbar.setColor('#323232');
+        Statusbar.setColor('#d7487d');
     }
 };
 

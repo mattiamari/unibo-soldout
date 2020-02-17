@@ -1,8 +1,8 @@
 'use strict';
 
 class CartItem {
-    constructor(event) {
-        this.event = event;
+    constructor(show) {
+        this.show = show;
         this._ticketTypeId = null;
         this._quantity = 1;
         this._prices = [];
@@ -29,7 +29,7 @@ class CartItem {
     }
 
     get ticketType() {
-        return this.event.ticketTypes.find(e => e.id === this._ticketTypeId);
+        return this.show.ticketTypes.find(e => e.id === this._ticketTypeId);
     }
 
     get quantity() {
@@ -56,7 +56,7 @@ class CartItem {
     }
 
     quantityPlus() {
-        if (this.quantity < this.event.maxTicketsPerPurchase) {
+        if (this.quantity < this.show.maxTicketsPerOrder) {
             this.quantity += 1;
             this.notifyChange();
         }
