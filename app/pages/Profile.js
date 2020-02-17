@@ -7,7 +7,7 @@ import TabbedContainer from '../components/TabbedContainer.js';
 import NavBar from '../components/NavBar.js';
 import formToObject from '../utils/formToObject.js';
 
-const ProfileCard = profile => {
+const ProfileCard = (profile, ordersCount) => {
     return /*html*/ `
         <div class="profileCard">
             <div class="profilePic">
@@ -16,7 +16,7 @@ const ProfileCard = profile => {
             <div>
                 <span class="profileCard-name">${profile.firstname} ${profile.lastname}</span>
                 <div class="profileCard-moreInfo">
-                    <span>Ordini effettuati: </span><span class="profileCard-ordersCount">${profile.ordersCount}</span><br>
+                    <span>Ordini effettuati: </span><span class="profileCard-ordersCount">${ordersCount}</span><br>
                     <!--<span>soldOUT coins: </span><span class="profileCard-coinsCount">${profile.coinsBalance}</span><br>-->
                 </div>
             </div>
@@ -57,7 +57,7 @@ const OrderRow = order => {
                 <div>
                     <div>
                         <span class="order-contentSummary">${order.contentSummary}</span>
-                        ${order.hasMoreTickets ? '<span class="order-theresMore"> e altri</span>' : ''}
+                        ${order.showsCount > 1 ? '<span class="order-theresMore"> e altri</span>' : ''}
                     </div>
                     <div class="order-moreInfo">
                         <span class="order-date">${Language.formatDateShort(order.date)}</span>
@@ -84,7 +84,8 @@ class ProfilePage {
     }
 
     async render() {
-        const profileCard = ProfileCard(Account.user);
+        const orders = await Account.getOrders();
+        const profileCard = ProfileCard(Account.user, orders.length);
 
         const template = /*html*/`
             <div class="page page--profile">
@@ -92,6 +93,7 @@ class ProfilePage {
                     <div class="header-content">
                         <h1>Il tuo profilo</h1>
                         ${profileCard}
+                        <button class="button button--flat btnLogout">Esci</button>
                     </div>
                 </header>
 
@@ -103,10 +105,12 @@ class ProfilePage {
         this.page = htmlToElement(template);
         const header = this.page.querySelector('header');
         header.insertBefore((new NavBar()).render(), header.firstChild);
+
+        this.page.querySelector('button.btnLogout').addEventListener('click', () => Account.logout());
         
         // Tabs
         const userInfo = UserPersonalInfo(Account.user);
-        const orderList = OrderList(await Account.getOrders());
+        const orderList = OrderList(orders);
 
         const tabs = [
             {name: 'I tuoi dati', content: userInfo},
@@ -116,9 +120,13 @@ class ProfilePage {
         const tabContainer = new TabbedContainer(tabs);
         this.page.querySelector('main').append(tabContainer.render());
 
-        userInfo.addEventListener('submit', e => {
+        userInfo.addEventListener('submit', async e => {
             e.preventDefault();
-            Account.updateUserInfo(formToObject(userInfo));
+            try {
+                await Account.updateUserInfo(formToObject(userInfo));
+            } catch (err) {
+                // TODO Inform the user about the error
+            }
         });
 
         return this.page;

@@ -76,6 +76,13 @@ class CartItem {
     notifyChange() {
         this.changeHandlers.forEach(h => h());
     }
+
+    toJson() {
+        return JSON.stringify({
+            ticketTypeId: this._ticketTypeId,
+            quantity: this._quantity
+        });
+    }
 }
 
 export default CartItem;

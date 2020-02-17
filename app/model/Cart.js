@@ -1,6 +1,7 @@
 'use strict';
 
 import Account from "./Account.js";
+import CartItem from "./CartItem.js";
 
 const tickets = [];
 const onChangeHandlers = [];
@@ -11,7 +12,20 @@ const Cart = {
             return;
         }
 
-        // TODO fetch cart from API
+        const res = await fetch('/api/cart', {headers: Account.authHeaders});
+        const items = (await res.json()).cartItems;
+
+        tickets.splice(0, tickets.length);
+
+        for (let e of items) {
+            const showRes = await fetch('/api/show/' + e.show_id);
+            const show = (await showRes.json()).show;
+            const cartItem = new CartItem(show);
+            cartItem._quantity = e.quantity;
+            cartItem._ticketTypeId = e.ticketTypeId;
+            tickets.push(cartItem);
+        }
+
         notifyChange();
     },
 
@@ -20,29 +34,67 @@ const Cart = {
     },
 
     async addTicket(ticket) {
+        const req = new Request('/api/cart', {
+            method: 'PUT',
+            headers: Account.authHeaders,
+            body: ticket.toJson()
+        });
+        const res = await fetch(req);
+
+        if (!res.ok) {
+            return new Error();
+        }
+
         tickets.push(ticket);
         notifyChange();
-
-        // TODO sync cart with API
     },
 
-    removeTicket(ticket) {
+    async removeTicket(ticket) {
         const idx = tickets.findIndex(e => e === ticket);
         
         if (idx == -1) {
             return;
         }
 
+        const req = new Request('/api/cart/' + ticket._ticketTypeId, {
+            method: 'DELETE',
+            headers: Account.authHeaders
+        });
+        const res = await fetch(req);
+
+        if (!res.ok) {
+            return new Error();
+        }
+
         tickets.splice(idx, 1);
         notifyChange();
-
-        // TODO sync cart with API
     },
 
-    clear() {
+    async clear() {
+        const req = new Request('/api/cart', {
+            method: 'DELETE',
+            headers: Account.authHeaders
+        });
+        const res = await fetch(req);
+
+        if (!res.ok) {
+            return new Error();
+        }
+
         tickets.splice(0, tickets.length);
         notifyChange();
-        // TODO sync cart with API
+    },
+
+    async placeOrder() {
+        const req = new Request('/api/cart/place-order', {
+            method: 'PUT',
+            headers: Account.authHeaders
+        });
+        const res = await fetch(req);
+
+        if (!res.ok) {
+            return new Error();
+        }
     },
 
     get isEmpty() {

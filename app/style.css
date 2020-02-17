@@ -531,7 +531,7 @@ ul.list {
 }
 
 .page > header > .header-content > h1 {
-    /* margin-top: 0; */
+    margin-top: 0;
 }
 
 /*
@@ -598,7 +598,7 @@ ul.list {
 }
 
 .page--show .header-content {
-    padding: 0 32px;
+    padding: 0 24px;
 }
 
 .page.page--show .header-title {
@@ -860,6 +860,11 @@ ul.showInfoList {
     margin-bottom: 16px;
 }
 
+.page--profile .btnLogout {
+    align-self: flex-end;
+    margin-top: 16px;
+}
+
 .page--profile .tabbedContainer > nav {
     justify-content: center;
 }
@@ -945,10 +950,6 @@ a.orderList-row {
 .page--notifications header {
     padding-left: 24px;
     padding-right: 24px;
-}
-
-.page--notifications header h1 {
-    margin-top: 0;
 }
 
 .page--notifications main {

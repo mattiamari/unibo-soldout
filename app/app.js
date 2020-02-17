@@ -30,7 +30,6 @@ const mountpoint = 'app';
 
 // Init some stuff
 Account.init();
-Cart.init();
 
 window.addEventListener('DOMContentLoaded', router);
 window.addEventListener('hashchange', router);
