@@ -1,7 +1,6 @@
 'use strict';
 
 import htmlToElement from '../utils/htmlToElement.js';
-import throttle from '../utils/throttle.js';
 
 class Slide {
     constructor(name, content, container) {
@@ -22,15 +21,11 @@ class Slide {
 
         this.container.element.addEventListener('tabChanged', () => {
             if (this.container.activeTab == this.name) {
-                this.element.parentElement.scrollTo(this.element.offsetLeft, 0);
+                this.element.parentElement.scrollTo(this.element.offsetLeft - this.element.parentElement.offsetLeft, 0);
             }
         });
     
         return this.element;
-    }
-
-    get midpointOffset() {
-        return this.element.offsetLeft + (this.element.clientWidth / 2);
     }
 }
 
@@ -88,29 +83,35 @@ class TabbedContainer {
 
         const nav = this.element.querySelector('nav');
         const slides = this.element.querySelector('.tabbedContainer-slides');
-        const slideObjs = [];
+        const slideObjs = new WeakMap();
 
-        for (let tab of this.content) {
-            const button = new TabButton(tab.name, this);
-            const slide = new Slide(tab.name, tab.content, this);
-            slideObjs.push(slide);
+        const options = {
+            root: slides,
+            rootMargin: '0px',
+            threshold: 0.6
+        };
+        const slideObserver = new IntersectionObserver(e => {
+            const currentSlide = slideObjs.get(e[0].target);
 
-            nav.append(button.render());
-            slides.append(slide.render());
-        }
-
-        slides.addEventListener('scroll', throttle(200, () => {
-            // This is the slide the user is scrolling to
-            const currentSlide = slideObjs.find(e => e.midpointOffset >= slides.scrollLeft
-                && e.midpointOffset < slides.scrollLeft + slides.clientWidth);
-            
-            if (currentSlide == this.activeTab) {
+            if (currentSlide.name == this.activeTab) {
                 return;
             }
 
             this.activeTab = currentSlide.name;
             this.element.dispatchEvent(new Event('tabScrolled'));
-        }));
+        }, options);
+
+        for (let tab of this.content) {
+            const button = new TabButton(tab.name, this);
+            const slide = new Slide(tab.name, tab.content, this);
+            const slideElement = slide.render();
+            slideObjs.set(slideElement, slide);
+
+            nav.append(button.render());
+
+            slideObserver.observe(slideElement);
+            slides.append(slideElement);
+        }
 
         // Select first tab on load
         this.selectTab(this.content[0].name);
