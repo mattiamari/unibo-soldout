@@ -13,12 +13,13 @@ const ProfileCard = (profile, ordersCount) => {
             <div class="profilePic">
                 <img src="../app/res/default-profile.jpg" alt="Profile image">
             </div>
-            <div>
+            <div class="profileInfo">
                 <span class="profileCard-name">${profile.firstname} ${profile.lastname}</span>
                 <div class="profileCard-moreInfo">
                     <span>Ordini effettuati: </span><span class="profileCard-ordersCount">${ordersCount}</span><br>
                     <!--<span>soldOUT coins: </span><span class="profileCard-coinsCount">${profile.coinsBalance}</span><br>-->
                 </div>
+                <button class="button button--flat btnLogout">Esci</button>
             </div>
         </div>`;
 };
@@ -90,7 +91,6 @@ class ProfilePage {
                     <div class="header-content">
                         <h1>Il tuo profilo</h1>
                         ${profileCard}
-                        <button class="button button--flat btnLogout">Esci</button>
                     </div>
                 </header>
 
