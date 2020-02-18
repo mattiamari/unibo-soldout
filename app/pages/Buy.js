@@ -1,6 +1,6 @@
 'use strict';
 
-import Shows from '../model/Shows.js'
+import { Shows } from '../model/Shows.js'
 import Language from '../model/Language.js';
 import CartItem from '../model/CartItem.js';
 import Cart from '../model/Cart.js';

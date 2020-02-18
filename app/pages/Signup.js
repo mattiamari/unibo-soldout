@@ -50,9 +50,14 @@ class SignupPage {
 
         header.insertBefore((new NavBar).render(), header.firstChild);
 
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async e => {
             e.preventDefault();
-            Account.signup(formToObject(form)).then(() => window.location.hash = '#/profile');
+            try {
+                await Account.signup(formToObject(form));
+                window.location.hash = '#/profile';
+            } catch (err) {
+                // TODO Inform the user about the error
+            }
         });
 
         return this.page;

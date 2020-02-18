@@ -86,7 +86,7 @@ class CartPage {
                         <a class="button button--flat" href="#/">Torna alla home</a>
                     </div>
 
-                    <a class="button button--outline btnNext" href="#/purchase-complete">Completa l'ordine</a>
+                    <button class="button button--outline btnNext">Completa l'ordine</button>
                 </main>
             </div>
         `;
@@ -95,6 +95,10 @@ class CartPage {
         this.page = htmlToElement(template);
         const header = this.page.querySelector('header');
         header.insertBefore((new NavBar()).render(), header.firstChild);
+
+        this.page.querySelector('button.btnNext').addEventListener('click', () => {
+            Cart.placeOrder().then(() => window.location.hash = '#/purchase-complete');
+        });
 
         this.refreshDisplay();
 

@@ -1,6 +1,6 @@
 'use strict';
 
-import Shows from '../model/Shows.js';
+import { Shows } from '../model/Shows.js';
 import Language from '../model/Language.js';
 
 import NavBar from '../components/NavBar.js';
@@ -10,7 +10,6 @@ import Statusbar from '../utils/statusbar.js';
 class ShowPage {
     constructor(params) {
         this.showId = params.id;
-        this.page = null;
     }
 
     async render() {
@@ -40,7 +39,11 @@ class ShowPage {
                             </li>
                             <li>
                                 <i class="fa fa-map-marker-alt" aria-label="Show location"></i>
-                                <span>${show.location}</span>
+                                <a href="#/venue/${show.venueId}">${show.location}</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-user" aria-label="Show artist"></i>
+                                <a href="#/artist/${show.artistId}">${show.artist}</a>
                             </li>
                             <li>
                                 <i class="fa fa-ticket-alt" aria-label="Ticket price"></i>
@@ -55,11 +58,11 @@ class ShowPage {
             </div>
         `;
 
-        this.page = htmlToElement(template);
-        const header = this.page.querySelector('header');
+        const page = htmlToElement(template);
+        const header = page.querySelector('header');
         header.insertBefore((new NavBar()).render(), header.firstChild);
 
-        return this.page;
+        return page;
     }
 
     afterRender() {

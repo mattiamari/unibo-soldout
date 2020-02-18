@@ -40,9 +40,14 @@ class LoginPage {
 
         header.insertBefore((new NavBar).render(), header.firstChild);
 
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async e => {
             e.preventDefault();
-            Account.login(formToObject(form)).then(() => window.location.hash = '#/profile');
+            try {
+                await Account.login(formToObject(form));
+                window.location.hash = '#/profile';
+            } catch (err) {
+                // TODO Inform the user that the login was unsuccessful
+            }
         });
         
         return this.page;

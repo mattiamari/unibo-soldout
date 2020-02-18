@@ -59,9 +59,12 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
     return $response;
 });
 
+$app->get('/shows', $showsSummaryCategorizedRoute);
 $app->get('/shows/{category_id}', $showsSummaryByCategoryRoute);
 $app->get('/show-categories', $showCategoriesRoute);
 $app->get('/show/{id}', $showDetailsRoute);
+$app->get('/venue/{id}', $venueDetailsRoute);
+$app->get('/artist/{id}', $artistDetailsRoute);
 
 $app->get('/account', $accountDetailsRoute)
     ->add($authMiddleware);

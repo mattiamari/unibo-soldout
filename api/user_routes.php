@@ -75,7 +75,8 @@ $orderDetailsRoute = function (Request $request, ResponseInterface $response, $a
 
     $sql = "SELECT `show`.title, `show`.date,
             CONCAT(venue.name, ', ', city.name, ', ', country.name) AS location,
-            ticket_type.name AS ticketType
+            ticket_type.name AS `type`,
+            ticket_type.price
         FROM cart_item
         JOIN cart ON cart.id = cart_item.cart_id
         JOIN `order` ON `order`.cart_id = cart.id
@@ -146,8 +147,8 @@ $loginRoute = function (Request $request, ResponseInterface $response, $args) {
     $apiKeyQ->bindValue(':user_id', $user['id']);
     $apiKeyQ->bindValue(':expiry', $apiKey['expiry']);
 
-    if (!$q->execute()) {
-        $response->getBody()->write(error($q->errorInfo()[2]));
+    if (!$apiKeyQ->execute()) {
+        $response->getBody()->write(error($apiKeyQ->errorInfo()[2]));
         return $response->withStatus(500);
     }
 
@@ -220,7 +221,7 @@ $signupRoute = function (Request $request, ResponseInterface $response, $args) {
 
 $logoutRoute = function (Request $request, ResponseInterface $response, $args) {
     try {
-        $auth = parseAuthHeader($request->getHeader('Authentication')[0]);
+        $auth = parseAuthHeader($request->getHeader('x-auth')[0]);
 
         $sql = "DELETE FROM api_key WHERE user_id = :user_id AND api_key = :api_key";
         $q = $this->get('db')->prepare($sql);
@@ -231,7 +232,7 @@ $logoutRoute = function (Request $request, ResponseInterface $response, $args) {
         // noop
     }
 
-    return $response->withStatus(401);
+    return $response->withStatus(200);
 };
 
 $cartRoute = function (Request $request, ResponseInterface $response, $args) {

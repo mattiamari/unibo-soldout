@@ -10,8 +10,10 @@ import ProfilePage from './pages/Profile.js';
 import LoginPage from './pages/Login.js';
 import SignupPage from './pages/Signup.js';
 import Account from './model/Account.js';
-import Cart from './model/Cart.js';
 import NotificationsPage from './pages/Notifications.js';
+import OrderDetailsPage from './pages/OrderDetails.js';
+import VenuePage from './pages/Venue.js';
+import ArtistPage from './pages/Artist.js';
 
 const routes = {
     '/': HomePage,
@@ -24,13 +26,15 @@ const routes = {
     '/login': LoginPage,
     '/signup': SignupPage,
     '/notifications': NotificationsPage,
+    '/order/:id': OrderDetailsPage,
+    '/venue/:id': VenuePage,
+    '/artist/:id': ArtistPage,
 };
 
 const mountpoint = 'app';
 
 // Init some stuff
 Account.init();
-Cart.init();
 
 window.addEventListener('DOMContentLoaded', router);
 window.addEventListener('hashchange', router);
@@ -67,12 +71,13 @@ async function router() {
 
         // Route matched
         page = routes[route];
+        break;
     }
 
     if (pageInstance && pageInstance.destroy) {
         pageInstance.destroy();
     }
-
+    
     pageInstance = new page(params);
     const rendered = await pageInstance.render();
     

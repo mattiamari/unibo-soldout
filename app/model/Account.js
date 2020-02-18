@@ -1,5 +1,7 @@
 'use strict';
 
+import Order from "./Order.js";
+
 const headers = new Headers();
 headers.set('Content-Type', 'application/json');
 
@@ -8,6 +10,7 @@ const Account = {
 
     init() {
         this._user = JSON.parse(localStorage.getItem('user'));
+        this._login = JSON.parse(localStorage.getItem('login'));
     },
 
     get isLoggedIn() {
@@ -16,6 +19,13 @@ const Account = {
 
     get user() {
         return this._user;
+    },
+
+    get authHeaders() {
+        const headers = new Headers();
+        headers.set('Content-Type', 'application/json');
+        headers.set('X-Auth', btoa(this._login.userId + ':' + this._login.key));
+        return headers;
     },
 
     async login(credentials) {
@@ -27,14 +37,30 @@ const Account = {
         const res = await fetch(req);
 
         if (!res.ok) {
-            return;
+            return new Error('API returned ' + res.status);
         }
 
-        let account = await fetch('/api/account');
+        this._login = (await res.json()).login;
+
+        let account = await fetch('/api/account', {headers: this.authHeaders});
         account = await account.json();
 
         this._user = account.account;
         this.updateLocalStorage();
+    },
+
+    async logout() {
+        const req = new Request('/api/logout', {
+            method: 'GET',
+            headers: this.authHeaders
+        });
+
+        const res = await fetch(req);
+
+        this._user = null;
+        this._login = null;
+        this.updateLocalStorage();
+        window.location = '/app/';
     },
 
     async signup(signupData) {
@@ -46,10 +72,12 @@ const Account = {
         const res = await fetch(req);
 
         if (!res.ok) {
-            return;
+            return new Error('API returned ' + res.status);
         }
 
-        let account = await fetch('/api/account');
+        this._login = (await res.json()).login;
+
+        let account = await fetch('/api/account', {headers: this.authHeaders});
         account = await account.json();
         
         this._user = account.account;
@@ -63,19 +91,26 @@ const Account = {
     },
 
     async getOrders() {
-        let res = await fetch('/api/orders');
+        let res = await fetch('/api/orders', {headers: this.authHeaders});
         res = await res.json();
         return res.orders;
     },
 
+    async getOrderDetails(orderId) {
+        let res = await fetch('/api/order/' + orderId, {headers: this.authHeaders});
+        res = await res.json();
+        return Object.assign(new Order(), res.order);
+    },
+
     async getNotifications() {
-        let res = await fetch('/api/notifications');
+        let res = await fetch('/api/notifications', {headers: this.authHeaders});
         res = await res.json();
         return res.notifications;
     },
 
     updateLocalStorage() {
         localStorage.setItem('user', JSON.stringify(this._user));
+        localStorage.setItem('login', JSON.stringify(this._login));
     },
 };
 

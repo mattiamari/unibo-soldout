@@ -197,7 +197,7 @@ h2 {
     display: flex;
     flex-direction: row;
     height: 240px;
-    overflow: scroll;
+    overflow-x: scroll;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     padding: 16px 0;
@@ -406,7 +406,7 @@ a.button {
     display: flex;
     flex-direction: row;
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
     scroll-behavior: smooth;
     white-space: nowrap;
 }
@@ -415,7 +415,7 @@ a.button {
     display: flex;
     flex-direction: row;
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
 }
@@ -526,12 +526,13 @@ ul.list {
     All pages
 */
 .page {
+    position: relative;
     background: linear-gradient(165deg, rgba(var(--color-primary-rgb), 0.2), var(--color-background) 30%);
     animation: fade-in .3s ease-out;
 }
 
 .page > header > .header-content > h1 {
-    /* margin-top: 0; */
+    margin-top: 0;
 }
 
 /*
@@ -568,57 +569,89 @@ ul.list {
     background-color: var(--color-primary);
 }
 
-.page--home main {
-    height: 1000px;
+.page--home > main {
+    position: relative;
 }
 
 .page--home main>div {
     margin-bottom: 16px;
 }
 
+.page--home .slider-slide {
+    max-width: 350px;
+}
+
+.page--home .tabbedContainer-slide .card {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 /*
-    Show page
+    Show, Artist and Venue pages
 */
-.page.page--show {
+.page.page--show,
+.page.page--artist,
+.page.page--venue {
     background: unset;
 }
 
-.page--show .header {
+.page--show .header,
+.page--artist .header,
+.page--venue .header {
     height: 50%;
 }
 
-.page--show .header-bg {
+.page--show .header-bg,
+.page--artist .header-bg,
+.page--venue .header-bg {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
 }
 
-.page--show .header-bg-blend {
+.page--show .header-bg-blend,
+.page--artist .header-bg-blend,
+.page--venue .header-bg-blend {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, var(--color-background) 100%);
 }
 
-.page--show .header-content {
-    padding: 0 32px;
+.page--show .header-content,
+.page--artist .header-content,
+.page--venue .header-content {
+    padding: 0 24px;
 }
 
-.page.page--show .header-title {
+.page.page--show .header-title,
+.page.page--artist .header-title,
+.page.page--venue .header-title {
     margin-top: auto;
     margin-bottom: 48px;
     text-align: center;
 }
 
-.page--show main {
+.page--show main,
+.page--artist main,
+.page--venue main {
     position: relative;
     margin-top: -24px;
     padding: 0 24px 24px 24px;
 }
 
-.page--show h4 {
+.page--show h4,
+.page--artist h4,
+.page--venue h4 {
     margin: 24px 0 8px 0;
 }
 
-.page--show p {
+.page--show p,
+.page--artist p,
+.page--venue p {
     margin: 0;
+}
+
+.page--show .showInfoList a {
+    text-decoration: underline;
+    color: var(--color-text);
 }
 
 ul.showInfoList {
@@ -860,6 +893,11 @@ ul.showInfoList {
     margin-bottom: 16px;
 }
 
+.page--profile .btnLogout {
+    align-self: flex-end;
+    margin-top: 16px;
+}
+
 .page--profile .tabbedContainer > nav {
     justify-content: center;
 }
@@ -881,6 +919,16 @@ ul.showInfoList {
 .profileCard .profilePic > img {
     width: 100%;
     border-radius: 50%;
+}
+
+.profileCard .profileInfo {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+
+.profileCard .btnLogout {
+    align-self: flex-end;
 }
 
 .profileCard-moreInfo {
@@ -947,10 +995,6 @@ a.orderList-row {
     padding-right: 24px;
 }
 
-.page--notifications header h1 {
-    margin-top: 0;
-}
-
 .page--notifications main {
     padding: 0 16px;
 }
@@ -987,7 +1031,7 @@ a.orderList-row {
 }
 
 .page--orderdetails .ticketList li {
-    padding: 16px 24px;
+    padding: 16px;
 }
 
 .page--orderdetails .ticketList .ticket {
@@ -998,7 +1042,7 @@ a.orderList-row {
     border-top: 4px dashed var(--color-primary-darker);
     border-bottom: 4px dashed var(--color-background-contrast);
     font-size: 1.1em;
-    max-width: 400px;
+    max-width: 380px;
     min-width: 248px;
     box-shadow: var(--shadow-3);
 }
@@ -1151,5 +1195,110 @@ a.orderList-row {
     }
     100% {
         opacity: 1;
+    }
+}
+
+/*
+    Responsive
+*/
+@media screen and (min-width: 768px) {
+    .page--home .tabbedContainer {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--home .searchbar {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--login form,
+    .page--signup form {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--profile main > .tabbedContainer {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--profile form {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--orderdetails main {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--buy section.buyStep {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--cart > main {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .page > main,
+    .page > header {
+        max-width: 850px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .page--home > header,
+    .page--show > header,
+    .page--artist > header,
+    .page--venue > header {
+        max-width: unset;
+    }
+    
+    .page.page--home > main {
+        max-width: 1100px;
+    }
+
+    .page--home .header {
+        height: 60%;
+        max-height: unset;
+    }
+
+    .page--home .searchbar {
+        margin-top: 56px;
+    }
+
+    .page--home > main {
+        top: -56px;
+    }
+
+    .page--cart > main {
+        max-width: 500px;
+    }
+
+    .slider .slider-content {
+        overflow: visible;
+        flex-wrap: wrap;
+        height: unset;
+    }
+
+    .slider .slider-content .slider-slide {
+        margin-bottom: 24px;
+    }
+
+    .tabbedContainer-slides {
+        overflow-x: hidden;
     }
 }

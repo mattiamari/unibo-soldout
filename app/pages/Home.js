@@ -1,6 +1,6 @@
 'use strict';
 
-import Shows from '../model/Shows.js';
+import { Shows } from '../model/Shows.js';
 import NavBar from '../components/NavBar.js';
 import ShowSlider from '../components/ShowSlider.js';
 import htmlToElement from '../utils/htmlToElement.js';
