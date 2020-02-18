@@ -576,6 +576,15 @@ ul.list {
     margin-bottom: 16px;
 }
 
+.page--home .slider-slide {
+    max-width: 350px;
+}
+
+.page--home .tabbedContainer-slide .card {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 /*
     Show, Artist and Venue pages
 */
@@ -906,6 +915,16 @@ ul.showInfoList {
     border-radius: 50%;
 }
 
+.profileCard .profileInfo {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+
+.profileCard .btnLogout {
+    align-self: flex-end;
+}
+
 .profileCard-moreInfo {
     font-size: 0.8em;
     margin-top: 8px;
@@ -1006,7 +1025,7 @@ a.orderList-row {
 }
 
 .page--orderdetails .ticketList li {
-    padding: 16px 24px;
+    padding: 16px;
 }
 
 .page--orderdetails .ticketList .ticket {
@@ -1017,7 +1036,7 @@ a.orderList-row {
     border-top: 4px dashed var(--color-primary-darker);
     border-bottom: 4px dashed var(--color-background-contrast);
     font-size: 1.1em;
-    max-width: 400px;
+    max-width: 380px;
     min-width: 248px;
     box-shadow: var(--shadow-3);
 }
@@ -1170,5 +1189,73 @@ a.orderList-row {
     }
     100% {
         opacity: 1;
+    }
+}
+
+/*
+    Responsive
+*/
+@media screen and (min-width: 768px) {
+    .page--home .tabbedContainer {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--login form,
+    .page--signup form {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--profile main > .tabbedContainer {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--profile form {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--orderdetails main {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--buy section.buyStep {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page--cart > main {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .page > main,
+    .page > header {
+        max-width: 850px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .page--home > header,
+    .page--show > header,
+    .page--artist > header,
+    .page--venue > header {
+        max-width: unset;
+    }
+
+    .page--cart > main {
+        max-width: 500px;
     }
 }
