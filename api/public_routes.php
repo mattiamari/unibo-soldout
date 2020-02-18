@@ -55,8 +55,11 @@ $showDetailsRoute = function (Request $request, ResponseInterface $response, $ar
     // Fetch Show
     $sql = "SELECT `show`.id, `show`.title, `show`.date,
             CONCAT(venue.name, ', ', city.name, ', ', country.name) AS location,
-            `show`.description
+            `show`.description,
+            venue.id AS venueId,
+            artist.name AS artist, artist.id AS artistId
         FROM `show`
+        JOIN artist ON artist.id = `show`.artist_id
         JOIN venue ON venue.id = `show`.venue_id
         JOIN city ON city.id = venue.city_id
         JOIN country ON country.id = city.country_id

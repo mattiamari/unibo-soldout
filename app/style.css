@@ -197,7 +197,7 @@ h2 {
     display: flex;
     flex-direction: row;
     height: 240px;
-    overflow: scroll;
+    overflow-x: scroll;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     padding: 16px 0;
@@ -406,7 +406,7 @@ a.button {
     display: flex;
     flex-direction: row;
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
     scroll-behavior: smooth;
     white-space: nowrap;
 }
@@ -415,7 +415,7 @@ a.button {
     display: flex;
     flex-direction: row;
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
 }
@@ -526,6 +526,7 @@ ul.list {
     All pages
 */
 .page {
+    position: relative;
     background: linear-gradient(165deg, rgba(var(--color-primary-rgb), 0.2), var(--color-background) 30%);
     animation: fade-in .3s ease-out;
 }
@@ -568,8 +569,8 @@ ul.list {
     background-color: var(--color-primary);
 }
 
-.page--home main {
-    height: 1000px;
+.page--home > main {
+    position: relative;
 }
 
 .page--home main>div {
@@ -646,6 +647,11 @@ ul.list {
 .page--artist p,
 .page--venue p {
     margin: 0;
+}
+
+.page--show .showInfoList a {
+    text-decoration: underline;
+    color: var(--color-text);
 }
 
 ul.showInfoList {
@@ -1202,6 +1208,12 @@ a.orderList-row {
         margin-right: auto;
     }
 
+    .page--home .searchbar {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .page--login form,
     .page--signup form {
         max-width: 400px;
@@ -1254,8 +1266,39 @@ a.orderList-row {
     .page--venue > header {
         max-width: unset;
     }
+    
+    .page.page--home > main {
+        max-width: 1100px;
+    }
+
+    .page--home .header {
+        height: 60%;
+        max-height: unset;
+    }
+
+    .page--home .searchbar {
+        margin-top: 56px;
+    }
+
+    .page--home > main {
+        top: -56px;
+    }
 
     .page--cart > main {
         max-width: 500px;
+    }
+
+    .slider .slider-content {
+        overflow: visible;
+        flex-wrap: wrap;
+        height: unset;
+    }
+
+    .slider .slider-content .slider-slide {
+        margin-bottom: 24px;
+    }
+
+    .tabbedContainer-slides {
+        overflow-x: hidden;
     }
 }

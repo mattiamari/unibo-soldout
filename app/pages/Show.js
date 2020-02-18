@@ -39,7 +39,11 @@ class ShowPage {
                             </li>
                             <li>
                                 <i class="fa fa-map-marker-alt" aria-label="Show location"></i>
-                                <span>${show.location}</span>
+                                <a href="#/venue/${show.venueId}">${show.location}</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-user" aria-label="Show artist"></i>
+                                <a href="#/artist/${show.artistId}">${show.artist}</a>
                             </li>
                             <li>
                                 <i class="fa fa-ticket-alt" aria-label="Ticket price"></i>
