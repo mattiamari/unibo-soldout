@@ -1,11 +1,23 @@
 <?php
+
+require "db.php";
 /* query di ricerca che può essere con AJAX oppure si può fare con un tasto cerca
 Bisogna passare id dell'evento a cui associare il luogo e si aggiunge il parametro in get di ricerca
 (query da fare solo se si passa quel valore in get)*/
-$locations = [
-  ['name' => 'ciao', 'address' => 'dio cane'],
-  ['name' => 'villa della merda', 'address' => 'dio cane'],
-];
+if(!isset($_GET["id"])) {
+  die("Nessun evento selezionato");
+}
+$id = $_GET["id"];
+
+if(isset($_POST["venue"])) {
+  $db->updateVenue($_POST["venue"], $_GET["id"]);
+  header("location: ./formEventi.php?id={$_GET['id']}");
+}
+
+
+if(isset($_GET["search"]) && $_GET["search"]!="") {
+  $venues = $db->searchVenue($_GET["search"]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,23 +31,31 @@ $locations = [
   </head>
   <body>
     <h1 class="title">Seleziona luogo</h1>
-    <div>
-      <input class="input" type="text" placeholder="Cerca luogo...">
-    </div>
-    <?php foreach($locations as $location): ?>
-    <div class="box">
-      <article class="media">
-        <div class="media-left">
-          <figure class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-          </figure>
+    <form>
+      <div class="field">
+        <div class="control">
+          <input type="hidden" name="id" value="<?php echo $id ?>">
+          <input id="search" name="search" class="input" type="text" placeholder="Cerca luogo">
+          <button type="submit" class="button is-right">Cerca</button>
         </div>
-        <div class="media-content">
-          <div class="content">
-            <span><?php echo $location['name'] ?></span><br>
-            <span><?php echo $location['address'] ?></span>
-          </article>
-    </div>
-    <?php endforeach; ?>
+      </div>
+    </form>
+      <form method="POST">
+      <?php
+        if(isset($venues)) {
+          foreach($venues as $venue) {
+            echo "<label class=\"radio\">
+            <input type=\"radio\" name=\"venue\" value=\"{$venue['id']}\">
+            {$venue['name']}<br>
+            {$venue['address']}
+          </label><br>";
+          }
+        }
+        
+      ?>
+      
+      <br>
+      <button type="submit" class="button">Conferma</button>
+      </form>
   </body>
 </html>

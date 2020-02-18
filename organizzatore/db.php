@@ -1,17 +1,6 @@
 <?php
 
-function generateId() {
-    $id = base64_encode(random_bytes(8));
-    $id = str_replace("+", "-", $id);
-    $id = str_replace("/", "_", $id);
-    $id = str_replace("=", "", $id);
-    return $id;
-}
-
-function generateOrderRef() {
-    return random_int(1, 9) * 1000
-        + random_int(0, 999);
-}
+require_once "../api/idgen.php";
 
 class Evento {
     public $id;
@@ -62,7 +51,7 @@ class Db {
                 sum(cart_item.quantity * ticket_type.price) AS total_profit
             FROM `show` 
             LEFT JOIN ticket_type ON ticket_type.show_id = `show`.id
-            JOIN cart_item ON cart_item.ticket_type_id = ticket_type.id
+            LEFT JOIN cart_item ON cart_item.ticket_type_id = ticket_type.id
             GROUP BY `show`.id");
         $result = $this->pdo->query($sql);
         return $result->fetchAll();
@@ -85,7 +74,7 @@ class Db {
     function getShowCategoryList() {
         $sql = "SELECT id, name FROM show_category";
         $result = $this->pdo->query($sql);
-        return $result->fetchAll();
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function getArtistById($artistId) {
@@ -142,18 +131,19 @@ class Db {
         return $sql->execute();
     }
 
-    function insertNewShow($id, $title, $date, $description, $show_category, $max_tickets_per_order, $venue_id, $artist_id, $enabled) {
-        $sql = $this->pdo->prepare("INSERT INTO `show` (id, title, date, description show_category, max_tickets_per_order, venue_id, artist_id, `enabled`) VALUES (:id, :title, :show_Category, :max_ticket_per_order, :venue_id, :artist_id, `:enabled`)");
+    function insertNewShow($id, $title, $date, $description, $manager_id, $show_category, $max_tickets_per_order, $enabled) {
+        $sql = $this->pdo->prepare("INSERT INTO `show` (id, title, date, description, manager_id, show_category_id, max_tickets_per_order, enabled) VALUES (:id, :title, :date, :description, :manager_id, :show_category_id, :max_tickets_per_order, :enabled)");
         $sql->bindParam(':id', $id);
         $sql->bindParam(':title', $title);
         $sql->bindParam(':date', $date);
         $sql->bindParam(':description', $description);
-        $sql->bindParam(':show_category', $show_category);
+        $sql->bindParam(':manager_id', $manager_id);
+        $sql->bindParam(':show_category_id', $show_category);
         $sql->bindParam(':max_tickets_per_order', $max_tickets_per_order, PDO::PARAM_INT);
-        $sql->bindParam(':venue_id', $venue_id);
-        $sql->bindParam(':artist_id', $artist_id);
         $sql->bindParam(':enabled', $enabled, PDO::PARAM_INT);
-        return $sql->execute();
+        if (!$sql->execute()) {
+            var_dump($sql->errorInfo());
+        }
     }
 
     function insertNewTicketType($id, $showId, $name, $description, $price, $max_tickets) {
@@ -213,19 +203,17 @@ class Db {
         return $sql->execute();
     }
 
-    function updateEventById($eventId, $title, $date, $description, $show_category_id, $max_tickets_per_order, $artist_id, $venue_id){
+    function updateEventById($eventId, $title, $date, $description, $show_category_id, $max_tickets_per_order){
         $sql = $this->pdo->prepare("UPDATE `show` 
                 SET title=:title, date=:date, description=:description, 
                 show_category_id=:show_category_id, max_tickets_per_order=:max_tickets_per_order,
-                 artist_id=:artist_id, venue_id=:venue_id WHERE id=:eventId");
+                WHERE id=:eventId");
         $sql->bindParam(':eventId',$eventId);
         $sql->bindParam(':title',$title);
         $sql->bindParam(':date',$date);
         $sql->bindParam(':description',$description);
         $sql->bindParam(':show_category_id',$show_category_id);
         $sql->bindParam(':max_tickets_per_order', $max_tickets_per_order);
-        $sql->bindParam(':artist_id',$artist_id);
-        $sql->bindParam(':venue_id',$venue_id);
         return $sql->execute();
     }
 
@@ -324,14 +312,17 @@ class Db {
     }
 
     function updateImage($subject_id,$subject, $name, $type, $alt) {
-        $sql = $this->pdo->prepare("insert into image values (:subject_id, :subject, :name, :type, :alt)
-                on duplicate key update name = :name, altText = :alt");
+        $sql = $this->pdo->prepare("insert into image values (:subject_id, :subject, :name, :type, :altText)
+                on duplicate key update name = :name, altText = :altText");
         $sql->bindParam(':subject_id', $subject_id);
         $sql->bindParam(':subject', $subject);
         $sql->bindParam(':name', $name);
         $sql->bindParam(':type', $type);
-        $sql->bindParam(':alt', $alt);
-        $result = $sql->execute();
+        $sql->bindParam(':altText', $alt);
+
+        if (!$sql->execute()) {
+            var_dump($sql->errorInfo());
+        }
     }
 
     function insertUser($id, $email, $password, $salt) {
@@ -343,8 +334,76 @@ class Db {
         $result = $sql->execute();
     }
 
+    function getManager($userId) {
+        $sql = $this->pdo->prepare("SELECT user_id, enabled FROM manager 
+        JOIN manager ON manager.user_id = `user`.id
+        WHERE user_id = :user_id");
+        $sql->bindParam(':user_id', $userId);
+        $result = $sql->execute();
+        return $sql->fetchAll();
+    }
+
+    function checkEmail($email) {
+        $sql = $this->pdo->prepare("SELECT user.* FROM manager
+        JOIN user ON user.id = manager.user_id
+        WHERE email = :email");
+         $sql->bindParam(':email', $email);
+         $result = $sql->execute();
+         return $sql->fetch();
+    }
+
+    function searchVenue($name) {
+        $sql = $this->pdo->prepare("SELECT * FROM venue
+        WHERE name like :name");
+        $sql->bindValue(':name', "%" . $name . "%");
+        $result = $sql->execute();
+         return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function searchArtist($name) {
+        $sql = $this->pdo->prepare("SELECT * FROM artist
+        WHERE name like :name");
+        $sql->bindValue(':name', "%" . $name . "%");
+        $result = $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function updateVenue($venue_id, $eventId) {
+        $sql = $this->pdo->prepare("UPDATE `show` SET venue_id=:venue_id WHERE id=:id");
+        $sql->bindParam(':venue_id', $venue_id);
+        $sql->bindParam(':id', $eventId);
+        
+        if (!$sql->execute()) {
+            var_dump($sql->errorInfo());
+        }
+    }
+
+    function updateArtist($artist_id, $eventId) {
+        $sql = $this->pdo->prepare("UPDATE `show` SET artist_id=:artist_id WHERE id=:id");
+        $sql->bindParam(':artist_id', $artist_id);
+        $sql->bindParam(':id', $eventId);
+
+        if (!$sql->execute()) {
+            var_dump($sql->errorInfo());
+        }
+    }
+}
+
+function saveImg($img, $subjectId ,$type) {
+    if ($img['error']) {
+        return null;
+    }
+
+    $imgName = urlencode($img["name"]);
+    $destPath = str_replace("/", DIRECTORY_SEPARATOR, "../app/i/" . $subjectId . "/" . $type . "/");
     
-    
+    if (!file_exists($destPath)) {
+        mkdir($destPath, 0644, true);
+    }
+
+    move_uploaded_file($img["tmp_name"], $destPath . $imgName);
+
+    return $imgName;
 }
 
 try {

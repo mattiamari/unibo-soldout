@@ -1,27 +1,3 @@
-<?php
-
-require "../api/auth.php";
-require "db.php";
-session_start();
-if ($_SERVER["REQUEST_METHOD"]=="POST"){
-    $user = $db->checkEmail($_POST["email"]);
-    if (!$user) {
-        die("Login fallito");
-    }
-
-    $password = hashPassword($_POST['password'], $user['salt']);
-    if ($password !== $user['password']) {
-        die("Login fallito");
-    }
-
-    $_SESSION["login"] = true;
-    $_SESSION["manager_id"] = $user["id"];
-        header("location: ./visualizzaEventi.php");
-}
-
-
-
-?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -32,8 +8,8 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
   <body>
-        <h1 class="title">Login</h1>
-      <form action="./login.php" method="POST">
+      <h1 class="title">Registrazione</h1>
+      <form action="./signup.php" method="POST">
         <div class="field">
             <label class="label" for="email">Email</label>
             <div class="control">

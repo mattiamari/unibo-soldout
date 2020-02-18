@@ -1,5 +1,10 @@
 <?php
 
+session_start();
+if(!$_SESSION["login"]) {
+    die("Utente non loggato");
+}
+
 require "db.php";
 /* query per prendere gli eventi con tutti i campi(titolo,categoria,data,biglietti)
 query per modificare un evento e eliminarlo(fai una delete per eliminare e update per aggiornare 

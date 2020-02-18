@@ -1,6 +1,6 @@
 <?php
 
-require_once 'idgen.php';
+require_once __DIR__ . '/idgen.php';
 
 function hashPassword($password, $salt) {
     return hash('sha256', $salt . $password);

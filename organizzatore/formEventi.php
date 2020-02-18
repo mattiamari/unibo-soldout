@@ -36,9 +36,10 @@
     }
     $date = date_create($event["date"]);
     $date = date_format($date, 'Y-m-d\TH:i');
-    $showCategory = $db->getShowCategoryList();
     $isEventSet = true;
   }
+
+  $showCategory = $db->getShowCategoryList();
 
 
 
@@ -49,8 +50,8 @@
         ."<td>{$ticketType['name']}</td>"
         ."<td>{$ticketType['price']}</td>"
         ."<td>{$ticketType['max_tickets']}</td>"
-        ."<td><button type=\"submit\" formaction=\"salvaEvento.php?redir=popupBiglietto.php%3Fid={$ticketType['show_id']}%26idTicket={$ticketType['id']}\">Modifica</td>"
-        ."<td><button type=\"submit\" formaction=\"salvaEvento.php?id={$ticketType['show_id']}&idTicket={$ticketType['id']}&action=deleteTicketType&redir=formEventi.php%3Fid={$ticketType['show_id']}\">Elimina</td>"
+        ."<td><button type=\"submit\" formaction=\"salvaEvento.php?redir=popupBiglietto.php%3FidTicket={$ticketType['id']}%26\">Modifica</td>"
+        ."<td><button type=\"submit\" formaction=\"salvaEvento.php?id={$ticketType['show_id']}&idTicket={$ticketType['id']}&action=deleteTicketType&redir=formEventi.php%3F\">Elimina</td>"
       ."</tr>";
   }
 ?>
@@ -67,7 +68,7 @@
   </head>
   <body>
     <h1 class="title">Nuovo evento</h1>
-    <form enctype="multipart/form-data" action="salvaEvento.php?redir=formEventi.php%3Fid=<?php echo $id?>" method="POST">
+    <form enctype="multipart/form-data" action="salvaEvento.php?redir=formEventi.php%3F" method="POST">
       <?php 
         if($id) {
           echo "<input type=\"hidden\" name=\"id\" value=\"$id\"";
@@ -88,9 +89,12 @@
       <label for="show_category" class="label">Categoria Evento</label>
       <select required name="show_category" id="">
         <?php 
-          foreach($showCategory as $category) {
-            echo "<option value={$category['id']}>{$category['name']}</option>";
+          if($showCategory!=NULL) {
+            foreach($showCategory as $category) {
+              echo "<option value={$category['id']}>{$category['name']}</option>";
+            }
           }
+          
         ?>
       </select>
       <div class="field">
@@ -101,19 +105,20 @@
       <h2>Artista</h2>
       <label for="artist"></label>
       <label for="buttonArtist"><?php if($isArtistSet) echo $artist["name"]?></label>
-        <button id="buttonArtist" type="submit" formaction="./salvaEvento.php?redir=selezionaArtista.php%3Fid=<?php echo $id ?>" class="button">Scegli</a>
+        <button id="buttonArtist" type="submit" formaction="./salvaEvento.php?redir=selezionaArtista.php%3F" class="button">Scegli</a>
       </div>
 
       <div class="field">
       <h2>Luogo</h2>
       <label for="venue"></label>
       <label for="buttonVenue"><?php if($isVenueSet) echo $venue["name"]?></label>
-        <button id="buttonVenue" type="submit" formaction="./salvaEvento.php?redir=popupLuogo.php&<?php echo $id ?> " class="button">Scegli</a>
+        <button id="buttonVenue" type="submit" formaction="./salvaEvento.php?redir=popupLuogo.php%3F" class="button">Scegli</a>
       </div>
+
       <label for="imgV"class="label">Immagine verticale</label>
       <div class="file has-name">
         <label class="file-label">
-        <input id="imgV" class="file-input" type="file" name="imgV" accept=".jpg, .jpeg, .jpg" name="img1">  
+        <input id="imgV" class="file-input" type="file" name="imgV" accept=".jpg, .jpeg, .jpg">  
         <span class="file-cta">
             <span class="file-icon">
               <i class="fas fa-upload"></i>
@@ -135,7 +140,7 @@
       <label for="imgO" class="label">Immagine orizzontale</label>
       <div class="file has-name">
         <label class="file-label">
-        <input id="imgO" class="file-input" type="file" name="imgO" accept=".jpg, .jpeg, .jpg" name="img2">
+        <input id="imgO" class="file-input" type="file" name="imgO" accept=".jpg, .jpeg, .jpg">
           <span class="file-cta">
             <span class="file-icon">
               <i class="fas fa-upload"></i>
@@ -164,7 +169,7 @@
         <label class="label">Biglietti</label>
         <table class="table">
             <thead>
-            <button type="submit" formaction="salvaEvento.php?redir=popupBiglietto.php%3Fid=<?php echo $id ?> " class="button">Nuova tipologia</a>
+            <button type="submit" formaction="salvaEvento.php?redir=popupBiglietto.php%3F" class="button">Nuova tipologia</a>
             </thead>
             <th>Nome</th>
             <th>Prezzo</th>

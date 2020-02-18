@@ -1,12 +1,23 @@
 <?php
+
+require "db.php";
 /* query di ricerca che può essere con AJAX oppure si può fare con un tasto cerca
 Bisogna passare id dell'evento a cui associare l'artista e si aggiunge il parametro in get di ricerca
 (query da fare solo se si passa quel valore in get)
 Possibilità di associare l'immagine*/
-$artisti = [
-  ['name' => 'dio'],
-  ['name' => 'mari'],
-];
+if(!isset($_GET["id"])) {
+  die("Nessun evento selezionato");
+}
+$id = $_GET["id"];
+
+if(isset($_POST["artist"])) {
+    $db->updateArtist($_POST["artist"],  $_GET["id"]);
+    header("location: ./formEventi.php?id={$_GET['id']}");
+}
+
+if(isset($_GET["search"]) && $_GET["search"]!="") {
+  $artists = $db->searchArtist($_GET["search"]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,22 +31,28 @@ $artisti = [
   </head>
   <body>
     <h1 class="title">Seleziona artista</h1>
-    <div>
-      <input class="input" type="text" placeholder="Cerca artista...">
-    </div>
-    <?php foreach($artisti as $artista): ?>
-    <div class="box">
-      <article class="media">
-        <div class="media-left">
-          <figure class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-          </figure>
+    <form>
+      <div class="field">
+        <div class="control">
+          <input type="hidden" name="id" value="<?php echo $id ?>">
+          <input id="search" name="search" class="input" type="text" placeholder="Cerca artista">
+          <button type="submit" class="button is-right">Cerca</button>
         </div>
-        <div class="media-content">
-          <div class="content">
-            <span><?php echo $artista['name'] ?></span><br>
-          </article>
-    </div>
-    <?php endforeach; ?>
+      </div>
+    </form>
+    <form method="POST">
+    <?php
+      if(isset($artists)) {
+        foreach($artists as $artist) {
+          echo "<label class=\"radio\">
+            <input type=\"radio\" name=\"artist\" value=\"{$artist['id']}\">
+            {$artist['name']}<br>
+          </label><br>";
+        }
+      }
+      
+    ?>
+    <button class="button" type="submit">Conferma</button>
+    </form>
   </body>
 </html>

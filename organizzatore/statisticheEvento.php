@@ -30,7 +30,7 @@
 
 <body>
   <?php if ($id): ?>
-  <table>
+  <table class="table">
     <thead>
       <th>Nome tipologia</th>
       <th>Biglietti venduti/Totale</th>
@@ -42,7 +42,7 @@
           echo "<tr>
                   <td>{$ticketSoldByCategory['name']}</td>
                   <td>{$ticketSoldByCategory['total_sold']}/{$ticketSoldByCategory['max_tickets']}</td>
-                  <td>{$ticketSoldByCategory['profit']}</td>
+                  <td>{$ticketSoldByCategory['profit']}€</td>
                 </tr>";
         }
         echo "<tr>
@@ -56,4 +56,6 @@
   <?php else: ?>
     <p>Nessun evento selezionato</p>
     <?php endif; ?>
+
+    <a class="button" href="./visualizzaEventi.php">Torna agli eventi</a>
 </body>
