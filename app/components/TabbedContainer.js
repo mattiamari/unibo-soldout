@@ -114,9 +114,11 @@ class TabbedContainer {
         }
 
         // Select first tab on load
-        this.selectTab(this.content[0].name);
-        this.element.dispatchEvent(new Event('tabScrolled'));
-
+        if (this.content.length) {
+            this.selectTab(this.content[0].name);
+            this.element.dispatchEvent(new Event('tabScrolled'));
+        }
+        
         return this.element;
     }
 
