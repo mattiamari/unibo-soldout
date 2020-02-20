@@ -1,15 +1,33 @@
 'use strict';
 
+const defaultImage = {url: '/app/res/default-image.jpg', alt: 'Missing image'};
+
 class Show {
-    constructor() {
-    }
+    constructor() {}
 
     get lowestPrice() {
         return Math.min(...this.ticketTypes.map(e => e.price));
     }
 
-    getImage(type) {
-        return this.images.find(e => e.type === type);
+    getImage(type = false) {
+        if (!this.images.length) {
+            return defaultImage;
+        }
+        if (!type) {
+            return this.images.find(Boolean);
+        }
+
+        const image = this.images.find(e => e.type === type);
+
+        return !!image ? image : defaultImage;
+    }
+}
+
+class ShowSummary {
+    constructor() {}
+
+    get image() {
+        return !!this.imageUrl ? {url: this.imageUrl, alt: this.imageAlt} : defaultImage;
     }
 }
 
@@ -23,15 +41,17 @@ const Shows = {
     getNewShows: async () => {
         const res = await fetch('/api/shows/concerts');
         const shows = (await res.json()).shows;
-        return shows;
+        return shows.map(e => Object.assign(new ShowSummary, e));
     },
 
     getShowsCategorized: async () => {
         const res = await fetch('/api/shows');
-        const shows = await res.json();
+        let shows = await res.json();
         const tmp = {};
 
-        for (let show of shows.shows) {
+        shows = shows.shows.map(e => Object.assign(new ShowSummary, e));
+
+        for (let show of shows) {
             if (!tmp[show.category]) {
                 tmp[show.category] = [];
             }

@@ -5,7 +5,7 @@ import Language from "../model/Language.js";
 
 const CardSmall = show => {
     return htmlToElement(/*html*/`
-        <a class="card card--small" style="background-image: url(${show.imageUrl});" href="#/show/${show.id}">
+        <a class="card card--small" style="background-image: url(${show.image.url});" href="#/show/${show.id}">
             <div class="card-content">
                 <div class="showSummary">
                     <div class="showSummary-title">${show.title}</div>
@@ -23,7 +23,7 @@ const CardBig = show => {
     return htmlToElement(/*html*/`
         <div class="slider-slide">
             <a class="card card--big" href="#/show/${show.id}">
-                <img alt="${show.imageAlt}" src="${show.imageUrl}">
+                <img alt="${show.image.alt}" src="${show.image.url}">
 
                 <div class="card-content">
                     <div class="showSummary">
