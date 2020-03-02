@@ -406,6 +406,7 @@ function saveImg($img, $subjectId ,$type) {
     return $imgName;
 }
 
+
 try {
     // stringa di connessione al DBMS
     $pdo = new PDO("mysql:host=localhost;dbname=soldout", 'root', '');
