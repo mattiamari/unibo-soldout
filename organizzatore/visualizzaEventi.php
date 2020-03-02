@@ -40,19 +40,21 @@ $events = $db->getEventList();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
+  <body>
+    <?php require "navbar.php"; ?>
     <section class="section">
       <a href="./formEventi.php" class="button">Aggiungi evento</a>
     </section>
-  <section>
-    <div class="table-container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Titolo</th>
-                <th>Data</th>
-                <th>Stato</th>
-                <th>Biglietti venduti/biglietti totali</th>
-            </tr>
+    <section>
+      <div class="table-container">
+        <table class="table">
+         <thead>
+          <tr>
+            <th>Titolo</th>
+            <th>Data</th>
+            <th>Stato</th>
+            <th>Biglietti venduti/biglietti totali</th>
+          </tr>
         </thead>
         <tbody>
           <?php
