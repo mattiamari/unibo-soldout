@@ -2,8 +2,10 @@
 
 session_start();
 if(!$_SESSION["login"]) {
-    die("Utente non loggato");
+  header("location: ./login.php?error=nolog");
 }
+
+
 
 require "db.php";
 /* query per prendere gli eventi con tutti i campi(titolo,categoria,data,biglietti)
@@ -41,7 +43,18 @@ $events = $db->getEventList();
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
   <body>
-    <?php require "navbar.php"; ?>
+    <?php require "navbar.php";
+    if(isset($_GET["error"])) {
+      echo "<article class=\"message is-danger\">
+      <div class=\"message-header\">
+        <p>Danger</p>
+        <button class=\"delete\" aria-label=\"delete\"></button>
+      </div>
+      <div class=\"message-body\">
+       Non è possibile eliminare un evento per il quale sono già stati acquistati biglietti.
+      </div>
+    </article>";
+    } ?>
     <section class="section">
       <a href="./formEventi.php" class="button">Aggiungi evento</a>
     </section>

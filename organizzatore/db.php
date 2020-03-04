@@ -203,18 +203,23 @@ class Db {
         return $sql->execute();
     }
 
-    function updateEventById($eventId, $title, $date, $description, $show_category_id, $max_tickets_per_order){
+    function updateEventById($id, $title, $date, $description, $manager_id, $show_category, $max_tickets_per_order, $enabled){
         $sql = $this->pdo->prepare("UPDATE `show` 
-                SET title=:title, date=:date, description=:description, 
-                show_category_id=:show_category_id, max_tickets_per_order=:max_tickets_per_order,
+                SET title=:title, date=:date, description=:description,
+                manager_id =:manager_id, enabled=:enabled,
+                show_category_id=:show_category_id, max_tickets_per_order=:max_tickets_per_order
                 WHERE id=:eventId");
-        $sql->bindParam(':eventId',$eventId);
+        $sql->bindParam(':eventId',$id);
         $sql->bindParam(':title',$title);
         $sql->bindParam(':date',$date);
         $sql->bindParam(':description',$description);
-        $sql->bindParam(':show_category_id',$show_category_id);
-        $sql->bindParam(':max_tickets_per_order', $max_tickets_per_order);
-        return $sql->execute();
+        $sql->bindParam(':show_category_id',$show_category);
+        $sql->bindParam(':enabled', $enabled, PDO::PARAM_INT);
+        $sql->bindParam(':manager_id',$manager_id);
+        $sql->bindParam(':max_tickets_per_order', $max_tickets_per_order, PDO::PARAM_INT);
+        if (!$sql->execute()) {
+            var_dump($sql->errorInfo());
+        }
     }
 
     function updateTicketTypeById($ticketId, $name, $description, $price, $max_tickets){
@@ -240,7 +245,7 @@ class Db {
     }
 
     function deleteEventById($eventId) {
-        $sql = $this->pdo->prepare("DELETE FROM `show` WHERE id=:eventId ");
+        $sql = $this->pdo->prepare("DELETE FROM `show` WHERE id=:eventId");
         $sql->bindParam(':eventId', $eventId);
         return $sql->execute();
     }

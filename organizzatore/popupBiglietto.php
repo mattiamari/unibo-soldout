@@ -76,8 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input name="max_tickets" id="max_tickets" class="input" type="number" required value="<?php if ($isTicketTypeSet) echo $ticketType['max_tickets']; ?>">
           </div>
         </div>
-        <button type="submit">Salva</button>
-        <a href="formEventi.php?id=<?php echo $id ?>">Torna indietro</a>
+        <button class="button" type="submit">Salva</button>
+        <a class="button" href="formEventi.php?id=<?php echo $id ?>">Torna indietro</a>
     </form>
   <?php else : ?>
     <p>Nessun evento selezionato</p>

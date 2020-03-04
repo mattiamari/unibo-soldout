@@ -2,7 +2,7 @@
 
 session_start();
 if(!$_SESSION["login"]) {
-    die("Utente non loggato");
+  header("location: ./login.php?error=nolog");;
 }
 
 require "db.php";

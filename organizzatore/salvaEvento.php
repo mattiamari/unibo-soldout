@@ -15,7 +15,6 @@ if (isset($_POST["id"])) {
     $isEventNew = true;
 }
 
-var_dump($_POST);
 
 /*controllo se devo eliminare un tickeType*/
 if (isset($_GET["idTicket"])) {
@@ -40,7 +39,7 @@ $date = $date->format("Y-m-d H:i:s");
 
 $artist_id = NULL;
 $show_category_id = $_POST["show_category"];
-echo $show_category_id;
+
 if (isset($_POST["artist"])) {
     $artist_id = $_POST["artist"];
 }
@@ -96,9 +95,9 @@ if (isset($eventId) && !$isEventNew) {
             $db->insertNewUserNotification($notificationId, $customer);
         }
     }
-    $db->updateEventById($eventId, $title, $date, $description, $show_category_id, $max_tickets);
+    $db->updateEventById($eventId, $title, $date, $description, $_SESSION["manager_id"],$show_category_id, $max_tickets, 1);
 } else {
-    $db->insertNewShow($eventId, $title, $date, $description, $_SESSION["manager_id"], $show_category_id,  $max_tickets, 1);
+    $db->insertNewShow($eventId, $title, $date, $description, $_SESSION["manager_id"], $show_category_id, $max_tickets, 1);
 }
 
 header("location: ./{$_GET["redir"]}id={$eventId}");

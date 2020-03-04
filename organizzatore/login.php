@@ -6,7 +6,7 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
     $user = $db->checkEmail($_POST["email"]);
     if (!$user) {
-        die("Login fallito");
+        header("location: ./login.php?fail=faillog");
     }
 
     $password = hashPassword($_POST['password'], $user['salt']);
@@ -19,6 +19,30 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
         header("location: ./visualizzaEventi.php");
 }
 
+if(isset($_GET["fail"])) {
+    echo "<article class=\"message is-danger\">
+    <div class=\"message-body\">
+    Nome utente o password non corretti.
+    </div>
+  </article>";
+}
+
+if(isset($_GET["error"])) {
+    echo "<article class=\"message is-danger\">
+    <div class=\"message-body\">
+    Per favore effetturare il login.
+    </div>
+  </article>";
+}
+
+if(isset($_GET["action"])) {
+    session_destroy();
+    echo "<article class=\"message is-success\">
+    <div class=\"message-body\">
+        Logout effettuato con successo.
+    </div>
+  </article>";
+}
 
 
 ?>
@@ -52,4 +76,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
             </div>
         </div>
       </form>
+      <div>
+          <a class="button" href="./registrazione.php">Non sei registrato?</a>
+      </div>
   </body>

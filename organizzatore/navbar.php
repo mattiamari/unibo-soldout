@@ -12,6 +12,9 @@
     Menù
   </a>
   <div class="navbar-dropdown">
+    <a href="./login.php" class="navbar-item">
+      Login
+    </a>
     <a href="./visualizzaEventi.php" class="navbar-item">
       Eventi
     </a>
@@ -20,6 +23,9 @@
     </a>
     <a href="./visualizzaLuoghi.php" class="navbar-item">
       Luoghi
+    </a>
+    <a href="./login.php?action=logout" class="navbar-item">
+      Logout
     </a>
   </div>
 </div>
