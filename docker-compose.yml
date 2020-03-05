@@ -9,7 +9,7 @@ services:
     volumes:
       - ./:/soldout/source:ro
       - app-data:/soldout/data:ro
-      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/web/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 80:80
   php:
