@@ -24,5 +24,5 @@ function query(ResponseInterface $response, PDOStatement $query, $rootName) {
 }
 
 function imageUrl($showId, $type, $name) {
-    return str_replace('/', DIRECTORY_SEPARATOR, "/app/i/$showId/$type/$name");
+    return str_replace('/', DIRECTORY_SEPARATOR, "/i/$showId/$type/$name");
 }
