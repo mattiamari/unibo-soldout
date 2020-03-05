@@ -52,16 +52,16 @@ if (isset($_GET["id"])) {
 	<h1 class="title">Crea un nuovo artista</h1>
 	<form enctype="multipart/form-data" method="POST" action="creazioneArtista.php?<?php if ($isArtistSet) echo "id=" . $artist["id"]; ?>">
 		<label for="id"></label>
-		<input type="hidden" name="id" id="id" value="<?php if ($isArtistSet) {echo $artist["id"];} ?>">
+		<input class="input" type="hidden" name="id" id="id" value="<?php if ($isArtistSet) {echo $artist["id"];} ?>">
 		<div class="field">
 			<label for="name" class="label">Nome</label>
 			<div class="control">
-				<input type="text" name="name" id="name" required value="<?php if ($isArtistSet) {echo $artist["name"];} ?>">
+				<input class="input" type="text" name="name" id="name" required value="<?php if ($isArtistSet) {echo $artist["name"];} ?>">
 			</div>
 		</div>
 		<div class="field">
 			<label for="description" class="label">Descrizione</label>
-			<textarea name="description" id="description"><?php if ($isArtistSet) {echo $artist["description"];} ?></textarea>
+			<textarea class="textarea" name="description" id="description"><?php if ($isArtistSet) {echo $artist["description"];} ?></textarea>
 		</div>
 		<label for="img" class="label">Immagine</label>
 		<div class="file has-name">

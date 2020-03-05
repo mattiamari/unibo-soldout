@@ -65,13 +65,14 @@ if (isset($_GET["id"])) {
     <div class="field">
       <label for="name" class="label">Nome</label>
       <div class="control">
-        <input type="text" name="name" id="name" required value="<?php if ($isVenueSet) {echo $venue["name"];} ?>">
+        <input class="input" type="text" name="name" id="name" required value="<?php if ($isVenueSet) {echo $venue["name"];} ?>">
       </div>
     </div>
     <div class="field">
       <label for="description" class="label">Descrizione</label>
-      <textarea name="description" id="description"><?php if ($isVenueSet) {echo $venue["description"];} ?></textarea>
+      <textarea class="textarea" name="description" id="description"><?php if ($isVenueSet) {echo $venue["description"];} ?></textarea>
     </div>
+    <div class="select">
     <select name="country" class="countries" id="countryId">
       <option value="">Seleziona Paese</option>
       <?php
@@ -83,6 +84,8 @@ if (isset($_GET["id"])) {
       }
       ?>
     </select>
+    </div>
+    <div class="select">
     <select name="state" class="states" id="stateId">
       <option value="">Seleziona Stato/Regione</option>
       <?php
@@ -94,6 +97,8 @@ if (isset($_GET["id"])) {
       }
       ?>
     </select>
+    </div>
+    <div class="select">
     <select name="city" class="cities" id="cityId">
       <option value="">Seleziona città</option>
       <?php
@@ -105,10 +110,11 @@ if (isset($_GET["id"])) {
       }
       ?>
     </select>
+    </div>
     <div class="field">
       <label for="address" class="label">Indirizzo</label>
       <div class="control">
-        <input type="text" name="address" id="address" required value="<?php if ($isVenueSet) {echo $venue["address"];} ?>">
+        <input class="input" type="text" name="address" id="address" required value="<?php if ($isVenueSet) {echo $venue["address"];} ?>">
       </div>
     </div>
     <label for="img" class="label">Immagine</label>
@@ -133,7 +139,7 @@ if (isset($_GET["id"])) {
         <input id="alt" class="input" type="text"  value="">
       </div>
     </div>
-    <div><Button type="submit">Crea</Button>
+    <div><Button class="button" type="submit">Crea</Button>
   </form>
   </div>
   <a class="button" href="./visualizzaLuoghi.php">Torna ai luoghi</a>

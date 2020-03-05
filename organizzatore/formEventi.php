@@ -24,6 +24,7 @@ $id = "";
     Si tratta di una section con piu option e quando si fa submit viene inviato il valore selezionato */
 if (isset($_GET["id"])) {
   $id = $_GET["id"];
+  $isEventSet = true;
   $ticketTypes = $db->getTicketTypesByEventId($id);
   $event = $db->getEventById($id);
   $artist = $db->getArtistById($event["artist_id"]);
@@ -80,29 +81,37 @@ function ticketTypeRow($ticketType)
     <div class="field">
       <label for="title" class="label">Titolo</label>
       <div class="control">
-        <input id="title" class="input" type="text" name="title" required value="<?php if ($isEventSet) {echo $event["title"];} ?>">
+        <input id="title" class="input" type="text" name="title" required value="<?php if ($isEventSet) {
+                                                                                    echo $event["title"];
+                                                                                  } ?>">
       </div>
     </div>
     <div class="field">
       <label for="description" class="label">Descrizione</label>
       <div class="control">
-        <textarea name="description" require id="description"><?php if ($isEventSet) {echo $event["description"];} ?></textarea>
+        <textarea class="textarea" name="description" require id="description"><?php if ($isEventSet) {
+                                                                                  echo $event["description"];
+                                                                                } ?></textarea>
       </div>
     </div>
     <label for="show_category" class="label">Categoria Evento</label>
-    <select required name="show_category" id="">
-      <?php
-      if ($showCategory != NULL) {
-        foreach ($showCategory as $category) {
-          echo "<option value={$category['id']}>{$category['name']}</option>";
+    <div class="select">
+      <select required name="show_category" id="">
+        <?php
+        if ($showCategory != NULL) {
+          foreach ($showCategory as $category) {
+            echo "<option value={$category['id']}>{$category['name']}</option>";
+          }
         }
-      }
+        ?>
+      </select>
+    </div>
 
-      ?>
-    </select>
     <div class="field">
       <label for="date" class="label">Data</label>
-      <input id="date" type="datetime-local" name="date" required value=<?php if ($isEventSet) {echo $date;} ?>>
+      <input id="date" type="datetime-local" name="date" required value=<?php if ($isEventSet) {
+                                                                          echo $date;
+                                                                        } ?>>
     </div>
     <div class="field">
       <h2>Artista</h2>
@@ -145,17 +154,21 @@ function ticketTypeRow($ticketType)
         <label for="max_ticket" class="label">Massimo numero di biglietti per ordine</label>
         <div class="control">
           <input id="max_ticket" class="input" type="number" min="1" name="max_ticket" required value="<?php if ($isEventSet) {
-              echo $event["max_tickets_per_order"];} ?>">
+                        echo $event["max_tickets_per_order"];} ?>">
         </div>
       </div>
+    </div>
+    <div>
       <label class="label">Biglietti</label>
+      <button type="submit" formaction="salvaEvento.php?redir=popupBiglietto.php%3F" class="button">Nuova tipologia</a<>
+    </div>
+    <div class="table-container">
       <table class="table">
         <thead>
-          <button type="submit" formaction="salvaEvento.php?redir=popupBiglietto.php%3F" class="button">Nuova tipologia</a>
+          <th>Nome</th>
+          <th>Prezzo</th>
+          <th>Biglietti totali</th>
         </thead>
-        <th>Nome</th>
-        <th>Prezzo</th>
-        <th>Biglietti totali</th>
         <tbody>
           <?php
           if ($isEventSet) {
@@ -165,8 +178,9 @@ function ticketTypeRow($ticketType)
         </tbody>
       </table>
     </div>
-    <button type="submit">Salva</button>
+    <button class="button" type="submit">Salva</button>
   </form>
+  <a class="button" href="./visualizzaEventi.php">Torna agli eventi</a>
 </body>
 
 </html>
