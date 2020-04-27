@@ -31,6 +31,22 @@ class ShowSummary {
     }
 }
 
+class Venue {
+    constructor() {}
+
+    get image() {
+        return !!this.imageUrl ? {url: this.imageUrl, alt: this.imageAlt} : defaultImage;
+    }
+}
+
+class Artist {
+    constructor() {}
+
+    get image() {
+        return !!this.imageUrl ? {url: this.imageUrl, alt: this.imageAlt} : defaultImage;
+    }
+}
+
 const Shows = {
     getShowDetails: async showId => {
         const res = await fetch('/api/show/' + showId);
@@ -63,12 +79,14 @@ const Shows = {
 
     getVenueDetails: async venueId => {
         const res = await fetch('/api/venue/' + venueId);
-        return (await res.json()).venue;
+        const venue = (await res.json()).venue;
+        return Object.assign(new Venue, venue);
     },
 
     getArtistDetails: async artistId => {
         const res = await fetch('/api/artist/' + artistId);
-        return (await res.json()).artist;
+        const artist = (await res.json()).artist;
+        return Object.assign(new Artist, artist);
     },
 };
 

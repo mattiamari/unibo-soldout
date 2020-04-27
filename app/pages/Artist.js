@@ -17,7 +17,7 @@ class ArtistPage {
         const template = /*html*/`
             <div class="page page--artist">
                 <header class="header">
-                    <div class="header-layer header-bg" style="background-image: url(${artist.imageUrl})"></div>
+                    <div class="header-layer header-bg" style="background-image: url(${artist.image.url})"></div>
                     <div class="header-layer header-bg-blend"></div>
 
                     <div class="header-layer header-content">

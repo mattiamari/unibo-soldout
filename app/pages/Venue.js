@@ -17,7 +17,7 @@ class VenuePage {
         const template = /*html*/`
             <div class="page page--venue">
                 <header class="header">
-                    <div class="header-layer header-bg" style="background-image: url(${venue.imageUrl})"></div>
+                    <div class="header-layer header-bg" style="background-image: url(${venue.image.url})"></div>
                     <div class="header-layer header-bg-blend"></div>
 
                     <div class="header-layer header-content">
