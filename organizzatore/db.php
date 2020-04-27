@@ -57,6 +57,24 @@ class Db {
         return $result->fetchAll();
     }
 
+    function getDontEnabledEventList($enabled) {
+        $sql = $this->pdo->prepare("SELECT `show`.id, `show`.title, `show`.date, `show`.enabled,
+                sum(ticket_type.max_tickets) AS tickets_total, 
+                sum(cart_item.quantity) AS tickets_sold, 
+                sum(cart_item.quantity * ticket_type.price) AS total_profit
+            FROM `show`
+            LEFT JOIN ticket_type ON ticket_type.show_id = `show`.id
+            LEFT JOIN cart_item ON cart_item.ticket_type_id = ticket_type.id
+            WHERE `show`.enabled=:enabled
+            GROUP BY `show`.id");
+        $sql->bindParam(':enabled', $enabled, PDO::PARAM_INT);
+        $result=$sql->execute();
+        if($result) {
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }
+        var_dump($sql->errorInfo());
+    }
+
     function getProfitByEventId($eventId) {
         $sql = $this->pdo->prepare("SELECT SUM(total.total_profit)
         FROM
@@ -222,6 +240,15 @@ class Db {
         }
     }
 
+    function enabledEventById($id, $enabled) {
+        $sql = $this->pdo->prepare("UPDATE `show` SET `enabled`= :enabled WHERE id=:id");
+        $sql->bindParam(':id',$id);
+        $sql->bindParam(':enabled', $enabled, PDO::PARAM_INT);
+        if (!$sql->execute()) {
+            var_dump($sql->errorInfo());
+        }
+    }
+
     function updateTicketTypeById($ticketId, $name, $description, $price, $max_tickets){
         $sql = $this->pdo->prepare("UPDATE ticket_type SET name=:name, description=:description, price=:price, max_tickets=:max_tickets WHERE id=:ticketId");
         $sql->bindParam(':ticketId',$ticketId);
@@ -302,6 +329,7 @@ class Db {
         return $sql->fetchAll();
     }
 
+
     function getStateByCityId($city_id) {
         $sql = $this->pdo->prepare("SELECT state_id FROM city WHERE id=:city_id");
         $sql->bindParam(':city_id', $city_id, PDO::PARAM_INT);
@@ -346,6 +374,13 @@ class Db {
         $sql->bindParam(':user_id', $userId);
         $result = $sql->execute();
         return $sql->fetchAll();
+    }
+
+    function getImageById($id) {
+        $sql = $this->pdo->prepare("SELECT name FROM `image` WHERE subject_id=:id");
+        $sql->bindParam(':id', $id);
+        $result = $sql->execute();
+        return $sql->fetch(PDO::FETCH_ASSOC);
     }
 
     function checkEmail($email) {

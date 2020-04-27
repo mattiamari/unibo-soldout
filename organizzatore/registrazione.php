@@ -1,3 +1,12 @@
+<?php 
+if(isset($_GET["action"])) {
+    echo "<article class=\"message is-danger\">
+    <div class=\"message-body\">
+    Tentativo di registrazione fallita.
+    </div>
+  </article>";
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -26,7 +35,8 @@
         </div>
         <div class="field">
             <div class="control">
-                <button class="button">Accedi</button>
+                <button class="button">Conferma</button>
+                <a class="button" href="./login.php">Sei già registrato?</a>
             </div>
         </div>
     </form>

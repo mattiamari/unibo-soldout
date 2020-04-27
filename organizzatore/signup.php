@@ -20,7 +20,7 @@ $managerQ = $pdo->prepare($sql);
 $managerQ->bindValue(':user_id', $userId);
 
 if (!$userQ->execute()) {
-    die("Registrazione fallita. 2");
+    header("location: ./registrazione.php?action=fail");
 }
 if (!$managerQ->execute()) {
     die("Registrazione fallita. 1");

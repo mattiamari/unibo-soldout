@@ -4,15 +4,8 @@ session_start();
 if(!$_SESSION["login"]) {
   header("location: ./login.php?error=nolog");
 }
-
-
-
 require "db.php";
-/* query per prendere gli eventi con tutti i campi(titolo,categoria,data,biglietti)
-query per modificare un evento e eliminarlo(fai una delete per eliminare e update per aggiornare 
-e poi aggiorni la tabella).
-Tramite il tasto dettagli evento vado sulla pagina "statisticheEvento.php"
-Valutare di inserire query per le statistiche di tutti gli eventi ad esempio query per la top 10*/ 
+
 
 function eventRow($evento) {
   $stato = "in attesa di approvazione";

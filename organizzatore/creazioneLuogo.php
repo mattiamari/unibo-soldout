@@ -1,6 +1,11 @@
 <?php
 require "db.php";
 
+session_start();
+if(!$_SESSION["login"]) {
+  header("location: ./login.php?error=nolog");
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $venueId = $_POST["id"];
 
@@ -22,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   if (isset($name)) {
-    $db->updateImage($venueId, "venue", $name, "horizontal", $altO);
+    $db->updateImage($venueId, "venue", $name, "horizontal", $alt);
   }
 }
 
@@ -31,6 +36,7 @@ if (isset($_GET["id"])) {
   $id = $_GET["id"];
   $isVenueSet = true;
   $venue = $db->getVenueById($id);
+  $img = $db->getImageById($id);
   if (!$venue) {
     die("Selezionato un luogo non valido");
   }
@@ -40,7 +46,6 @@ if (isset($_GET["id"])) {
   $states = $db->getStates($country["country_id"]);
   $cities = $db->getCities($state["state_id"]);
 }
-
 
 
 ?>
@@ -130,6 +135,7 @@ if (isset($_GET["id"])) {
           </span>
         </span>
         <span class="file-name">
+          <?php if($isVenueSet && $img != null) echo $img["name"] ?>
         </span>
       </label>
     </div>
@@ -139,10 +145,11 @@ if (isset($_GET["id"])) {
         <input id="alt" class="input" type="text"  value="">
       </div>
     </div>
-    <div><Button class="button" type="submit">Crea</Button>
+    <div class="buttons">
+      <Button class="button" type="submit">Crea</Button>
+      <a class="button" href="./visualizzaLuoghi.php">Torna ai luoghi</a>
+    </div>
   </form>
-  </div>
-  <a class="button" href="./visualizzaLuoghi.php">Torna ai luoghi</a>
   <script defer src="./jquery-3.4.1.min.js"></script>
   <script defer src="./location.js"></script>
 </body>

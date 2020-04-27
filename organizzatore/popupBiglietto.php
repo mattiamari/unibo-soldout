@@ -1,6 +1,11 @@
 <?php
 require 'db.php';
 
+session_start();
+if(!$_SESSION["login"]) {
+  header("location: ./login.php?error=nolog");
+}
+
 /* query per la modifica di un biglietto associato a un id e un idticket
     query per l'aggiunta di una nuova tipologia di biglietto
     RICORDA: almeno l id dell'evento deve essere passato; la presenza del solo id evento

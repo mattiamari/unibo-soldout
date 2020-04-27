@@ -95,9 +95,9 @@ if (isset($eventId) && !$isEventNew) {
             $db->insertNewUserNotification($notificationId, $customer);
         }
     }
-    $db->updateEventById($eventId, $title, $date, $description, $_SESSION["manager_id"],$show_category_id, $max_tickets, 1);
+    $db->updateEventById($eventId, $title, $date, $description, $_SESSION["manager_id"], $show_category_id, $max_tickets, 0);
 } else {
-    $db->insertNewShow($eventId, $title, $date, $description, $_SESSION["manager_id"], $show_category_id, $max_tickets, 1);
+    $db->insertNewShow($eventId, $title, $date, $description, $_SESSION["manager_id"], $show_category_id, $max_tickets, 0);
 }
 
 header("location: ./{$_GET["redir"]}id={$eventId}");
