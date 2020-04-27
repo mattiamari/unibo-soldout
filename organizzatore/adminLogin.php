@@ -2,28 +2,27 @@
 
 require "../api/auth.php";
 require "db.php";
+require "config.php";
+
 session_start();
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
-    $user = $db->checkEmail($_POST["email"]);
     $isEmailCorrect = true;
-    if (!$user) {
-      $isEmailCorrect = false;
-      header("location: ./login.php?fail=faillog");
+    if ($_POST['email'] != $email) {
+        $isEmailCorrect = false;
+        header("location: ./adminLogin.php?fail=faillog");
     }
-
     $isPasswordCorrect = true;
-    $password = hashPassword($_POST['password'], $user['salt']);
-    if ($password !== $user['password']) {
-      $isPasswordCorrect = false;
-      header("location: ./login.php?fail=faillog");
+    $pass = hashPassword($_POST['password'], $salt);
+    if ($password !== $pass) {
+        $isPasswordCorrect = false;
+        header("location: ./adminLogin.php?fail=faillog");
     }
 
-    
     if($isEmailCorrect && $isPasswordCorrect) {
-      $_SESSION["login"] = true;
-      $_SESSION["manager_id"] = $user["id"];
-      header("location: ./visualizzaEventi.php");
-    }
+        $_SESSION["login"] = true;
+        $_SESSION["manager_id"] = $user["id"];
+        header("location: ./abilitaEventi.php");
+      }
 }
 
 if(isset($_GET["fail"])) {
@@ -63,8 +62,8 @@ if(isset($_GET["action"])) {
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
   <body>
-        <h1 class="title">Login</h1>
-      <form action="./login.php" method="POST">
+        <h1 class="title">Login Amministratore</h1>
+      <form action="./adminLogin.php" method="POST">
         <div class="field">
             <label class="label" for="email">Email</label>
             <div class="control">
@@ -80,8 +79,7 @@ if(isset($_GET["action"])) {
         <div class="field">
             <div class="control">
                 <button class="button">Accedi</button>
-                <a class="button" href="./registrazione.php">Non sei registrato?</a>
-                <a class="button" href="./adminLogin.php">Accedi come amministratore</a>
+                <a class="button" href="./login.php">Accedi come utente</a>
             </div>
         </div>
       </form>

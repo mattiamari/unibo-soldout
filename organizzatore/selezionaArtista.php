@@ -1,6 +1,11 @@
 <?php
 
 require "db.php";
+
+session_start();
+if(!$_SESSION["login"]) {
+  header("location: ./login.php?error=nolog");
+}
 /* query di ricerca che può essere con AJAX oppure si può fare con un tasto cerca
 Bisogna passare id dell'evento a cui associare l'artista e si aggiunge il parametro in get di ricerca
 (query da fare solo se si passa quel valore in get)
@@ -53,6 +58,7 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
       
     ?>
     <button class="button" type="submit">Conferma</button>
+    <a class="button" href="./formEventi.php?id=<?php echo $id ?>">Annulla</a>
     </form>
   </body>
 </html>

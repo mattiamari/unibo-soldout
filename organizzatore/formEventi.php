@@ -1,6 +1,11 @@
 <?php
 require "db.php";
 
+session_start();
+if(!$_SESSION["login"]) {
+  header("location: ./login.php?error=nolog");
+}
+
 $ticketTypes = [];
 
 $isEventSet = false;
@@ -25,6 +30,7 @@ $id = "";
 if (isset($_GET["id"])) {
   $id = $_GET["id"];
   $isEventSet = true;
+  $img = $db->getImageById($id);
   $ticketTypes = $db->getTicketTypesByEventId($id);
   $event = $db->getEventById($id);
   $artist = $db->getArtistById($event["artist_id"]);
@@ -52,8 +58,8 @@ function ticketTypeRow($ticketType)
     . "<td>{$ticketType['name']}</td>"
     . "<td>{$ticketType['price']}</td>"
     . "<td>{$ticketType['max_tickets']}</td>"
-    . "<td><button type=\"submit\" formaction=\"salvaEvento.php?redir=popupBiglietto.php%3FidTicket={$ticketType['id']}%26\">Modifica</td>"
-    . "<td><button type=\"submit\" formaction=\"salvaEvento.php?id={$ticketType['show_id']}&idTicket={$ticketType['id']}&action=deleteTicketType&redir=formEventi.php%3F\">Elimina</td>"
+    . "<td><button class=\"button\" type=\"submit\" formaction=\"salvaEvento.php?redir=popupBiglietto.php%3FidTicket={$ticketType['id']}%26\">Modifica</td>"
+    . "<td><button class=\"button\" type=\"submit\" formaction=\"salvaEvento.php?id={$ticketType['show_id']}&idTicket={$ticketType['id']}&action=deleteTicketType&redir=formEventi.php%3F\">Elimina</td>"
     . "</tr>";
 }
 ?>
@@ -140,6 +146,7 @@ function ticketTypeRow($ticketType)
           </span>
         </span>
         <span class="file-name">
+        <?php if($isEventSet && $img != null) echo $img["name"] ?>
         </span>
       </label>
     </div>
@@ -178,9 +185,11 @@ function ticketTypeRow($ticketType)
         </tbody>
       </table>
     </div>
-    <button class="button" type="submit">Salva</button>
+    <div class="buttons">
+      <button class="button" type="submit">Salva</button>
+      <a class="button" href="./visualizzaEventi.php">Torna agli eventi</a>
+    </div>
   </form>
-  <a class="button" href="./visualizzaEventi.php">Torna agli eventi</a>
 </body>
 
 </html>

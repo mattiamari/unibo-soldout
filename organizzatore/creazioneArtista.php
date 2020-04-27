@@ -1,6 +1,11 @@
 <?php
 require "db.php";
 
+session_start();
+if(!$_SESSION["login"]) {
+  header("location: ./login.php?error=nolog");
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$artistId = $_POST["id"];
 	if ($_POST["id"] != NULL) {
@@ -28,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $isArtistSet = false;
 if (isset($_GET["id"])) {
 	$id = $_GET["id"];
+	$img = $db->getImageById($id);
 	$isArtistSet = true;
 	$artist = $db->getArtistById($id);
 	/*if(!$artist) {
@@ -76,7 +82,7 @@ if (isset($_GET["id"])) {
       		</span>
     		</span>
 				<span class="file-name">
-					
+				<?php if($isArtistSet && $img !=null) echo $img["name"] ?>
     		</span>
   		</label>
 		</div>
@@ -86,9 +92,11 @@ if (isset($_GET["id"])) {
 				<input id="alt" class="input" type="text" value="">
 			</div>
 		</div>
-		<button class="button" type="submit">Crea</button>
+		<div class="buttons">
+			<button class="button" type="submit">Crea</button>
+			<a class="button" href="./visualizzaArtisti.php">Torna agli artisti</a>
+		</div>
 	</form>
 	</div>
-	<a class="button" href="./visualizzaArtisti.php">Torna agli artisti</a>
 </body>
 </html>
