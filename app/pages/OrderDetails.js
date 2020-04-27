@@ -41,7 +41,7 @@ class OrderDetailsPage {
 
         const template = /*html*/ `
             <div class="page page--orderdetails">
-                <header>
+                <header class="header">
                     <div class="header-content">
                         <h1>Ordine #${order.reference}</h1>
                     </div>

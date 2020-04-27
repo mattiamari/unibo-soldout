@@ -19,8 +19,8 @@ const ProfileCard = (profile, ordersCount) => {
                     <span>Ordini effettuati: </span><span class="profileCard-ordersCount">${ordersCount}</span><br>
                     <!--<span>soldOUT coins: </span><span class="profileCard-coinsCount">${profile.coinsBalance}</span><br>-->
                 </div>
-                <button class="button button--flat btnLogout">Esci</button>
             </div>
+            <button class="button button--flat btnLogout">Esci</button>
         </div>`;
 };
 

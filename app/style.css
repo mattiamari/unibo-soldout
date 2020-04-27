@@ -100,6 +100,7 @@ h2 {
     display: flex;
     flex-direction: column;
     padding-top: 56px; /* leave space for the navbar */
+    /* align-items: center; */
 }
 
 .app-logo {
@@ -153,6 +154,8 @@ h2 {
     height: 52px;
     padding: 4px;
     margin: auto 16px;
+    /* max-width: 600px; */
+    /* width: 100%; */
 }
 
 .searchbar input {
@@ -196,16 +199,17 @@ h2 {
 .slider-content {
     display: flex;
     flex-direction: row;
-    height: 240px;
     overflow-x: scroll;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     padding: 16px 0;
+    /* margin: 0 16px; */
 }
 
 .slider-slide {
     width: 85%;
     padding: 0 12px;
+    /* margin-right: 24px; */
     flex-shrink: 0;
     scroll-snap-align: center;
 }
@@ -216,21 +220,6 @@ h2 {
 
 .slider-slide:last-child {
     padding-right: 16px;
-}
-
-.slider-content--zoom-in {
-    animation: slider-zoom-in 0.4s ease;
-}
-
-@keyframes slider-zoom-in {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(5);
-    }
 }
 
 /*
@@ -423,7 +412,7 @@ a.button {
 .tabbedContainer-slide {
     min-width: 100%;
     width: 100%;
-    padding: 16px 24px;
+    padding: 16px 24px 24px 24px;
     scroll-snap-align: start;
 }
 
@@ -529,10 +518,18 @@ ul.list {
     position: relative;
     background: linear-gradient(165deg, rgba(var(--color-primary-rgb), 0.2), var(--color-background) 30%);
     animation: fade-in .3s ease-out;
+    height: 100%;
 }
 
-.page > header > .header-content > h1 {
+.page > .header > .header-content > h1 {
     margin-top: 0;
+}
+
+.page > main,
+.page > .header {
+    max-width: 848px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*
@@ -547,6 +544,7 @@ ul.list {
     height: 30%;
     min-height: 200px;
     max-height: 280px;
+    max-width: none;
 }
 
 .page--home .header-bg {
@@ -571,14 +569,22 @@ ul.list {
 
 .page--home > main {
     position: relative;
+    max-width: 1104px;
 }
 
-.page--home main>div {
+.page--home > main > div {
     margin-bottom: 16px;
 }
 
 .page--home .slider-slide {
-    max-width: 350px;
+    max-width: 320px;
+    max-height: 220px;
+}
+
+.page--home .tabbedContainer {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .page--home .tabbedContainer-slide .card {
@@ -599,6 +605,7 @@ ul.list {
 .page--artist .header,
 .page--venue .header {
     height: 50%;
+    max-width: unset;
 }
 
 .page--show .header-bg,
@@ -621,9 +628,9 @@ ul.list {
     padding: 0 24px;
 }
 
-.page.page--show .header-title,
-.page.page--artist .header-title,
-.page.page--venue .header-title {
+.page.page--show .header-content > h1,
+.page.page--artist .header-content > h1,
+.page.page--venue .header-content > h1 {
     margin-top: auto;
     margin-bottom: 48px;
     text-align: center;
@@ -884,6 +891,12 @@ ul.showInfoList {
     margin-top: 24px;
 }
 
+.page--login .form,
+.page--signup .form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 /*
     Profile page
 */
@@ -902,17 +915,24 @@ ul.showInfoList {
     justify-content: center;
 }
 
+.page--profile .form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 .profileCard {
+    position: relative;
     display: flex;
     flex-direction: row;
     max-width: 400px;
     margin: 0 auto;
+    padding: 16px 24px;
     border-radius: 8px;
-    /* background: rgba(255,255,255, var(--overlay-opacity-1)); */
+    background: rgba(255,255,255, var(--overlay-opacity-1));
 }
 
 .profileCard .profilePic {
-    width: 25%;
+    width: 30%;
     margin-right: 16px;
 }
 
@@ -924,11 +944,14 @@ ul.showInfoList {
 .profileCard .profileInfo {
     display: flex;
     flex-direction: column;
-    width: 75%;
+    padding-top: 8px;
 }
 
 .profileCard .btnLogout {
-    align-self: flex-end;
+    /* align-self: flex-end; */
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .profileCard-moreInfo {
@@ -990,7 +1013,7 @@ a.orderList-row {
 /*
     Notifications page
 */
-.page--notifications header {
+.page--notifications .header {
     padding-left: 24px;
     padding-right: 24px;
 }
@@ -1201,104 +1224,36 @@ a.orderList-row {
 /*
     Responsive
 */
-@media screen and (min-width: 768px) {
-    .page--home .tabbedContainer {
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
 
-    .page--home .searchbar {
-        width: 60%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .page--login form,
-    .page--signup form {
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .page--profile main > .tabbedContainer {
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .page--profile form {
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .page--orderdetails main {
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .page--buy section.buyStep {
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .page--cart > main {
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
+@media screen and (min-width: 600px) {
+    .searchbar {
+        width: 576px;
+        align-self: center;
     }
 }
 
+@media screen and (min-width: 768px) {
+    
+}
+
 @media screen and (min-width: 1024px) {
-    .page > main,
-    .page > header {
-        max-width: 850px;
-        margin-left: auto;
-        margin-right: auto;
+    .slider .slider-content {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 16px 16px;
     }
-    
-    .page--home > header,
-    .page--show > header,
-    .page--artist > header,
-    .page--venue > header {
-        max-width: unset;
-    }
-    
-    .page.page--home > main {
-        max-width: 1100px;
+
+    .slider .slider-slide {
+        margin-bottom: 24px;
+        padding: 0;
     }
 
     .page--home .header {
-        height: 60%;
+        height: 50%;
         max-height: unset;
     }
 
-    .page--home .searchbar {
-        margin-top: 56px;
-    }
-
     .page--home > main {
-        top: -56px;
-    }
-
-    .page--cart > main {
-        max-width: 500px;
-    }
-
-    .slider .slider-content {
-        overflow: visible;
-        flex-wrap: wrap;
-        height: unset;
-    }
-
-    .slider .slider-content .slider-slide {
-        margin-bottom: 24px;
-    }
-
-    .tabbedContainer-slides {
-        overflow-x: hidden;
+        margin-top: -48px;
     }
 }
