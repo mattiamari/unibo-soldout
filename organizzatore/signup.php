@@ -27,5 +27,6 @@ if (!$managerQ->execute()) {
 }
 
 $_SESSION['login'] = true;
+$_SESSION['manager_id'] = $userId;
 
 header("location: ./visualizzaEventi.php");
