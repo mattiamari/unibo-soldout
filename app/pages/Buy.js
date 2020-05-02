@@ -8,6 +8,7 @@ import NavBar from '../components/NavBar.js';
 import htmlToElement from '../utils/htmlToElement.js';
 import QuantitySelector from '../components/QuantitySelector.js';
 import Statusbar from '../utils/statusbar.js';
+import Account from '../model/Account.js';
 
 const bindings = new WeakMap();
 
@@ -47,6 +48,14 @@ class TicketTypeRow {
     }
 }
 
+const ContinueButton = isLoggedIn => {
+    if (isLoggedIn) {
+        return /*html*/`<button class="button button--outline button--disabled btnNext" id="btnShowStepQuantity">Continua</button>`;
+    }
+
+    return /*html*/`<a class="button button--outline btnNext" id="btnLogin" href="#/login">Accedi per continuare l'acquisto</a>`;
+};
+
 class BuyPage {
     constructor(params) {
         this.showId = params.id;
@@ -59,6 +68,7 @@ class BuyPage {
         this.cartItem = new CartItem(show);
         const ticketTypes = show.ticketTypes.map(e => new TicketTypeRow(e, this.cartItem));
         const quantitySelector = new QuantitySelector(this.cartItem);
+        const btnContinue = ContinueButton(Account.isLoggedIn);
 
         const template = /*html*/`
             <div class="page page--buy">
@@ -67,17 +77,13 @@ class BuyPage {
                 <main>
                     <section class="buyStep buyStep--ticketType">
                         <h2>Che tipo di biglietto vuoi acquistare?</h2>
-
                         <ul class="ticketTypeList"></ul>
-
-                        <button class="button button--outline button--disabled btnNext" id="btnShowStepQuantity">Continua</button>
+                        ${btnContinue}
                     </section>
 
                     <section class="buyStep buyStep--quantity buyStep--hidden">
                         <h2>Di quanti biglietti <span class="ticketType"></span> hai bisogno?</h2>
-
                         <div class="placeholder--quantitySelector"></div>
-
                         <button class="button button--outline btnNext" id="btnAddToCart">Aggiungi al carrello</button>
                     </section>
 
@@ -97,7 +103,7 @@ class BuyPage {
         const header = this.page.querySelector('header');
         const ticketTypeList = this.page.querySelector('.ticketTypeList');
         const ticketTypeName = this.page.querySelector('.buyStep--quantity .ticketType');
-        const btnGoQuantityStep = this.page.querySelector('.buyStep--ticketType .btnNext');
+        const btnGoQuantityStep = this.page.querySelector('#btnShowStepQuantity');
 
         header.insertBefore((new NavBar()).render(), header.firstChild);
 
@@ -105,7 +111,10 @@ class BuyPage {
             ticketTypeList.append(ticketRow.render());
         }
 
-        btnGoQuantityStep.onclick = () => this.showStep('quantity');
+        if (btnGoQuantityStep) {
+            btnGoQuantityStep.onclick = () => this.showStep('quantity');
+        }
+
         this.page.querySelector('.placeholder--quantitySelector').replaceWith(quantitySelector.render());
 
         this.cartItem.addOnChangeHandler(() => {
