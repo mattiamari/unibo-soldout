@@ -96,8 +96,9 @@ class CartPage {
         const header = this.page.querySelector('header');
         header.insertBefore((new NavBar()).render(), header.firstChild);
 
-        this.page.querySelector('button.btnNext').addEventListener('click', () => {
-            Cart.placeOrder().then(() => window.location.hash = '#/purchase-complete');
+        this.page.querySelector('button.btnNext').addEventListener('click', async () => {
+            await Cart.placeOrder();
+            window.location.hash = '#/purchase-complete';
         });
 
         this.refreshDisplay();
