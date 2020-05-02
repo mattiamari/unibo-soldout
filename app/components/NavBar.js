@@ -9,9 +9,14 @@ class NavBar {
     }
 
     render() {
+        let backButtonTemplate = /*html*/`<button class="button button--icononly" id="btnBack" aria-label="Go back"><i class="button-icon fas fa-arrow-left"></i></button>`;
+        if (location.hash == '' || location.hash == '#/') {
+            backButtonTemplate = '';
+        }
+
         const template = /*html*/`
             <nav class="navbar">
-                <a class="button button--icononly" href="#" aria-label="App menu"><i class="button-icon fa fa-bars"></i></a>
+                ${backButtonTemplate}
 
                 <div class="navbar-buttons-right">
                     <a class="button button--icononly" href="#/notifications" aria-label="Notifications">
@@ -28,6 +33,11 @@ class NavBar {
         `;
 
         this.element = htmlToElement(template);
+        const btnBack = this.element.querySelector('#btnBack');
+
+        if (btnBack) {
+            btnBack.onclick = () => history.back();
+        }
 
         this.onScroll = throttle(200, () => {
             if (document.documentElement.scrollTop < 56) {
