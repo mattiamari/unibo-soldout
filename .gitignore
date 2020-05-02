@@ -1,4 +1,3 @@
 node_modules
 vendor
-app/i/*
-!app/i/.gitkeep
+.DS_Store
