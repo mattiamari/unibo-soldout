@@ -1241,6 +1241,7 @@ a.orderList-row {
         flex-wrap: wrap;
         justify-content: space-between;
         padding: 16px 16px;
+        overflow-x: hidden;
     }
 
     .slider .slider-slide {
@@ -1255,5 +1256,9 @@ a.orderList-row {
 
     .page--home > main {
         margin-top: -48px;
+    }
+
+    .searchbar {
+        width: 800px;
     }
 }
