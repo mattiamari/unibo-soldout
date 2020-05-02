@@ -81,6 +81,10 @@ h2 {
     display: none !important;
 }
 
+a {
+    color: var(--color-text);
+}
+
 /* 
     Header
 */
