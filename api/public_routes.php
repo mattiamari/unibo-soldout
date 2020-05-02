@@ -119,11 +119,11 @@ $venueDetailsRoute = function (Request $request, ResponseInterface $response, $a
     $sql = "SELECT venue.id, venue.name, venue.description,
             CONCAT(venue.address, ', ', city.name, ', ', country.name) AS location,
             CONCAT('$imgPath', :venue_id, '/', image.type, '/', image.name) AS imageUrl,
-            image.altText AS imgAlt
+            image.altText AS imageAlt
         FROM venue
         JOIN city ON city.id = venue.city_id
         JOIN country ON country.id = city.country_id
-        LEFT JOIN image ON image.subject_id = venue.id AND image.subject = 'venue' AND image.type = 'vertical'
+        LEFT JOIN image ON image.subject_id = venue.id AND image.subject = 'venue' AND image.type = 'horizontal'
         WHERE venue.id = :venue_id";
     
     $q = $this->get('db')->prepare($sql);
@@ -147,9 +147,9 @@ $artistDetailsRoute = function (Request $request, ResponseInterface $response, $
 
     $sql = "SELECT artist.*,
             CONCAT('$imgPath', :artist_id, '/', image.type, '/', image.name) AS imageUrl,
-            image.altText AS imgAlt
+            image.altText AS imageAlt
         FROM artist
-        LEFT JOIN image ON image.subject_id = artist.id AND image.subject = 'artist' AND image.type = 'vertical'
+        LEFT JOIN image ON image.subject_id = artist.id AND image.subject = 'artist' AND image.type = 'horizontal'
         WHERE artist.id = :artist_id";
     
     $q = $this->get('db')->prepare($sql);

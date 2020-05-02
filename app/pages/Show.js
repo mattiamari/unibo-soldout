@@ -18,7 +18,7 @@ class ShowPage {
         const template = /*html*/`
             <div class="page page--show">
                 <header class="header">
-                    <div class="header-layer header-bg" style="background-image: url(${show.getImage('vertical').url})"></div>
+                    <div class="header-layer header-bg" style="background-image: url(${show.getImage('horizontal').url})"></div>
                     <div class="header-layer header-bg-blend"></div>
 
                     <div class="header-layer header-content">
