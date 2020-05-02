@@ -6,9 +6,14 @@ import NavBar from "../components/NavBar.js";
 import Language from "../model/Language.js";
 
 const ListRow = notification => {
+    let link = /*html*/`<p>${notification.content}</p>`;
+    if (notification.action) {
+        link = /*html*/`<a href="#${notification.action}">${notification.content}</a>`;
+    }
+
     return /*html*/ `
         <li class="list-item">
-            <p>${notification.content}</p>
+            ${link}
             <span class="text--small">${Language.formatDateTime(notification.date)}</span>
         </li>
     `;
