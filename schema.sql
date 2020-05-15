@@ -118,7 +118,8 @@ CREATE TABLE `image` (
 DROP TABLE IF EXISTS `manager`;
 CREATE TABLE `manager` (
   `user_id` varchar(11) NOT NULL,
-  `enabled` tinyint(1) DEFAULT 0,
+  `enabled` tinyint(1) NOT NULL DEFAULT 0,
+  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`),
   CONSTRAINT `fk_manager_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
