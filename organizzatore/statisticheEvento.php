@@ -11,6 +11,7 @@
 
   if (isset($_GET['id'])) {
     $id = $_GET["id"];
+    $evento = $db->getEventById($id);
     $ticketSoldByCategories = $db->getQtyTicketSoldByCategory($id);
   }
 
@@ -35,15 +36,28 @@
      -->
 
 <body>
-  <?php if ($id): ?>
-  <table class="table">
+  <?php if ($id): 
+    require "navbarEvento.php";?>
+    <div class="column is-centered container">
+      <h1 class="title">Statistiche dell'evento <?php  echo $evento["title"]; ?> </h1>
+    </div>
+  <table class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
     <thead>
-      <th>Nome tipologia</th>
-      <th>Biglietti venduti/Totale</th>
-      <th>Profitto</th>
+      <?php
+        if($ticketSoldByCategories!= null) {
+          echo 
+            "<th>Nome tipologia</th>
+            <th>Biglietti venduti/Totale</th>
+            <th>Profitto</th>";
+        }  
+      
+      
+      
+      ?>
     </thead>
     <tbody>
      <?php 
+     if($ticketSoldByCategories!= null) {
         foreach($ticketSoldByCategories as $ticketSoldByCategory) {
           echo "<tr>
                   <td>{$ticketSoldByCategory['name']}</td>
@@ -56,6 +70,13 @@
         <td></td>
         <td>{$profit}€</td>
       </tr>";
+     } else {
+       echo "<article class=\"message is-info\">
+       <div class=\"message-body\">
+           Non sono ancora stati venduti biglietti per questo evento.
+           </div>
+   </article>";
+     }
      ?>
     </tbody>
   </table>

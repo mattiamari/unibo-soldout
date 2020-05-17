@@ -52,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
   <?php if ($id) : ?>
+    <div id="container">
     <h1 class="title">Nuova tipologia</h1>
     <form action="./popupBiglietto.php?id=<?php echo $id ?>" method="POST">
       <label for="id"></label>
@@ -81,12 +82,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input name="max_tickets" id="max_tickets" class="input" type="number" required value="<?php if ($isTicketTypeSet) echo $ticketType['max_tickets']; ?>">
           </div>
         </div>
-        <button class="button" type="submit">Salva</button>
-        <a class="button" href="formEventi.php?id=<?php echo $id ?>">Torna indietro</a>
+        <button class="button is-primary" type="submit">
+          <span class="icon is-small">
+      			<i class="fas fa-check"></i>
+    		</span>
+    		<span>Crea</span></button>
+        <a class="button is-danger is-light" href="formEventi.php?id=<?php echo $id ?>">Torna indietro</a>
     </form>
   <?php else : ?>
     <p>Nessun evento selezionato</p>
   <?php endif; ?>
+  </div>
 </body>
 
 </html>

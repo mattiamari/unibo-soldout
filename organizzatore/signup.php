@@ -15,7 +15,7 @@ $userQ->bindValue(':email', $_POST['email']);
 $userQ->bindValue(':password', $password);
 $userQ->bindValue(':salt', $salt);
 
-$sql = "INSERT INTO manager (user_id, `enabled`) VALUES (:user_id, 1)";
+$sql = "INSERT INTO manager (user_id, `enabled`) VALUES (:user_id, 0)";
 $managerQ = $pdo->prepare($sql);
 $managerQ->bindValue(':user_id', $userId);
 

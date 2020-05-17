@@ -52,9 +52,14 @@ if (isset($_GET["id"])) {
 	<link rel="stylesheet" href="style.css">
 	<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 	<script type="text/javascript" src="app.js"></script>
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
+	<script src="./navbar.js" type="text/javascript"></script>
 </head>
 
 <body>
+	<?php require "navbarArtista.php"?>
+	<br>
+	<div id="container">
 	<h1 class="title">Crea un nuovo artista</h1>
 	<form enctype="multipart/form-data" method="POST" action="creazioneArtista.php?<?php if ($isArtistSet) echo "id=" . $artist["id"]; ?>">
 		<label for="id"></label>
@@ -78,7 +83,7 @@ if (isset($_GET["id"])) {
        		 <i class="fas fa-upload"></i>
      			</span>
       		<span class="file-label">
-        		Choose a file…
+        		Scegli un file...
       		</span>
     		</span>
 				<span class="file-name">
@@ -92,11 +97,18 @@ if (isset($_GET["id"])) {
 				<input id="alt" class="input" type="text" value="">
 			</div>
 		</div>
-		<div class="buttons">
-			<button class="button" type="submit">Crea</button>
-			<a class="button" href="./visualizzaArtisti.php">Torna agli artisti</a>
+		<div class="buttons">		
+			<button class="button is-primary" type="submit">
+    		<span class="icon is-small">
+      			<i class="fas fa-check"></i>
+    		</span>
+			<span>Crea</span>
+			
+  		</button>
+		  <a class="button" href="./visualizzaArtisti.php">Torna agli artisti</a>
 		</div>
 	</form>
+	</div>
 	</div>
 </body>
 </html>

@@ -19,25 +19,40 @@ if(isset($_GET["action"])) {
 </head>
 
 <body>
+<div id="container">
     <h1 class="title">Registrazione</h1>
     <form action="./signup.php" method="POST">
         <div class="field">
             <label class="label" for="email">Email</label>
             <div class="control">
-                <input class="input" id="email" name="email" type="email">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" id="email" name="email" type="email" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </p>
             </div>
         </div>
         <div class="field">
             <label class="label" for="password">Password</label>
             <div class="control">
-                <input class="input" id="password" name="password" type="password">
+                <p class="control has-icons-left">
+                    <input class="input" id="password" name="password" type="password" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </p>
             </div>
         </div>
         <div class="field">
             <div class="control">
-                <button class="button">Conferma</button>
+                <button class="button is-info">Conferma</button>
                 <a class="button" href="./login.php">Sei già registrato?</a>
             </div>
         </div>
     </form>
+    </div>
 </body>
