@@ -58,8 +58,8 @@ function ticketTypeRow($ticketType)
     . "<td>{$ticketType['name']}</td>"
     . "<td>{$ticketType['price']}</td>"
     . "<td>{$ticketType['max_tickets']}</td>"
-    . "<td><button class=\"button\" type=\"submit\" formaction=\"salvaEvento.php?redir=popupBiglietto.php%3FidTicket={$ticketType['id']}%26\">Modifica</td>"
-    . "<td><button class=\"button\" type=\"submit\" formaction=\"salvaEvento.php?id={$ticketType['show_id']}&idTicket={$ticketType['id']}&action=deleteTicketType&redir=formEventi.php%3F\">Elimina</td>"
+    . "<td><button class=\"button is-warning is-light\" type=\"submit\" formaction=\"salvaEvento.php?redir=popupBiglietto.php%3FidTicket={$ticketType['id']}%26\">Modifica</td>"
+    . "<td><button class=\"button is-danger is-light\" type=\"submit\" formaction=\"salvaEvento.php?id={$ticketType['show_id']}&idTicket={$ticketType['id']}&action=deleteTicketType&redir=formEventi.php%3F\">Elimina</td>"
     . "</tr>";
 }
 ?>
@@ -84,7 +84,7 @@ function ticketTypeRow($ticketType)
         <form enctype="multipart/form-data" action="salvaEvento.php?redir=formEventi.php%3F" method="POST">
     <?php
     if ($id) {
-      echo "<input type=\"hidden\" name=\"id\" value=\"$id\"";
+      echo "<input type=\"hidden\" name=\"id\" value=\"$id\">";
     }
     ?>
     <div class="field">
@@ -127,14 +127,14 @@ function ticketTypeRow($ticketType)
         <label class="label">Artista</label>
         <label for="artist"></label>
         <label for="buttonArtist"><?php if ($isArtistSet) echo $artist["name"] ?></label>
-        <button id="buttonArtist" type="submit" formaction="./salvaEvento.php?redir=selezionaArtista.php%3F" class="button">Scegli</a>
+        <button id="buttonArtist" type="submit" formaction="./salvaEvento.php?redir=selezionaArtista.php%3F" class="button">Scegli</button>
     </div>
 
     <div class="field">
         <label class="label">Luogo</label>
         <label for="venue"></label>
         <label for="buttonVenue"><?php if ($isVenueSet) echo $venue["name"] ?></label>
-        <button id="buttonVenue" type="submit" formaction="./salvaEvento.php?redir=popupLuogo.php%3F" class="button">Scegli</a>
+        <button id="buttonVenue" type="submit" formaction="./salvaEvento.php?redir=popupLuogo.php%3F" class="button">Scegli</button>
     </div>
 
     <label for="img" class="label">Immagine</label>
@@ -171,9 +171,10 @@ function ticketTypeRow($ticketType)
     </div>
     <div>
         <label class="label">Biglietti</label>
-        <button type="submit" formaction="salvaEvento.php?redir=popupBiglietto.php%3F" class="button">Nuova tipologia</a<>
+        <button type="submit" formaction="salvaEvento.php?redir=popupBiglietto.php%3F" class="button">Nuova tipologia</button>
     </div>
-    <div class="table-container">
+    <br>
+    <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
         <table class="table">
             <thead>
                 <?php 
@@ -181,7 +182,8 @@ function ticketTypeRow($ticketType)
                         echo
                             "<th>Nome</th>
                             <th>Prezzo</th>
-                            <th>Biglietti totali</th>";
+                            <th>Biglietti totali</th>
+                            <th colspan=\"2\">Azioni</th>";
                     }
                 ?>
                 
@@ -196,7 +198,12 @@ function ticketTypeRow($ticketType)
         </table>
     </div>
     <div class="buttons">
-        <button class="button is-primary" type="submit">Salva</button>
+        <button class="button is-primary" type="submit">
+            <span class="icon is-small">
+      			<i class="fas fa-check"></i>
+    		</span>
+            <span>Salva</span>
+         </button>
         <a class="button" href="./visualizzaEventi.php">Torna agli eventi</a>
     </div>
 </form>

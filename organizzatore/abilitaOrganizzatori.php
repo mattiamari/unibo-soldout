@@ -139,8 +139,8 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
         <h1 class="title">Utenti da abilitare a organizzatori</h1>
       </div>
       <br>
-        <div class="table-container columns is-centered">
-            <table class="table is-bordered is-striped is-narrow is-hoverable">
+        <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
+            <table class="tableis-striped">
                 <thead>
                     <?php 
                         if($managersDontEnabled!=null) {
@@ -177,8 +177,8 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
         <h1 class="title">Organizzatori da poter rendere admin</h1>
       </div>
       <br>
-        <div class="table-container columns is-centered">
-            <table class="table is-bordered is-striped is-narrow is-hoverable">
+        <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
+            <table class="table is-striped">
                 <thead>
                     <?php 
                         if($managersEnabled!=null) {

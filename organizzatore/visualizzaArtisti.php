@@ -64,8 +64,7 @@ $artist = $db->countArtistWithShow();
                     <tr>
                         <th>Nome</th>
                         <th>Descrizione</th>
-                        <th></th>
-                        <th></th>
+                        <th colspan="2">Azioni</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -42,7 +42,7 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
     <h1 class="title">Seleziona artista</h1>
     <form>
       <div class="field">
-        <div class="control">
+        <div id="control" class="control">
           <input id="artistId" type="hidden" name="id" value="<?php echo $id ?>">
           <p class="control has-icons-left">
           <input id="search" name="search" class="input" type="text" placeholder="Cerca artista">
@@ -61,10 +61,6 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
     
       if(isset($artists)) {
         foreach($artists as $artist) {
-          /*echo "<label class=\"radio\">
-            <input type=\"radio\" name=\"artist\" value=\"{$artist['id']}\">
-            {$artist['name']}<br>
-          </label><br>";*/
 
           echo "<div class='box'>
           
@@ -72,7 +68,7 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
                     <input type=\"radio\" name=\"artist\" value=\"{$artist['id']}\">
                     <div class='media-left'>
               <figure class='image is-64x64'>
-                <img src=\"https://bulma.io/images/placeholders/128x128.png\" alt=\"Image\">
+                <img src=\"/soldout/app/i/AmZaRLM0jWs/horizontal/Diodato.jpg\" alt=\"Image\">
               </figure>
             </div>
             <div class=\"media-content\">

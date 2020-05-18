@@ -2,6 +2,8 @@
 
 require_once "../api/idgen.php";
 
+$imgPath = "/soldout/app/i/";
+
 class Evento {
     public $id;
     public $artist_id;
@@ -25,6 +27,9 @@ class Evento {
 }
 
 class Db {
+
+    
+
     
     private $pdo;
 
@@ -455,16 +460,20 @@ class Db {
     }
 
     function searchVenue($name) {
-        $sql = $this->pdo->prepare("SELECT * FROM venue
-        WHERE name like :name");
+        global $imgPath;
+        $sql = $this->pdo->prepare("SELECT venue.*, CONCAT('$imgPath', `venue`.id, '/', image.type, '/', image.name) AS imageUrl FROM venue
+        LEFT JOIN image ON image.subject_id = `venue`.id AND image.subject = 'venue' AND image.type = 'horizontal'
+        WHERE venue.name like :name");
         $sql->bindValue(':name', "%" . $name . "%");
         $result = $sql->execute();
          return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function searchArtist($name) {
-        $sql = $this->pdo->prepare("SELECT * FROM artist
-        WHERE name like :name");
+        global $imgPath;
+        $sql = $this->pdo->prepare("SELECT artist.*, CONCAT('$imgPath', `artist`.id, '/', image.type, '/', image.name) AS imageUrl FROM artist
+        LEFT JOIN image ON image.subject_id = `artist`.id AND image.subject = 'artist' AND image.type = 'horizontal'
+        WHERE artist.name like :name");
         $sql->bindValue(':name', "%" . $name . "%");
         $result = $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);

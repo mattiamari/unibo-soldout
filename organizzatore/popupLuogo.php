@@ -44,7 +44,7 @@ if (isset($_GET["search"]) && $_GET["search"] != "") {
   <h1 class="title">Seleziona luogo</h1>
   <form>
     <div class="field">
-      <div class="control">
+      <div id="control" class="control">
         <input id="venueId" type="hidden" name="id" value="<?php echo $id ?>">
         <p class="control has-icons-left">
         <input id="search" name="search" class="input" type="text" placeholder="Cerca luogo">

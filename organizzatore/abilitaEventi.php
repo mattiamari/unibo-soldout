@@ -26,7 +26,6 @@ function eventRow($evento)
         . "<td>{$evento['date']}</td>"
         . "<td>{$evento['tickets_sold']}/{$evento['tickets_total']}</td>"
         . "<td><a class=\"button is-primary\" href=abilitaEventi.php?id={$evento['id']}>Abilita</button></td>"
-        // . "<td><a class=button href=abilitaEventi.php?id={$evento['id']}>Disabilita</td>"
         . "</tr>";
 }
 $events = $db->getDontEnabledEventList(0);
@@ -121,8 +120,8 @@ $events = $db->getDontEnabledEventList(0);
 <br>
 
     <section>
-        <div class="table-container columns is-centered">
-            <table class="table is-bordered is-striped is-narrow is-hoverable">
+        <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
+            <table class="table is-striped">
                 <thead>
                     <?php 
                     if ($events != null) {
@@ -131,6 +130,7 @@ $events = $db->getDontEnabledEventList(0);
                                 <th>Titolo</th>
                                 <th>Data</th>
                                 <th>Biglietti venduti/biglietti totali</th>
+                                <th>Azioni</th>
                             </tr>";
                     } else {
                         echo "<article class=\"message is-info\">

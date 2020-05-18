@@ -2,6 +2,8 @@ $(document).ready(function() {
     var search = document.querySelector("#search");
     
     search.onkeyup = function() {
+
+        document.querySelector("#control").classList.add("is-loading");
         var venue = document.querySelector("#venueId");
         var form = document.querySelector("#form");
         var allVenueSet = document.querySelectorAll("input[type=radio]");
@@ -13,6 +15,7 @@ $(document).ready(function() {
             url: "./cercaLuogo.php?q=" + search.value,
             data: search.value,
             success: function(venues){
+
                 if(search.value != "") {
                     var myObj = JSON.parse(venues);
                     var arrayId = new Array();
@@ -30,9 +33,10 @@ $(document).ready(function() {
                                 `<div class='box'>
                                 <article class=\"media\">
                                     <input type=\"radio\" name=\"artist\" value=${venue['id']}>
+                                    <br>
                                     <div class='media-left'>
                                         <figure class='image is-64x64'>
-                                        <img src=\"https://bulma.io/images/placeholders/128x128.png\" alt=\"Image\">
+                                        <img src=\"${venue['imageUrl']}\" alt=\"Image\">
                                         </figure>
                                     </div>
                                     <div class=\"media-content\">
@@ -45,12 +49,15 @@ $(document).ready(function() {
                                 </article>
                             </div>`;
                     });
+                    form.innerHTML = html;
                 }
+                
                 } else {
                     form.innerHTML = "";
                 }
+
+                document.querySelector("#control").classList.remove("is-loading");
                 
-                form.innerHTML = html;
                 var box = document.querySelectorAll(".box");
                 box.forEach(function(item, index) {
                     item.onclick = function(e) {
