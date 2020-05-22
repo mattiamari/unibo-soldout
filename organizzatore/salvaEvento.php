@@ -40,6 +40,7 @@ $date = $date->format("Y-m-d H:i:s");
 $artist_id = NULL;
 $show_category_id = $_POST["show_category"];
 
+var_dump($_POST);
 if (isset($_POST["artist"])) {
     $artist_id = $_POST["artist"];
 }

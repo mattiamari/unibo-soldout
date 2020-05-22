@@ -1,5 +1,14 @@
 $(document).ready(function() {
     var search = document.querySelector("#search");
+    var id = document.querySelector("#artistId").value;
+
+    var btn = `<button class=\"button is-primary\" type=\"submit\">
+    <span class=\"icon is-small\">
+      			<i class=\"fas fa-check\"></i>
+    		</span>
+    		<span>Conferma</span>
+    </button>
+    <a class=\"button is-danger is-light\" href=\"./formEventi.php?id=${id}\">Annulla</a>`;
     
     search.onkeyup = function() {
         document.querySelector("#control").classList.add("is-loading");
@@ -51,11 +60,12 @@ $(document).ready(function() {
                                     </article>
                                 </div>`;
                         });
-                        form.innerHTML = html;
+                        console.log(btn);
+                        form.innerHTML = html + btn;
                     }
                     
                 } else {
-                    form.innerHTML = "";
+                    form.innerHTML = btn;
             }
             document.querySelector("#control").classList.remove("is-loading");
                 

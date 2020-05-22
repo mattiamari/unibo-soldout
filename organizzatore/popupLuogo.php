@@ -92,15 +92,9 @@ if (isset($_GET["search"]) && $_GET["search"] != "") {
     ?>
 
     <br>
-  </form>
-  <button type="submit" class="button is-primary">
-    <span class="icon is-small">
-      			<i class="fas fa-check"></i>
-    		</span>
-        <span>Conferma</span>
-      </button>
     <a class="button is-danger is-light" href="./formEventi.php?id=<?php echo $id ?>">Annulla</a>
-</div>
+    </form>
+    </div>
 </body>
 
 </html>

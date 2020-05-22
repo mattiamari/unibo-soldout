@@ -1,5 +1,15 @@
 $(document).ready(function() {
     var search = document.querySelector("#search");
+
+    var id = document.querySelector("#venueId").value;
+
+    var btn = `<button class=\"button is-primary\" type=\"submit\">
+    <span class=\"icon is-small\">
+      			<i class=\"fas fa-check\"></i>
+    		</span>
+    		<span>Conferma</span>
+    </button>
+    <a class=\"button is-danger is-light\" href=\"./formEventi.php?id=${id}\">Annulla</a>`;
     
     search.onkeyup = function() {
 
@@ -32,7 +42,7 @@ $(document).ready(function() {
                         html +=
                                 `<div class='box'>
                                 <article class=\"media\">
-                                    <input type=\"radio\" name=\"artist\" value=${venue['id']}>
+                                    <input type=\"radio\" name=\"venue\" value=${venue['id']}>
                                     <br>
                                     <div class='media-left'>
                                         <figure class='image is-64x64'>
@@ -49,11 +59,12 @@ $(document).ready(function() {
                                 </article>
                             </div>`;
                     });
-                    form.innerHTML = html;
+                    console.log(btn);
+                    form.innerHTML = html + btn;
                 }
                 
                 } else {
-                    form.innerHTML = "";
+                    form.innerHTML = btn;
                 }
 
                 document.querySelector("#control").classList.remove("is-loading");
