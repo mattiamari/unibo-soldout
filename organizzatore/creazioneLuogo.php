@@ -70,7 +70,7 @@ if (isset($_GET["id"])) {
     <?php require "navbarLuogo.php"; ?>
     <br>
     <div id="container">
-  <h1 class="title">Inserisci nuovo luogo</h1>
+  <h1 class="title"><?php if (isset($id)) echo "Modifica luogo"; else echo "Crea un nuovo luogo"?></h1>
   <form enctype="multipart/form-data" action="?<?php if (isset($_GET["id"])) echo "id=" . $id ?>" method="POST">
     <label for="id"></label>
     <input type="hidden" name="id" id="id" value="<?php if ($isVenueSet) {echo $venue["id"];} ?>">
@@ -158,7 +158,7 @@ if (isset($_GET["id"])) {
     		<span class="icon is-small">
       			<i class="fas fa-check"></i>
     		</span>
-    		<span>Crea</span>        
+    		<span><?php if (isset($id)) echo "Salva"; else echo "Crea"?></span>        
         </button>
         <a class="button" href="./visualizzaLuoghi.php">Torna ai luoghi</a>
     </div>

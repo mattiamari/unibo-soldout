@@ -120,7 +120,7 @@ $events = $db->getDontEnabledEventList(0);
 <br>
 
     <section>
-        <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
+        <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
             <table class="table is-striped">
                 <thead>
                     <?php 

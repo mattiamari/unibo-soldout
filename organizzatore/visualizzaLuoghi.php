@@ -55,10 +55,10 @@ $venue = $db->countVenueWithShow();
 <body>
 <?php require "navbarLuogo.php";?>
     <section class="section">
-        <a href="creazioneLuogo.php" class="button is-primary">Aggiungi luogo</a>
+        <a id="newElementButton" href="creazioneLuogo.php" class="button is-primary">Aggiungi luogo</a>
     </section>
     <section>
-        <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
+        <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
             <table class="table is-striped">
                 <thead>
                     <tr>

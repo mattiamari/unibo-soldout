@@ -71,6 +71,7 @@ function ticketTypeRow($ticketType)
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
   <link rel="stylesheet" href="style.css">
+  <link href="~bulma-calendar/dist/css/bulma-calendar.min.css" rel="stylesheet">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <script type="text/javascript" src="app.js"></script>
 
@@ -80,7 +81,7 @@ function ticketTypeRow($ticketType)
   <?php require "navbarEvento.php"; ?>
   <br>
     <div id="container">
-        <h1 class="title">Nuovo evento</h1>
+        <h1 class="title"><?php if ($isEventSet) echo "Modifica evento"; else echo "Crea un nuovo evento"?></h1>
         <form enctype="multipart/form-data" action="salvaEvento.php?redir=formEventi.php%3F" method="POST">
     <?php
     if ($id) {
@@ -175,7 +176,7 @@ function ticketTypeRow($ticketType)
     </div>
     <br>
     <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
-        <table class="table">
+        <table class="table-container">
             <thead>
                 <?php 
                     if ($ticketTypes!=null) {

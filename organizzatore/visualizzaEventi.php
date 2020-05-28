@@ -79,11 +79,11 @@ if($_SESSION["is_admin"]==1) {
     </article>";
     } ?>
 <?php require "navbarEvento.php";?>
-    <section class="section">
-        <a href="./formEventi.php" class="button is-primary">Aggiungi evento</a>
+    <section id="section" class="section">
+        <a id="newElementButtonEvent" href="./formEventi.php" class="button is-primary">Aggiungi evento</a>
     </section>
-    <section>
-        <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
+    <section id="secttionTable"  class="section">
+        <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
             <table class="table is-striped">
                 <thead>
                 <?php

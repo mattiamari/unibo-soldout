@@ -55,10 +55,10 @@ $artist = $db->countArtistWithShow();
 <body>
     <?php  require "navbarArtista.php"?>
     <section class="section">
-        <a href="creazioneArtista.php" class="button is-primary">Aggiungi artista</a>
+        <a id="newElementButton" href="creazioneArtista.php" class="button is-primary">Aggiungi artista</a>
     </section>
     <section>
-        <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
+        <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
             <table class="table is-striped">
                 <thead>
                     <tr>
