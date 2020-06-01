@@ -2,6 +2,7 @@
 
 import { Shows } from '../model/Shows.js';
 import NavBar from '../components/NavBar.js';
+import SearchBar from '../components/SearchBar.js';
 import ShowSlider from '../components/ShowSlider.js';
 import htmlToElement from '../utils/htmlToElement.js';
 import Statusbar from '../utils/statusbar.js';
@@ -24,10 +25,6 @@ class HomePage {
                     <div class="app-logo">
                         <span class="logo-sold">sold</span><span class="logo-out">OUT</span>
                     </div>
-
-                    <div class="searchbar">
-                        <input type="search" placeholder="Trova un evento...">
-                    </div>
                 </div>
             </header>
 
@@ -41,6 +38,9 @@ class HomePage {
 
         this.navbar = new NavBar();
         header.insertBefore(this.navbar.render(), header.firstChild);
+
+        const searchbar = new SearchBar();
+        header.querySelector('.header-content').appendChild(searchbar.render());
 
         const sliderNewShows = new ShowSlider({
             title: 'Nuovi',

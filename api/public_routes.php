@@ -49,6 +49,37 @@ $showsSummaryCategorizedRoute = function (Request $request, ResponseInterface $r
     return query($response, $q, 'shows');
 };
 
+$showSearchRoute = function (Request $request, ResponseInterface $response, $args) {
+    $imgPath = IMAGE_DIR;
+
+    
+    if (!isset($request->getQueryParams()['q'])) {
+        return jsonResponse($response, 'shows', []);
+    }
+
+    $query = trim($request->getQueryParams()['q']);
+    if ($query == "") {
+        return jsonResponse($response, 'shows', []);
+    }
+
+    $sql = "SELECT `show`.id, `show`.title, `show`.date, show_category.name AS category,
+            CONCAT(city.name, ', ', country.name) AS location,
+            CONCAT('$imgPath', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
+            image.altText AS imageAlt
+        FROM `show`
+        JOIN show_category ON show_category.id = `show`.show_category_id
+        JOIN venue ON venue.id = `show`.venue_id
+        JOIN city ON city.id = venue.city_id
+        JOIN country ON country.id = city.country_id
+        LEFT JOIN image ON image.subject_id = `show`.id AND image.subject = 'show' AND image.type = 'horizontal'
+        WHERE `show`.enabled=1 AND `show`.title like :searchQuery";
+
+    $q = $this->get('db')->prepare($sql);
+    $q->bindValue(':searchQuery', "%" . $query . "%", PDO::PARAM_STR);
+
+    return query($response, $q, 'shows');
+};
+
 $showDetailsRoute = function (Request $request, ResponseInterface $response, $args) {
     $imgPath = IMAGE_DIR;
 

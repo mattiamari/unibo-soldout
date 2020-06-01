@@ -90,7 +90,6 @@ a {
 */
 .header {
     position: relative;
-    overflow: hidden;
 }
 
 .header-layer {
@@ -154,12 +153,17 @@ a {
 /*
     Searchbar
 */
+.searchbar-wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
 .searchbar {
     height: 52px;
     padding: 4px;
     margin: auto 16px;
-    /* max-width: 600px; */
-    /* width: 100%; */
 }
 
 .searchbar input {
@@ -172,6 +176,32 @@ a {
     font-size: 0.9em;
     box-shadow: var(--shadow-2);
     border-radius: 6px;
+}
+
+.searchbar-results {
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 60%;
+    height: 350px;
+    z-index: 100;
+    list-style: none;
+    padding: 0 16px;
+    background-color: var(--color-background-contrast);
+    color: var(--color-text-contrast);
+    animation: slide-in-up .2s ease-out;
+    animation-fill-mode: forwards;
+}
+
+.searchbar-results--hidden {
+    animation: slide-out-down .2s ease-in;
+    animation-fill-mode: forwards;
+    pointer-events: none;
+}
+
+/* TODO: needs refinements */
+.searchbar-entry {
+    
 }
 
 /* 
@@ -1205,6 +1235,28 @@ a.orderList-row {
     }
 }
 
+@keyframes slide-out-down {
+    0% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+}
+
+@keyframes slide-in-up {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
 @keyframes slide-in-left {
     0% {
         transform: translateX(35px);
@@ -1230,7 +1282,7 @@ a.orderList-row {
 */
 
 @media screen and (min-width: 600px) {
-    .searchbar {
+    .searchbar-wrap {
         width: 576px;
         align-self: center;
     }
@@ -1256,13 +1308,14 @@ a.orderList-row {
     .page--home .header {
         height: 50%;
         max-height: unset;
+        overflow: visible;
     }
 
     .page--home > main {
         margin-top: -48px;
     }
 
-    .searchbar {
+    .searchbar-wrap {
         width: 800px;
     }
 }

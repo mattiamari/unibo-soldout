@@ -88,6 +88,12 @@ const Shows = {
         const artist = (await res.json()).artist;
         return Object.assign(new Artist, artist);
     },
+
+    search: async query => {
+        const res = await fetch('/api/shows/search?q=' + query);
+        const shows = (await res.json()).shows;
+        return shows.map(e => Object.assign(new ShowSummary, e));
+    }
 };
 
 export {Shows, Show};
