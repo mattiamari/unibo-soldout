@@ -1,24 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
+$(document).ready(function() {
+    var navbarMenu = document.querySelector("#navbarMenuHeroC");
+    var navbarMenuBurger = document.querySelector("#navbarMenuBurger");
 
-    // Get all "navbar-burger" elements
-    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-  
-    // Check if there are any navbar burgers
-    if ($navbarBurgers.length > 0) {
-  
-      // Add a click event on each of them
-      $navbarBurgers.forEach( el => {
-        el.addEventListener('click', () => {
-  
-          // Get the target from the "data-target" attribute
-          const target = el.dataset.target;
-          const $target = document.getElementById(target);
-  
-          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-          el.classList.toggle('is-active');
-          $target.classList.toggle('is-active');
-  
-        });
-      });
+    navbarMenuBurger.onclick = function(){
+    if (window.innerWidth < 1024 && navbarMenuBurger.className == "navbar-burger burger") {
+        navbarMenuBurger.classList.add("is-active");
+        navbarMenu.classList.add("is-active");
+    } else {
+
+        navbarMenuBurger.classList.remove("is-active");
+        navbarMenu.classList.remove("is-active");
     }
-  });
+    }
+
+    $(window).resize(function() {
+        if (window.innerWidth > 1024) {
+            navbarMenuBurger.classList.remove("is-active");
+            navbarMenu.classList.remove("is-active");
+        }
+    }); 
+});

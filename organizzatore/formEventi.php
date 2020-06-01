@@ -41,8 +41,9 @@ if (isset($_GET["id"])) {
   if ($venue) {
     $isVenueSet = true;
   }
-  $date = date_create($event["date"]);
-  $date = date_format($date, 'Y-m-d\TH:i');
+  $dateAndTime = date_create($event["date"]);
+  $date = date_format($dateAndTime, 'Y-m-d');
+  $time = date_format($dateAndTime,"H:i");
   $isEventSet = true;
 }
 
@@ -58,8 +59,8 @@ function ticketTypeRow($ticketType)
     . "<td>{$ticketType['name']}</td>"
     . "<td>{$ticketType['price']}</td>"
     . "<td>{$ticketType['max_tickets']}</td>"
-    . "<td><button class=\"button\" type=\"submit\" formaction=\"salvaEvento.php?redir=popupBiglietto.php%3FidTicket={$ticketType['id']}%26\">Modifica</td>"
-    . "<td><button class=\"button\" type=\"submit\" formaction=\"salvaEvento.php?id={$ticketType['show_id']}&idTicket={$ticketType['id']}&action=deleteTicketType&redir=formEventi.php%3F\">Elimina</td>"
+    . "<td><button class=\"button is-warning is-light\" type=\"submit\" formaction=\"salvaEvento.php?redir=popupBiglietto.php%3FidTicket={$ticketType['id']}%26\">Modifica</td>"
+    . "<td><button class=\"button is-danger is-light\" type=\"submit\" formaction=\"salvaEvento.php?id={$ticketType['show_id']}&idTicket={$ticketType['id']}&action=deleteTicketType&redir=formEventi.php%3F\">Elimina</td>"
     . "</tr>";
 }
 ?>
@@ -71,38 +72,42 @@ function ticketTypeRow($ticketType)
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
   <link rel="stylesheet" href="style.css">
+  <link href="~bulma-calendar/dist/css/bulma-calendar.min.css" rel="stylesheet">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <script type="text/javascript" src="app.js"></script>
 
 </head>
 
 <body>
-  <h1 class="title">Nuovo evento</h1>
-  <form enctype="multipart/form-data" action="salvaEvento.php?redir=formEventi.php%3F" method="POST">
+  <?php require "navbarEvento.php"; ?>
+  <br>
+    <div id="container">
+        <h1 class="title"><?php if ($isEventSet) echo "Modifica evento"; else echo "Crea un nuovo evento"?></h1>
+        <form enctype="multipart/form-data" action="salvaEvento.php?redir=formEventi.php%3F" method="POST">
     <?php
     if ($id) {
-      echo "<input type=\"hidden\" name=\"id\" value=\"$id\"";
+      echo "<input type=\"hidden\" name=\"id\" value=\"$id\">";
     }
     ?>
     <div class="field">
-      <label for="title" class="label">Titolo</label>
-      <div class="control">
-        <input id="title" class="input" type="text" name="title" required value="<?php if ($isEventSet) {
+        <label for="title" class="label">Titolo</label>
+        <div class="control">
+            <input id="title" class="input" type="text" name="title" required value="<?php if ($isEventSet) {
                                                                                     echo $event["title"];
                                                                                   } ?>">
-      </div>
+        </div>
     </div>
     <div class="field">
-      <label for="description" class="label">Descrizione</label>
-      <div class="control">
-        <textarea class="textarea" name="description" require id="description"><?php if ($isEventSet) {
+        <label for="description" class="label">Descrizione</label>
+        <div class="control">
+            <textarea class="textarea" name="description" require id="description"><?php if ($isEventSet) {
                                                                                   echo $event["description"];
                                                                                 } ?></textarea>
-      </div>
+        </div>
     </div>
     <label for="show_category" class="label">Categoria Evento</label>
     <div class="select">
-      <select required name="show_category" id="">
+        <select required name="show_category" id="">
         <?php
         if ($showCategory != NULL) {
           foreach ($showCategory as $category) {
@@ -110,86 +115,108 @@ function ticketTypeRow($ticketType)
           }
         }
         ?>
-      </select>
+        </select>
     </div>
 
     <div class="field">
-      <label for="date" class="label">Data</label>
-      <input id="date" type="datetime-local" name="date" required value=<?php if ($isEventSet) {
+        <label for="date" class="label">Data</label>
+        <input id="date" class="button" type="date" name="date" required value=<?php if ($isEventSet) {
                                                                           echo $date;
                                                                         } ?>>
     </div>
     <div class="field">
-      <h2>Artista</h2>
-      <label for="artist"></label>
-      <label for="buttonArtist"><?php if ($isArtistSet) echo $artist["name"] ?></label>
-      <button id="buttonArtist" type="submit" formaction="./salvaEvento.php?redir=selezionaArtista.php%3F" class="button">Scegli</a>
+        <label for="time" class="label">Ora</label>
+        <input id="time" class="button" type="time" name="time" required value=<?php if ($isEventSet) {
+                                                                          echo $time;
+                                                                        } ?>>
     </div>
 
     <div class="field">
-      <h2>Luogo</h2>
-      <label for="venue"></label>
-      <label for="buttonVenue"><?php if ($isVenueSet) echo $venue["name"] ?></label>
-      <button id="buttonVenue" type="submit" formaction="./salvaEvento.php?redir=popupLuogo.php%3F" class="button">Scegli</a>
+        <label class="label">Artista</label>
+        <label for="artist"></label>
+        <label for="buttonArtist"><?php if ($isArtistSet) echo $artist["name"] ?></label>
+        <button id="buttonArtist" type="submit" formaction="./salvaEvento.php?redir=selezionaArtista.php%3F" class="button">Scegli</button>
+    </div>
+
+    <div class="field">
+        <label class="label">Luogo</label>
+        <label for="venue"></label>
+        <label for="buttonVenue"><?php if ($isVenueSet) echo $venue["name"] ?></label>
+        <button id="buttonVenue" type="submit" formaction="./salvaEvento.php?redir=popupLuogo.php%3F" class="button">Scegli</button>
     </div>
 
     <label for="img" class="label">Immagine</label>
     <div class="file has-name">
-      <label class="file-label">
-        <input id="img" class="file-input" type="file" name="img" accept=".jpg, .jpeg, .jpg">
-        <span class="file-cta">
-          <span class="file-icon">
-            <i class="fas fa-upload"></i>
-          </span>
-          <span class="file-label">
-            Scegli un file…
-          </span>
-        </span>
-        <span class="file-name">
-        <?php if($isEventSet && $img != null) echo $img["name"] ?>
-        </span>
-      </label>
+        <label class="file-label">
+            <input id="img" class="file-input" type="file" name="img" accept=".jpg, .jpeg, .jpg">
+            <span class="file-cta">
+                <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                Scegli un file…
+                </span>
+            </span>
+            <span class="file-name">
+                <?php if($isEventSet && $img != null) echo $img["name"] ?>
+            </span>
+        </label>
     </div>
     <div class="field">
-      <label for="alt" class="label">Alt</label>
-      <div class="control">
-        <input id="alt" class="input" type="text" value="">
-      </div>
-    </div>
-    <div class="field">
-      <div class="field">
-        <label for="max_ticket" class="label">Massimo numero di biglietti per ordine</label>
+        <label for="alt" class="label">Alt</label>
         <div class="control">
-          <input id="max_ticket" class="input" type="number" min="1" name="max_ticket" required value="<?php if ($isEventSet) {
-                        echo $event["max_tickets_per_order"];} ?>">
+            <input id="alt" class="input" type="text" value="">
         </div>
-      </div>
+    </div>
+    <div class="field">
+        <div class="field">
+            <label for="max_ticket" class="label">Massimo numero di biglietti per ordine</label>
+            <div class="control">
+                <input id="max_ticket" class="input" type="number" min="1" name="max_ticket" required value="<?php if ($isEventSet) {
+                        echo $event["max_tickets_per_order"];} ?>">
+            </div>
+        </div>
     </div>
     <div>
-      <label class="label">Biglietti</label>
-      <button type="submit" formaction="salvaEvento.php?redir=popupBiglietto.php%3F" class="button">Nuova tipologia</a<>
+        <label class="label">Biglietti</label>
+        <button type="submit" formaction="salvaEvento.php?redir=popupBiglietto.php%3F" class="button">Nuova tipologia</button>
     </div>
-    <div class="table-container">
-      <table class="table">
-        <thead>
-          <th>Nome</th>
-          <th>Prezzo</th>
-          <th>Biglietti totali</th>
-        </thead>
-        <tbody>
-          <?php
-          if ($isEventSet) {
-            echo join("\n", array_map('ticketTypeRow', $ticketTypes));
-          }
-          ?>
-        </tbody>
-      </table>
+    <br>
+    <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
+        <table class="table-container">
+            <thead>
+                <?php 
+                    if ($ticketTypes!=null) {
+                        echo
+                            "<th>Nome</th>
+                            <th>Prezzo</th>
+                            <th>Biglietti totali</th>
+                            <th colspan=\"2\">Azioni</th>";
+                    }
+                ?>
+                
+            </thead>
+            <tbody>
+                <?php
+                if ($isEventSet) {
+                    echo join("\n", array_map('ticketTypeRow', $ticketTypes));
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
     <div class="buttons">
-      <button class="button" type="submit">Salva</button>
-      <a class="button" href="./visualizzaEventi.php">Torna agli eventi</a>
+        <button class="button is-primary" type="submit">
+            <span class="icon is-small">
+      			<i class="fas fa-check"></i>
+    		</span>
+            <span>Salva</span>
+         </button>
+        <a class="button" href="./visualizzaEventi.php">Torna agli eventi</a>
     </div>
-  </form>
+</form>
+</div>
+
 </body>
 
 </html>

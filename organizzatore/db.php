@@ -2,6 +2,8 @@
 
 require_once "../api/idgen.php";
 
+$imgPath = "/soldout/app/i/";
+
 class Evento {
     public $id;
     public $artist_id;
@@ -25,6 +27,9 @@ class Evento {
 }
 
 class Db {
+
+    
+
     
     private $pdo;
 
@@ -57,6 +62,23 @@ class Db {
         return $result->fetchAll();
     }
 
+    function getEventListByManagerId($manager_id) {
+        $sql = $this->pdo->prepare("SELECT `show`.id, `show`.title, `show`.date, `show`.enabled,
+                sum(ticket_type.max_tickets) AS tickets_total, 
+                sum(cart_item.quantity) AS tickets_sold, 
+                sum(cart_item.quantity * ticket_type.price) AS total_profit
+            FROM `show`
+            LEFT JOIN ticket_type ON ticket_type.show_id = `show`.id
+            LEFT JOIN cart_item ON cart_item.ticket_type_id = ticket_type.id
+            WHERE `show`.manager_id=:manager_id
+            GROUP BY `show`.id");
+            $sql->bindParam(':manager_id', $manager_id);
+            $result=$sql->execute();
+            if($result) {
+                return $sql->fetchAll(PDO::FETCH_ASSOC);
+            }
+    }
+
     function getDontEnabledEventList($enabled) {
         $sql = $this->pdo->prepare("SELECT `show`.id, `show`.title, `show`.date, `show`.enabled,
                 sum(ticket_type.max_tickets) AS tickets_total, 
@@ -72,7 +94,45 @@ class Db {
         if($result) {
             return $sql->fetchAll(PDO::FETCH_ASSOC);
         }
-        var_dump($sql->errorInfo());
+    }
+
+    function getDontEnabledManagerList($enabled) {
+        $sql = $this->pdo->prepare("SELECT user.id, user.email, manager.is_admin FROM user
+            JOIN manager ON user.id=manager.user_id
+            WHERE manager.enabled=:enabled");
+            $sql->bindParam(':enabled', $enabled, PDO::PARAM_INT);
+            $result=$sql->execute();
+            if($result) {
+                return $sql->fetchAll(PDO::FETCH_ASSOC);
+            }
+    }
+
+    function countArtistWithShow() {
+        $sql = "SELECT artist.id, artist.name, artist.description, count(show.id) AS show_count FROM artist
+            LEFT JOIN `show` ON `show`.artist_id = artist.id
+            GROUP BY artist.id";
+            $result = $this->pdo->query($sql);
+            return $result->fetchAll();
+    }
+
+    function countArtistWithShowById($id) {
+        $sql = $this->pdo->prepare("SELECT artist.id, artist.name, artist.description, count(show.id) AS show_count FROM artist
+            LEFT JOIN `show` ON `show`.artist_id = artist.id
+            WHERE artist.id = :id
+            GROUP BY artist.id");
+            $sql->bindParam(':id', $id);
+            $result=$sql->execute();
+            if($result) {
+                return $sql->fetch(PDO::FETCH_ASSOC);
+            }
+    }
+
+    function countVenueWithShow() {
+        $sql = "SELECT venue.id, venue.name, venue.description, venue.address, count(show.id) AS show_count FROM venue
+            LEFT JOIN `show` ON `show`.venue_id = venue.id
+            GROUP BY venue.id";
+            $result = $this->pdo->query($sql);
+            return $result->fetchAll();
     }
 
     function getProfitByEventId($eventId) {
@@ -249,6 +309,25 @@ class Db {
         }
     }
 
+    
+
+    function enabledManagerById($id, $enabled) {
+        $sql = $this->pdo->prepare("UPDATE `manager` SET `enabled`= :enabled WHERE user_id=:id");
+        $sql->bindParam(':id',$id);
+        $sql->bindParam(':enabled', $enabled, PDO::PARAM_INT);
+        if (!$sql->execute()) {
+            var_dump($sql->errorInfo());
+        }
+    }
+
+    function enabledAdminById($id, $enabled) {
+        $sql = $this->pdo->prepare("UPDATE `manager` SET `is_admin`= if(is_admin = 0, 1, 0) WHERE user_id=:id");
+        $sql->bindParam(':id',$id);
+        if (!$sql->execute()) {
+            var_dump($sql->errorInfo());
+        }
+    }
+
     function updateTicketTypeById($ticketId, $name, $description, $price, $max_tickets){
         $sql = $this->pdo->prepare("UPDATE ticket_type SET name=:name, description=:description, price=:price, max_tickets=:max_tickets WHERE id=:ticketId");
         $sql->bindParam(':ticketId',$ticketId);
@@ -384,7 +463,7 @@ class Db {
     }
 
     function checkEmail($email) {
-        $sql = $this->pdo->prepare("SELECT user.* FROM manager
+        $sql = $this->pdo->prepare("SELECT user.*, manager.is_admin FROM manager
         JOIN user ON user.id = manager.user_id
         WHERE email = :email");
          $sql->bindParam(':email', $email);
@@ -393,16 +472,20 @@ class Db {
     }
 
     function searchVenue($name) {
-        $sql = $this->pdo->prepare("SELECT * FROM venue
-        WHERE name like :name");
+        global $imgPath;
+        $sql = $this->pdo->prepare("SELECT venue.*, CONCAT('$imgPath', `venue`.id, '/', image.type, '/', image.name) AS imageUrl FROM venue
+        LEFT JOIN image ON image.subject_id = `venue`.id AND image.subject = 'venue' AND image.type = 'horizontal'
+        WHERE venue.name like :name");
         $sql->bindValue(':name', "%" . $name . "%");
         $result = $sql->execute();
          return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function searchArtist($name) {
-        $sql = $this->pdo->prepare("SELECT * FROM artist
-        WHERE name like :name");
+        global $imgPath;
+        $sql = $this->pdo->prepare("SELECT artist.*, CONCAT('$imgPath', `artist`.id, '/', image.type, '/', image.name) AS imageUrl FROM artist
+        LEFT JOIN image ON image.subject_id = `artist`.id AND image.subject = 'artist' AND image.type = 'horizontal'
+        WHERE artist.name like :name");
         $sql->bindValue(':name', "%" . $name . "%");
         $result = $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -449,7 +532,8 @@ function saveImg($img, $subjectId ,$type) {
 
 try {
     // stringa di connessione al DBMS
-    $pdo = new PDO("mysql:host=localhost;dbname=soldout", 'root', '');
+    //$pdo = new PDO("mysql:host=localhost;dbname=soldout", 'root', '');
+    $pdo = new PDO("mysql:host=mattiamari.me;port=13306;dbname=soldout", 'soldout', 'IiseH73LQTyzTknBS03GYw');
     /*
     Avremmo potuto anche omettere dbname in questo modo:
     $connessione = new PDO("mysql:host=$host", $user, $password);

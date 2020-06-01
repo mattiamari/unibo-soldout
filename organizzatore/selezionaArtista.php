@@ -33,32 +33,68 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
     <title></title>
     <link rel="stylesheet" href="style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="./selezionaArtista.js" type="text/javascript"></script>
+    <script src="./cercaArtista.js" type="text/javascript"></script>
   </head>
   <body>
+  <div id="container">
     <h1 class="title">Seleziona artista</h1>
     <form>
       <div class="field">
-        <div class="control">
-          <input type="hidden" name="id" value="<?php echo $id ?>">
+        <div id="control" class="control">
+          <input id="artistId" type="hidden" name="id" value="<?php echo $id ?>">
+          <p class="control has-icons-left">
           <input id="search" name="search" class="input" type="text" placeholder="Cerca artista">
-          <button type="submit" class="button is-right">Cerca</button>
+            <span class="icon is-left">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+          </p>
+          
         </div>
       </div>
     </form>
-    <form method="POST">
+    <form id="form" method="POST">
+    <div>
+    
     <?php
+    
       if(isset($artists)) {
         foreach($artists as $artist) {
-          echo "<label class=\"radio\">
-            <input type=\"radio\" name=\"artist\" value=\"{$artist['id']}\">
-            {$artist['name']}<br>
-          </label><br>";
+
+          echo "<div class='box'>
+          
+                    <article class=\"media\">
+                    <input type=\"radio\" name=\"artist\" value=\"{$artist['id']}\">
+                    <div class='media-left'>
+              <figure class='image is-64x64'>
+                <img src=\"/soldout/app/i/AmZaRLM0jWs/horizontal/Diodato.jpg\" alt=\"Image\">
+              </figure>
+            </div>
+            <div class=\"media-content\">
+              <div class=\"content\">
+              
+                <p>
+                <strong>{$artist['name']}</strong>
+                  <br>
+                  {$artist['description']}
+                </p>
+              </div>
+              
+            </div>
+          </article>
+        </div>";
         }
       }
       
     ?>
-    <button class="button" type="submit">Conferma</button>
-    <a class="button" href="./formEventi.php?id=<?php echo $id ?>">Annulla</a>
+    </div>
+    <br>
+    <a class="button is-danger is-light" href="./formEventi.php?id=<?php echo $id ?>">Annulla</a>
     </form>
+    
+
+    </div>
   </body>
+  
 </html>

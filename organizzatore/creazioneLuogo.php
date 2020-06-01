@@ -60,10 +60,17 @@ if (isset($_GET["id"])) {
   <link rel="stylesheet" href="style.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <script type="text/javascript" src="app.js"></script>
+  <script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
+  <script src="./navbar.js" type="text/javascript"></script>
+  <script defer src="./jquery-3.4.1.min.js"></script>
+  <script defer src="./location.js"></script>
 </head>
 
 <body>
-  <h1 class="title">Inserisci nuovo luogo</h1>
+    <?php require "navbarLuogo.php"; ?>
+    <br>
+    <div id="container">
+  <h1 class="title"><?php if (isset($id)) echo "Modifica luogo"; else echo "Crea un nuovo luogo"?></h1>
   <form enctype="multipart/form-data" action="?<?php if (isset($_GET["id"])) echo "id=" . $id ?>" method="POST">
     <label for="id"></label>
     <input type="hidden" name="id" id="id" value="<?php if ($isVenueSet) {echo $venue["id"];} ?>">
@@ -77,6 +84,7 @@ if (isset($_GET["id"])) {
       <label for="description" class="label">Descrizione</label>
       <textarea class="textarea" name="description" id="description"><?php if ($isVenueSet) {echo $venue["description"];} ?></textarea>
     </div>
+    <label  class="label">Seleziona Città</label>
     <div class="select">
     <select name="country" class="countries" id="countryId">
       <option value="">Seleziona Paese</option>
@@ -146,10 +154,16 @@ if (isset($_GET["id"])) {
       </div>
     </div>
     <div class="buttons">
-      <Button class="button" type="submit">Crea</Button>
-      <a class="button" href="./visualizzaLuoghi.php">Torna ai luoghi</a>
+        <button class="button is-primary" type="submit">
+    		<span class="icon is-small">
+      			<i class="fas fa-check"></i>
+    		</span>
+    		<span><?php if (isset($id)) echo "Salva"; else echo "Crea"?></span>        
+        </button>
+        <a class="button" href="./visualizzaLuoghi.php">Torna ai luoghi</a>
     </div>
   </form>
-  <script defer src="./jquery-3.4.1.min.js"></script>
-  <script defer src="./location.js"></script>
+    </div>
+  
 </body>
+</html>

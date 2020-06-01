@@ -30,15 +30,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 }
 
+$status = "";
+
 $isArtistSet = false;
 if (isset($_GET["id"])) {
 	$id = $_GET["id"];
 	$img = $db->getImageById($id);
 	$isArtistSet = true;
 	$artist = $db->getArtistById($id);
-	/*if(!$artist) {
-			die ("Selezionato un artista non valido");
-		}*/
+
+	$countArtist = $db->countArtistWithShowById($id);
+	
+	
+  	if($countArtist['show_count'] > 0) {
+    	$status = "disabled";
+  }
 }
 
 ?>
@@ -52,10 +58,15 @@ if (isset($_GET["id"])) {
 	<link rel="stylesheet" href="style.css">
 	<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 	<script type="text/javascript" src="app.js"></script>
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
+	<script src="./navbar.js" type="text/javascript"></script>
 </head>
 
 <body>
-	<h1 class="title">Crea un nuovo artista</h1>
+	<?php require "navbarArtista.php"?>
+	<br>
+	<div id="container">
+	<h1 class="title"><?php if (isset($id)) echo "Modifica artista"; else echo "Crea un nuovo artista"?></h1>
 	<form enctype="multipart/form-data" method="POST" action="creazioneArtista.php?<?php if ($isArtistSet) echo "id=" . $artist["id"]; ?>">
 		<label for="id"></label>
 		<input class="input" type="hidden" name="id" id="id" value="<?php if ($isArtistSet) {echo $artist["id"];} ?>">
@@ -78,7 +89,7 @@ if (isset($_GET["id"])) {
        		 <i class="fas fa-upload"></i>
      			</span>
       		<span class="file-label">
-        		Choose a file…
+        		Scegli un file...
       		</span>
     		</span>
 				<span class="file-name">
@@ -92,11 +103,18 @@ if (isset($_GET["id"])) {
 				<input id="alt" class="input" type="text" value="">
 			</div>
 		</div>
-		<div class="buttons">
-			<button class="button" type="submit">Crea</button>
-			<a class="button" href="./visualizzaArtisti.php">Torna agli artisti</a>
+		<div class="buttons">		
+			<button class="button is-primary <?php echo $status?>" <?php echo $status?> type="submit">
+    		<span class="icon is-small">
+      			<i class="fas fa-check"></i>
+    		</span>
+			<span><?php if (isset($id)) echo "Salva"; else echo "Crea"?></span>
+			
+  		</button>
+		  <a class="button" href="./visualizzaArtisti.php">Torna agli artisti</a>
 		</div>
 	</form>
+	</div>
 	</div>
 </body>
 </html>
