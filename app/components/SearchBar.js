@@ -49,13 +49,14 @@ class SearchBar {
     }
 
     showResults(shows) {
+        this.results.classList.remove('searchbar-results--hidden');
+        
         if (!shows.length) {
             this.results.innerHTML = /*html*/`<span>Nessun risultato :(</span>`;
             return;
         }
 
         this.results.innerHTML = shows.map(s => ResultEntry(s)).join("\n");
-        this.results.classList.remove('searchbar-results--hidden');
     }
 
     hideResults() {
