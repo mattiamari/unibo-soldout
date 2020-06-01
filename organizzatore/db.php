@@ -115,6 +115,18 @@ class Db {
             return $result->fetchAll();
     }
 
+    function countArtistWithShowById($id) {
+        $sql = $this->pdo->prepare("SELECT artist.id, artist.name, artist.description, count(show.id) AS show_count FROM artist
+            LEFT JOIN `show` ON `show`.artist_id = artist.id
+            WHERE artist.id = :id
+            GROUP BY artist.id");
+            $sql->bindParam(':id', $id);
+            $result=$sql->execute();
+            if($result) {
+                return $sql->fetch(PDO::FETCH_ASSOC);
+            }
+    }
+
     function countVenueWithShow() {
         $sql = "SELECT venue.id, venue.name, venue.description, venue.address, count(show.id) AS show_count FROM venue
             LEFT JOIN `show` ON `show`.venue_id = venue.id
@@ -300,7 +312,7 @@ class Db {
     
 
     function enabledManagerById($id, $enabled) {
-        $sql = $this->pdo->prepare("UPDATE `user` SET `enabled`= :enabled WHERE id=:id");
+        $sql = $this->pdo->prepare("UPDATE `manager` SET `enabled`= :enabled WHERE user_id=:id");
         $sql->bindParam(':id',$id);
         $sql->bindParam(':enabled', $enabled, PDO::PARAM_INT);
         if (!$sql->execute()) {
@@ -520,7 +532,8 @@ function saveImg($img, $subjectId ,$type) {
 
 try {
     // stringa di connessione al DBMS
-    $pdo = new PDO("mysql:host=localhost;dbname=soldout", 'root', '');
+    //$pdo = new PDO("mysql:host=localhost;dbname=soldout", 'root', '');
+    $pdo = new PDO("mysql:host=mattiamari.me;port=13306;dbname=soldout", 'soldout', 'IiseH73LQTyzTknBS03GYw');
     /*
     Avremmo potuto anche omettere dbname in questo modo:
     $connessione = new PDO("mysql:host=$host", $user, $password);

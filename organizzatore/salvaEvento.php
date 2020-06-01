@@ -2,8 +2,9 @@
 
 session_start();
 if (!$_SESSION["login"]) {
-    die("Utente non loggato");
+    header("location: ./login.php?error=nolog");
 }
+
 /* redirect alla pagina giusta*/
 require "db.php";
 /* controllo se sto modificando un evento o lo sto creando */
@@ -33,14 +34,24 @@ $title = trim($_POST["title"]);
 
 $description = $_POST["description"];
 
-$date = $_POST["date"];
-$date = DateTime::createFromFormat("Y-m-d\TH:i", $date);
-$date = $date->format("Y-m-d H:i:s");
 
 $artist_id = NULL;
 $show_category_id = $_POST["show_category"];
 
-var_dump($_POST);
+var_dump($_POST["date"]);
+var_dump($_POST["time"]);
+
+if (isset($_POST["date"]) && isset($_POST["time"])) {
+    $date = DateTime::createFromFormat("Y-m-d", $_POST["date"]);
+    $time = DateTime::createFromFormat("H:i", $_POST["time"]);
+   
+    $merge = new DateTime($date->format('Y-m-d') .' ' .$time->format('H:i'));
+    $date = $merge->format("Y-m-d H:i:s");
+}
+
+var_dump($date);
+
+
 if (isset($_POST["artist"])) {
     $artist_id = $_POST["artist"];
 }

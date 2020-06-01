@@ -41,8 +41,9 @@ if (isset($_GET["id"])) {
   if ($venue) {
     $isVenueSet = true;
   }
-  $date = date_create($event["date"]);
-  $date = date_format($date, 'Y-m-d\TH:i');
+  $dateAndTime = date_create($event["date"]);
+  $date = date_format($dateAndTime, 'Y-m-d');
+  $time = date_format($dateAndTime,"H:i");
   $isEventSet = true;
 }
 
@@ -119,8 +120,14 @@ function ticketTypeRow($ticketType)
 
     <div class="field">
         <label for="date" class="label">Data</label>
-        <input id="date" class="button" type="datetime-local" name="date" required value=<?php if ($isEventSet) {
+        <input id="date" class="button" type="date" name="date" required value=<?php if ($isEventSet) {
                                                                           echo $date;
+                                                                        } ?>>
+    </div>
+    <div class="field">
+        <label for="time" class="label">Ora</label>
+        <input id="time" class="button" type="time" name="time" required value=<?php if ($isEventSet) {
+                                                                          echo $time;
                                                                         } ?>>
     </div>
 

@@ -9,7 +9,7 @@ if (!$_SESSION["login"]) {
 require "db.php";
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
-    if($_GET["toggle_admin"]==1) {
+    if(isset($_GET["toggle_admin"]) && $_GET["toggle_admin"]==1) {
       $db->enabledAdminById($id, 1);
     } else {
       $db->enabledManagerById($id, 1);
@@ -134,7 +134,7 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
 </section>
 <br>
 <br>
-    <section>
+    <section class="section">
       <div class="columns is-centered">
         <h1 class="title">Da abilitare</h1>
       </div>
@@ -172,7 +172,7 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
         </div>
     </section>
 <br><br>
-    <section>
+    <section class="section">
       <div class="columns is-centered">
         <h1 class="title">Organizzatori</h1>
       </div>

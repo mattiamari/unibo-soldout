@@ -30,15 +30,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 }
 
+$status = "";
+
 $isArtistSet = false;
 if (isset($_GET["id"])) {
 	$id = $_GET["id"];
 	$img = $db->getImageById($id);
 	$isArtistSet = true;
 	$artist = $db->getArtistById($id);
-	/*if(!$artist) {
-			die ("Selezionato un artista non valido");
-		}*/
+
+	$countArtist = $db->countArtistWithShowById($id);
+	
+	
+  	if($countArtist['show_count'] > 0) {
+    	$status = "disabled";
+  }
 }
 
 ?>
@@ -98,7 +104,7 @@ if (isset($_GET["id"])) {
 			</div>
 		</div>
 		<div class="buttons">		
-			<button class="button is-primary" type="submit">
+			<button class="button is-primary <?php echo $status?>" <?php echo $status?> type="submit">
     		<span class="icon is-small">
       			<i class="fas fa-check"></i>
     		</span>
