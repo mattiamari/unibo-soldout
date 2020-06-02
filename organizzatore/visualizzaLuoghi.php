@@ -20,16 +20,18 @@ if (isset($_GET["id"]) && isset($_GET["action"])) {
 
 function venueRow($venue)
 {
+    $stringa = "Modifica";
   $status = "";
   if($venue['show_count'] > 0) {
     $status = "disabled";
+    $stringa = "Visualizza";
   }
 
     return "<tr>"
         . "<td>{$venue['name']}</td>"
         . "<td>{$venue['description']}</td>"
         . "<td>{$venue['address']}</td>"
-        . "<td><a class=\"button is-info is-light {$status}\" {$status} href=creazioneLuogo.php?id={$venue['id']}>Modifica</td>"
+        . "<td><a class=\"button is-info is-light\"  href=creazioneLuogo.php?id={$venue['id']}>$stringa</td>"
         . "<td><a class=\"button is-danger is-light {$status}\" {$status} href=visualizzaLuoghi.php?id={$venue['id']}&action=deleteVenue>Elimina</td>"
         . "</tr>";
 }
@@ -54,10 +56,10 @@ $venue = $db->countVenueWithShow();
 
 <body>
 <?php require "navbarLuogo.php";?>
-    <section class="section">
+    <section class="section container">
         <a id="newElementButton" href="creazioneLuogo.php" class="button is-primary">Aggiungi luogo</a>
     </section>
-    <section>
+    <section class="section container">
         <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
             <table class="table is-striped">
                 <thead>

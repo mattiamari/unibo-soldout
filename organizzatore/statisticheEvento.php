@@ -38,6 +38,7 @@
 <body>
   <?php if ($id): 
     require "navbarEvento.php";?>
+    <div class="container">
     <div class="column is-centered container">
       <h1 class="title">Statistiche dell'evento <?php  echo $evento["title"]; ?> </h1>
     </div>
@@ -85,4 +86,5 @@
     <?php endif; ?>
 
     <a class="button" href="./visualizzaEventi.php">Torna agli eventi</a>
+    </div>
 </body>

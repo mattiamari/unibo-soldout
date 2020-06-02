@@ -1,4 +1,4 @@
-<section class="hero is-success">
+<section class="hero is-primary">
   <!-- Hero head: will stick at the top -->
   <div class="hero-head">
     <header class="navbar">
@@ -17,9 +17,6 @@
         </div>
         <div id="navbarMenuHeroC" class="navbar-menu">
           <div class="navbar-end">
-            <a href="./login.php" class="navbar-item is-active">
-                Login
-            </a>
             <a href="./login.php?action=logout" class="navbar-item">
               Logout
             </a>

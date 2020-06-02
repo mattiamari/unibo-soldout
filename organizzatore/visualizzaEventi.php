@@ -19,6 +19,10 @@ if($_SESSION["manager_id"]) {
 
 function eventRow($evento)
 {
+    
+
+    /*$artist = $db->getArtistById($evento["artist_id"]);
+    $venue = $db->getArtistById($evento["venue_id"]);*/
     $stato = "in attesa di approvazione";
     if ($evento['enabled']) {
         $stato = "approvato";
@@ -32,6 +36,8 @@ function eventRow($evento)
   }
     return "<tr>"
         . "<td>{$evento['title']}</td>"
+        . "<td>{$evento['artist_name']}</td>"
+        . "<td>{$evento['venue_name']}</td>"
         . "<td>{$evento['date']}</td>"
         . "<td>{$stato}</td>"
         . "<td>{$evento['tickets_sold']}/{$evento['tickets_total']}</td>"
@@ -47,7 +53,9 @@ if($_SESSION["is_admin"]==1) {
   $events = $db->getEventList();
 }else {
   $events = $db->getEventListByManagerId($_SESSION["manager_id"]);
+  
 }
+
 
 ?>
 
@@ -79,10 +87,10 @@ if($_SESSION["is_admin"]==1) {
     </article>";
     } ?>
 <?php require "navbarEvento.php";?>
-    <section id="section" class="section">
-        <a id="newElementButtonEvent" href="./formEventi.php" class="button is-primary">Aggiungi evento</a>
+    <section class="section container">
+        <a id="newElementButton" href="./formEventi.php" class="button is-primary">Aggiungi evento</a>
     </section>
-    <section id="secttionTable"  class="section">
+    <section id="secttionTable"  class="section container">
         <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
             <table class="table is-striped">
                 <thead>
@@ -96,6 +104,8 @@ if($_SESSION["is_admin"]==1) {
                     } else {
                       echo "<tr>
                       <th>Titolo</th>
+                      <th>Artista</th>
+                      <th>Luogo</th>
                       <th>Data</th>
                       <th>Stato</th>
                       <th>Biglietti venduti/biglietti totali</th>

@@ -74,7 +74,7 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
     </article>";
     } */?>
 
-<section class="hero is-success">
+<section class="hero is-primary">
   <!-- Hero head: will stick at the top -->
   <div class="hero-head">
     <header class="navbar">
@@ -93,9 +93,6 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
         </div>
         <div id="navbarMenuHeroC" class="navbar-menu">
           <div class="navbar-end">
-            <a href="./login.php" class="navbar-item is-active">
-                Login
-            </a>
             <a href="./login.php?action=logout" class="navbar-item">
               Logout
             </a>
@@ -134,7 +131,7 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
 </section>
 <br>
 <br>
-    <section class="section">
+    <section class="section container">
       <div class="columns is-centered">
         <h1 class="title">Da abilitare</h1>
       </div>
@@ -172,7 +169,7 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
         </div>
     </section>
 <br><br>
-    <section class="section">
+    <section class="section container">
       <div class="columns is-centered">
         <h1 class="title">Organizzatori</h1>
       </div>

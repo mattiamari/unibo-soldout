@@ -49,7 +49,7 @@ if (isset($_POST["date"]) && isset($_POST["time"])) {
     $date = $merge->format("Y-m-d H:i:s");
 }
 
-var_dump($date);
+
 
 
 if (isset($_POST["artist"])) {

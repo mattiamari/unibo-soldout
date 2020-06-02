@@ -21,14 +21,16 @@ if (isset($_GET["id"]) && isset($_GET["action"])) {
 function artistRow($artist)
 {
   $status = "";
+  $stringa = "Modifica";
   if($artist['show_count'] > 0) {
     $status = "disabled";
+    $stringa = "Visualizza";
   }
     return "<tr>"
         . "<td>{$artist['name']}</td>"
         . "<td>{$artist['description']}</td>"
-        . "<td><a class=\"button is-info is-light {$status}\" {$status} href=creazioneArtista.php?id={$artist['id']}>Modifica</td>"
-        . "<td><a class=\"button is-danger is-light {$status}\"  {$status} href=visualizzaArtisti.php?id={$artist['id']}&action=deleteArtist>Elimina</td>"
+        . "<td><a class=\"button is-info is-light \" href=creazioneArtista.php?id={$artist['id']}>$stringa</td>"
+        . "<td><a class=\"button is-danger is-light {$status} \"  {$status} href=visualizzaArtisti.php?id={$artist['id']}&action=deleteArtist>Elimina</td>"
         . "</tr>";
 }
 $artist = $db->countArtistWithShow();
@@ -54,10 +56,10 @@ $artist = $db->countArtistWithShow();
 
 <body>
     <?php  require "navbarArtista.php"?>
-    <section class="section">
+    <section class="section container">
         <a id="newElementButton" href="creazioneArtista.php" class="button is-primary">Aggiungi artista</a>
     </section>
-    <section>
+    <section class="section container">
         <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
             <table class="table is-striped">
                 <thead>
