@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <?php if ($id) : ?>
     <div id="container">
-    <h1 class="title"><?php if (isset($id)) echo "Modifica tipologia"; else echo "Crea una nuova tipologia"?></h1>
+    <h1 class="title"><?php if (isset($idTicket)) echo "Modifica tipologia"; else echo "Crea una nuova tipologia"?></h1>
     <form action="./popupBiglietto.php?id=<?php echo $id ?>" method="POST">
       <label for="id"></label>
       <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <span class="icon is-small">
       			<i class="fas fa-check"></i>
     		</span>
-    		<span><?php if (isset($id)) echo "Salva"; else echo "Crea"?></span></button>
+    		<span><?php if (isset($idTicket)) echo "Salva"; else echo "Crea"?></span></button>
         <a class="button is-danger is-light" href="formEventi.php?id=<?php echo $id ?>">Torna indietro</a>
     </form>
   <?php else : ?>
