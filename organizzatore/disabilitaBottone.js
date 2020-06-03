@@ -29,7 +29,7 @@ $(document).ready(function() {
     ttBox.style.top = (coordY-100).toString() + "px";
 
     // add bubble content. Can include image or link
-    console.log(window.location.href);
+    
     $entity = window.location.href == "http://localhost/soldout/organizzatore/visualizzaArtisti.php" ? "artista" : "luogo";  
     
     ttBox.innerHTML = "Non è permesso modificare" + "<br/>" + "i dati o eliminare un " + $entity + "<br/>" +

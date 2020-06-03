@@ -50,11 +50,13 @@ class Db {
     }
 
     function getEventList() {
-        $sql = ("SELECT `show`.id, `show`.title, `show`.date, `show`.enabled,
+        $sql = ("SELECT `show`.id, `show`.title, `show`.date, `show`.enabled, artist.name AS artist_name, venue.name AS venue_name,
                 sum(ticket_type.max_tickets) AS tickets_total, 
                 sum(cart_item.quantity) AS tickets_sold, 
                 sum(cart_item.quantity * ticket_type.price) AS total_profit
-            FROM `show` 
+            FROM `show`
+            JOIN artist ON artist.id = `show`.artist_id
+            JOIN venue ON venue.id = `show`.venue_id
             LEFT JOIN ticket_type ON ticket_type.show_id = `show`.id
             LEFT JOIN cart_item ON cart_item.ticket_type_id = ticket_type.id
             GROUP BY `show`.id");
@@ -63,11 +65,13 @@ class Db {
     }
 
     function getEventListByManagerId($manager_id) {
-        $sql = $this->pdo->prepare("SELECT `show`.id, `show`.title, `show`.date, `show`.enabled,
+        $sql = $this->pdo->prepare("SELECT `show`.id, `show`.title, `show`.date, `show`.enabled, artist.name AS artist_name, venue.name AS venue_name,
                 sum(ticket_type.max_tickets) AS tickets_total, 
                 sum(cart_item.quantity) AS tickets_sold, 
                 sum(cart_item.quantity * ticket_type.price) AS total_profit
             FROM `show`
+            JOIN artist ON artist.id = `show`.artist_id
+            JOIN venue ON venue.id = `show`.venue_id
             LEFT JOIN ticket_type ON ticket_type.show_id = `show`.id
             LEFT JOIN cart_item ON cart_item.ticket_type_id = ticket_type.id
             WHERE `show`.manager_id=:manager_id
@@ -133,6 +137,18 @@ class Db {
             GROUP BY venue.id";
             $result = $this->pdo->query($sql);
             return $result->fetchAll();
+    }
+
+    function countVenueWithShowById($id) {
+        $sql = $this->pdo->prepare("SELECT venue.id, venue.name, venue.description, venue.address, count(show.id) AS show_count FROM venue
+            LEFT JOIN `show` ON `show`.venue_id = venue.id
+            WHERE venue.id = :id
+            GROUP BY venue.id");
+            $sql->bindParam(':id', $id);
+            $result=$sql->execute();
+            if($result) {
+                return $sql->fetch(PDO::FETCH_ASSOC);
+            }
     }
 
     function getProfitByEventId($eventId) {

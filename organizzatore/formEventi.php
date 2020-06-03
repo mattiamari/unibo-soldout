@@ -36,6 +36,9 @@ if (isset($_GET["id"])) {
   $artist = $db->getArtistById($event["artist_id"]);
   if ($artist) {
     $isArtistSet = true;
+    $image = $db->getImageById($id);
+
+	$imageName = $image["name"];
   }
   $venue = $db->getVenueById($event["venue_id"]);
   if ($venue) {
@@ -146,9 +149,10 @@ function ticketTypeRow($ticketType)
     </div>
 
     <label for="img" class="label">Immagine</label>
+    <ul id="fileList"><?php if ($isEventSet) {echo "<img width=\"200\" height=\"180\" src=\"../app/i/$id/horizontal/$imageName\"\>";} ?></ul>
     <div class="file has-name">
         <label class="file-label">
-            <input id="img" class="file-input" type="file" name="img" accept=".jpg, .jpeg, .jpg">
+            <input id="img" class="file-input" type="file" name="img" required accept=".jpg, .jpeg, .jpg">
             <span class="file-cta">
                 <span class="file-icon">
                     <i class="fas fa-upload"></i>

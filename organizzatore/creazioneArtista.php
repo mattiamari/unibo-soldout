@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 }
 
+
 $status = "";
 
 $isArtistSet = false;
@@ -38,6 +39,11 @@ if (isset($_GET["id"])) {
 	$img = $db->getImageById($id);
 	$isArtistSet = true;
 	$artist = $db->getArtistById($id);
+
+	
+	$image = $db->getImageById($id);
+
+	$imageName = $image["name"];
 
 	$countArtist = $db->countArtistWithShowById($id);
 	
@@ -60,6 +66,7 @@ if (isset($_GET["id"])) {
 	<script type="text/javascript" src="app.js"></script>
 	<script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
 	<script src="./navbar.js" type="text/javascript"></script>
+	<script src="./disabilitaBottone.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -81,6 +88,7 @@ if (isset($_GET["id"])) {
 			<textarea class="textarea" name="description" id="description"><?php if ($isArtistSet) {echo $artist["description"];} ?></textarea>
 		</div>
 		<label for="img" class="label">Immagine</label>
+		<ul id="fileList"><?php if ($isArtistSet) {echo "<img width=\"200\" height=\"180\" src=\"../app/i/$id/horizontal/$imageName\"\>";} ?></ul>
 		<div class="file has-name">
   		<label class="file-label">
     		<input id="img" class="file-input" type="file" name="img" accept=".jpg, .jpeg, .jpg">
@@ -104,7 +112,7 @@ if (isset($_GET["id"])) {
 			</div>
 		</div>
 		<div class="buttons">		
-			<button class="button is-primary <?php echo $status?>" <?php echo $status?> type="submit">
+			<button type="submit" class="button is-primary <?php echo $status?>" <?php echo $status?>>
     		<span class="icon is-small">
       			<i class="fas fa-check"></i>
     		</span>

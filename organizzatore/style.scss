@@ -4,7 +4,9 @@ $table-row-active-background-color: #D7487D;
 
 @import "bulma/bulma.sass";
 
-
+.hero {
+    background: linear-gradient(160deg, #D7487D 0%, #F77853 100% );
+}
 
 .title, .label {
     color: black;
@@ -50,10 +52,6 @@ input[type='radio'] {
     margin-right: 5%;
 }
 
-#newElementButtonEvent {
-    float: right;
-    margin-right: 5%;
-}
 
 
 

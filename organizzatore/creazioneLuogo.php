@@ -45,6 +45,17 @@ if (isset($_GET["id"])) {
   $countries = $db->getCountries();
   $states = $db->getStates($country["country_id"]);
   $cities = $db->getCities($state["state_id"]);
+
+  $countVenue = $db->countVenueWithShowById($id);
+
+  $image = $db->getImageById($id);
+
+	$imageName = $image["name"];
+	
+	
+  	if($countVenue['show_count'] > 0) {
+    	$status = "disabled";
+  }
 }
 
 
@@ -64,6 +75,7 @@ if (isset($_GET["id"])) {
   <script src="./navbar.js" type="text/javascript"></script>
   <script defer src="./jquery-3.4.1.min.js"></script>
   <script defer src="./location.js"></script>
+  <script src="./disabilitaBottone.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -131,6 +143,7 @@ if (isset($_GET["id"])) {
       </div>
     </div>
     <label for="img" class="label">Immagine</label>
+    <ul id="fileList"><?php if ($isVenueSet) {echo "<img width=\"200\" height=\"180\" src=\"../app/i/$id/horizontal/$imageName\"\>";} ?></ul>
     <div class="file has-name">
       <label class="file-label">
         <input id="img" class="file-input" type="file"  name="img" accept=".jpg, .jpeg, .jpg">
@@ -154,7 +167,7 @@ if (isset($_GET["id"])) {
       </div>
     </div>
     <div class="buttons">
-        <button class="button is-primary" type="submit">
+        <button class="button is-primary <?php echo $status?>" <?php echo $status?> type="submit">
     		<span class="icon is-small">
       			<i class="fas fa-check"></i>
     		</span>
