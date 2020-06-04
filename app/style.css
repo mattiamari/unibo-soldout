@@ -103,13 +103,17 @@ a {
     display: flex;
     flex-direction: column;
     padding-top: 56px; /* leave space for the navbar */
-    /* align-items: center; */
 }
 
 .app-logo {
     width: 100%;
     text-align: center;
     font-size: 2.3em;
+}
+
+.app-logo svg {
+    max-height: 200px;
+    fill: #ffffff;
 }
 
 .logo-sold {
@@ -163,7 +167,7 @@ a {
 .searchbar {
     height: 52px;
     padding: 4px;
-    margin: auto 16px;
+    margin: 16px;
 }
 
 .searchbar input {

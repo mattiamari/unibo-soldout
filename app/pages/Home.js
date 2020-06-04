@@ -8,12 +8,15 @@ import htmlToElement from '../utils/htmlToElement.js';
 import Statusbar from '../utils/statusbar.js';
 import TabbedContainer from '../components/TabbedContainer.js';
 import { CardSmall } from '../components/ShowCard.js';
+import SvgLogo from '../components/SvgLogo.js';
 
 class HomePage {
     constructor() {
     }
 
     async render() {
+        const logo = SvgLogo();
+
         const template = /*html*/`
             <div class="page page--home">
             <header class="header">
@@ -23,7 +26,7 @@ class HomePage {
 
                 <div class="header-layer header-content">
                     <div class="app-logo">
-                        <span class="logo-sold">sold</span><span class="logo-out">OUT</span>
+                        ${logo}
                     </div>
                 </div>
             </header>
