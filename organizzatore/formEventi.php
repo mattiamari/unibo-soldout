@@ -150,7 +150,7 @@ function ticketTypeRow($ticketType)
     </div>
 
     <label for="img" class="label">Immagine</label>
-    <ul id="fileList"><?php if ($isEventSet) {echo "<img width=\"200\" height=\"180\" src=\"../app/i/$id/horizontal/$imageName\"\>";} ?></ul>
+    <ul id="fileList"><?php if ($isEventSet) {echo "<img width=\"200\" height=\"180\" src=\"/i/$id/horizontal/$imageName\">";} ?></ul>
     <div class="file has-name">
         <label class="file-label">
             <input id="img" class="file-input" type="file" name="img"  accept=".jpg, .jpeg, .jpg">

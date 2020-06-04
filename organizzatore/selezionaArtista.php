@@ -68,7 +68,7 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
                     <input type=\"radio\" name=\"artist\" value=\"{$artist['id']}\">
                     <div class='media-left'>
               <figure class='image is-64x64'>
-                <img src=\"/soldout/app/i/AmZaRLM0jWs/horizontal/Diodato.jpg\" alt=\"Image\">
+                <img src=\"/i/AmZaRLM0jWs/horizontal/Diodato.jpg\" alt=\"Image\">
               </figure>
             </div>
             <div class=\"media-content\">
