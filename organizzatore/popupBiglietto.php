@@ -41,16 +41,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
   <meta charset="utf-8">
+  <title>Creazione biglietto</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+  <script src="./navbar.js"></script>
 </head>
 
 <body>
+  <?php require "navbarEvento.php"?>
   <?php if ($id) : ?>
     <div id="container">
     <h1 class="title"><?php if (isset($idTicket)) echo "Modifica tipologia"; else echo "Crea una nuova tipologia"?></h1>

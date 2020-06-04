@@ -26,16 +26,16 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Seleziona artista</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
-    <script src="./selezionaArtista.js" type="text/javascript"></script>
-    <script src="./cercaArtista.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="./selezionaArtista.js"></script>
+    <script src="./cercaArtista.js"></script>
   </head>
   <body>
   <div id="container">

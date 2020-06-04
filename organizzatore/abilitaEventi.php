@@ -32,16 +32,16 @@ $events = $db->getDontEnabledEventList(0);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Abilita evento</title>
     <link rel="stylesheet" href="style.css">
-    <script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="./navbar.js" type="text/javascript"></script>
+    <script src="./navbar.js"></script>
 </head>
 
 <body>

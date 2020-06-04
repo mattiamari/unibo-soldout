@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $db->updateImage($venueId, "venue", $name, "horizontal", $alt);
   }
 }
-
+$status = "";
 $isVenueSet = false;
 if (isset($_GET["id"])) {
   $id = $_GET["id"];
@@ -62,20 +62,20 @@ if (isset($_GET["id"])) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>Creazione luogo</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-  <script type="text/javascript" src="app.js"></script>
-  <script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript"></script>
-  <script src="./navbar.js" type="text/javascript"></script>
+  <script src="app.js"></script>
+  <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
   <script defer src="./jquery-3.4.1.min.js"></script>
+  <script src="./navbar.js"></script>
   <script defer src="./location.js"></script>
-  <script src="./disabilitaBottone.js" type="text/javascript"></script>
+  <script src="./disabilitaBottone.js"></script>
 </head>
 
 <body>
@@ -146,7 +146,7 @@ if (isset($_GET["id"])) {
     <ul id="fileList"><?php if ($isVenueSet) {echo "<img width=\"200\" height=\"180\" src=\"../app/i/$id/horizontal/$imageName\"\>";} ?></ul>
     <div class="file has-name">
       <label class="file-label">
-        <input id="img" class="file-input" type="file"  name="img" accept=".jpg, .jpeg, .jpg">
+        <input id="img" class="file-input" type="file" name="img" accept=".jpg, .jpeg, .jpg">
         <span class="file-cta">
           <span class="file-icon">
             <i class="fas fa-upload"></i>
