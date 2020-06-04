@@ -91,14 +91,18 @@ if (isset($eventId) && !$isEventNew) {
             $notificationId = generateId();
             $db->insertNewNotification($notificationId, "Il luogo dell'evento \"$title\" è cambiato.", "/show/$eventId");
             $customer = $db->getCustomerByEvent($eventId);
-            $db->insertNewUserNotification($notificationId, $customer);
+            if ($customer) {
+                $db->insertNewUserNotification($notificationId, $customer);
+            }
         }
 
         if ($isDateChanged) {
             $notificationId = generateId();
             $db->insertNewNotification($notificationId, "La data o l'ora dell'evento \"$title\" è cambiata.", "/show/$eventId");
             $customer = $db->getCustomerByEvent($eventId);
-            $db->insertNewUserNotification($notificationId, $customer);
+            if ($customer) {
+                $db->insertNewUserNotification($notificationId, $customer);    
+            }
         }
     }
     $db->updateEventById($eventId, $title, $date, $description, $_SESSION["manager_id"], $show_category_id, $max_tickets, 0);
