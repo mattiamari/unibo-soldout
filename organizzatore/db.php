@@ -537,7 +537,7 @@ function saveImg($img, $subjectId ,$type) {
     $destPath = str_replace("/", DIRECTORY_SEPARATOR, "/soldout/data/images/" . $subjectId . "/" . $type . "/");
     
     if (!file_exists($destPath)) {
-        mkdir($destPath, 0644, true);
+        mkdir($destPath, 0755, true);
     }
 
     move_uploaded_file($img["tmp_name"], $destPath . $imgName);
