@@ -534,7 +534,7 @@ function saveImg($img, $subjectId ,$type) {
     }
 
     $imgName = urlencode($img["name"]);
-    $destPath = str_replace("/", DIRECTORY_SEPARATOR, "/soldout/data/images/" . $subjectId . "/" . $type . "/");
+    $destPath = str_replace("/", DIRECTORY_SEPARATOR, "images/" . $subjectId . "/" . $type . "/");
     
     if (!file_exists($destPath)) {
         mkdir($destPath, 0755, true);
