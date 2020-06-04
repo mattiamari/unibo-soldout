@@ -22,17 +22,17 @@ function venueRow($venue)
 {
     $stringa = "Modifica";
   $status = "";
-  if($venue['show_count'] > 0) {
+  if($venue['show_count'] > 0 && $_SESSION["is_admin"]==0) {
     $status = "disabled";
     $stringa = "Visualizza";
   }
 
     return "<tr>"
-        . "<td>{$venue['name']}</td>"
-        . "<td>{$venue['description']}</td>"
-        . "<td>{$venue['address']}</td>"
-        . "<td><a class=\"button is-info is-light\"  href=creazioneLuogo.php?id={$venue['id']}>$stringa</td>"
-        . "<td><a class=\"button is-danger is-light {$status}\" {$status} href=visualizzaLuoghi.php?id={$venue['id']}&action=deleteVenue>Elimina</td>"
+        . "<td headers='nome'>{$venue['name']}</td>"
+        . "<td headers='descrizione'>{$venue['description']}</td>"
+        . "<td headers='indirizzo'>{$venue['address']}</td>"
+        . "<td headers='azioni'><a class=\"button is-info is-light\"  href=creazioneLuogo.php?id={$venue['id']}>$stringa</td>"
+        . "<td headers='azioni'><a class=\"button is-danger is-light {$status}\" {$status} href=visualizzaLuoghi.php?id={$venue['id']}&action=deleteVenue>Elimina</td>"
         . "</tr>";
 }
 $venue = $db->countVenueWithShow();
@@ -64,10 +64,10 @@ $venue = $db->countVenueWithShow();
             <table class="table is-striped">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Descrizione</th>
-                        <th>Indirizzo</th>
-                        <th colspan="2">Azioni</th>
+                        <th id="nome" scope="col">Nome</th>
+                        <th id="descrizione" scope="col">Descrizione</th>
+                        <th id="indirizzo" scope="col">Indirizzo</th>
+                        <th id="azioni" scope="col" colspan="2">Azioni</th>
                     </tr>
                 </thead>
                 <tbody>

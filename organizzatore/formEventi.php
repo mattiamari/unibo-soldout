@@ -59,11 +59,11 @@ function ticketTypeRow($ticketType)
 {
   return
     "<tr>"
-    . "<td>{$ticketType['name']}</td>"
-    . "<td>{$ticketType['price']}</td>"
-    . "<td>{$ticketType['max_tickets']}</td>"
-    . "<td><button class=\"button is-warning is-light\" type=\"submit\" formaction=\"salvaEvento.php?redir=popupBiglietto.php%3FidTicket={$ticketType['id']}%26\">Modifica</td>"
-    . "<td><button class=\"button is-danger is-light\" type=\"submit\" formaction=\"salvaEvento.php?id={$ticketType['show_id']}&idTicket={$ticketType['id']}&action=deleteTicketType&redir=formEventi.php%3F\">Elimina</td>"
+    . "<td headers='nome'>{$ticketType['name']}</td>"
+    . "<td headers='prezzo'>{$ticketType['price']}</td>"
+    . "<td headers='biglietti'>{$ticketType['max_tickets']}</td>"
+    . "<td headers='azioni'><button class=\"button is-warning is-light\" type=\"submit\" formaction=\"salvaEvento.php?redir=popupBiglietto.php%3FidTicket={$ticketType['id']}%26\">Modifica</td>"
+    . "<td headers='azioni'><button class=\"button is-danger is-light\" type=\"submit\" formaction=\"salvaEvento.php?id={$ticketType['show_id']}&idTicket={$ticketType['id']}&action=deleteTicketType&redir=formEventi.php%3F\">Elimina</td>"
     . "</tr>";
 }
 ?>
@@ -193,10 +193,10 @@ function ticketTypeRow($ticketType)
                 <?php 
                     if ($ticketTypes!=null) {
                         echo
-                            "<th>Nome</th>
-                            <th>Prezzo</th>
-                            <th>Biglietti totali</th>
-                            <th colspan=\"2\">Azioni</th>";
+                            "<th id='nome' scope='col'>Nome</th>
+                            <th id='prezzo' scope='col'>Prezzo</th>
+                            <th id='biglietti' scope='col'>Biglietti totali</th>
+                            <th id='azioni' scope='col' colspan=\"2\">Azioni</th>";
                     }
                 ?>
                 

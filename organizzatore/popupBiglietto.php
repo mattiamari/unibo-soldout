@@ -56,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <?php require "navbarEvento.php"?>
   <?php if ($id) : ?>
+  <br>
     <div id="container">
     <h1 class="title"><?php if (isset($idTicket)) echo "Modifica tipologia"; else echo "Crea una nuova tipologia"?></h1>
     <form action="./popupBiglietto.php?id=<?php echo $id ?>" method="POST">

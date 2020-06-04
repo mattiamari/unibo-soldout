@@ -53,7 +53,7 @@ if (isset($_GET["id"])) {
 	$imageName = $image["name"];
 	
 	
-  	if($countVenue['show_count'] > 0) {
+  	if($countVenue['show_count'] > 0 && $_SESSION["is_admin"]==0) {
     	$status = "disabled";
   }
 }

@@ -534,7 +534,7 @@ function saveImg($img, $subjectId ,$type) {
     }
 
     $imgName = urlencode($img["name"]);
-    $destPath = str_replace("/", DIRECTORY_SEPARATOR, "/soldout/data/images/" . $subjectId . "/" . $type . "/");
+    $destPath = str_replace("/", DIRECTORY_SEPARATOR, "images/" . $subjectId . "/" . $type . "/");
     
     if (!file_exists($destPath)) {
         mkdir($destPath, 0755, true);
@@ -549,7 +549,7 @@ function saveImg($img, $subjectId ,$type) {
 try {
     // stringa di connessione al DBMS
     //$pdo = new PDO("mysql:host=localhost;dbname=soldout", 'root', '');
-    $pdo = new PDO("mysql:host=db;dbname=soldout", 'soldout', 'IiseH73LQTyzTknBS03GYw');
+    $pdo = new PDO("mysql:host=mattiamari.me;port=13306;dbname=soldout", 'soldout', 'IiseH73LQTyzTknBS03GYw');
     /*
     Avremmo potuto anche omettere dbname in questo modo:
     $connessione = new PDO("mysql:host=$host", $user, $password);

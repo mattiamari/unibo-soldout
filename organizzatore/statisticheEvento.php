@@ -48,9 +48,9 @@
                                 if($ticketSoldByCategories!= null) {
                                     echo 
                                     "<tr>
-                                    <th>Nome tipologia</th>
-                                    <th>Biglietti venduti/Totale</th>
-                                    <th>Profitto</th>
+                                    <th id='nome' scope='col'>Nome tipologia</th>
+                                    <th id='biglietti' scope='col'>Biglietti venduti/Totale</th>
+                                    <th id='profitto' scope='col'>Profitto</th>
                                     </tr>";
                                 }  
                             ?>
@@ -60,9 +60,9 @@
                                 if($ticketSoldByCategories!= null) {
                                     foreach($ticketSoldByCategories as $ticketSoldByCategory) {
                                         echo "<tr>
-                                        <td>{$ticketSoldByCategory['name']}</td>
-                                        <td>{$ticketSoldByCategory['total_sold']}/{$ticketSoldByCategory['max_tickets']}</td>
-                                        <td>{$ticketSoldByCategory['profit']}€</td>
+                                        <td headers='nome'>{$ticketSoldByCategory['name']}</td>
+                                        <td headers='biglietti'>{$ticketSoldByCategory['total_sold']}/{$ticketSoldByCategory['max_tickets']}</td>
+                                        <td headers='profitto'>{$ticketSoldByCategory['profit']}€</td>
                                         </tr>";
                                     }
                                 } else {

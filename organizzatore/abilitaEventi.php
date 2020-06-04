@@ -22,10 +22,10 @@ function eventRow($evento)
         $evento['tickets_total']=0;
     }
     return "<tr>"
-        . "<td>{$evento['title']}</td>"
-        . "<td>{$evento['date']}</td>"
-        . "<td>{$evento['tickets_sold']}/{$evento['tickets_total']}</td>"
-        . "<td><a class=\"button is-primary\" href=abilitaEventi.php?id={$evento['id']}>Abilita</button></td>"
+        . "<td headers='nome'>{$evento['title']}</td>"
+        . "<td headers='data'>{$evento['date']}</td>"
+        . "<td headers='biglietti'>{$evento['tickets_total']}</td>"
+        . "<td headers='azioni'><a class=\"button is-primary\" href=abilitaEventi.php?id={$evento['id']}>Abilita</button></td>"
         . "</tr>";
 }
 $events = $db->getDontEnabledEventList(0);
@@ -124,10 +124,10 @@ $events = $db->getDontEnabledEventList(0);
                     if ($events != null) {
                         echo 
                             "<tr>
-                                <th>Titolo</th>
-                                <th>Data</th>
-                                <th>Biglietti venduti/biglietti totali</th>
-                                <th>Azioni</th>
+                                <th id='titolo' scope='col'>Titolo</th>
+                                <th id='data' scope='col'>Data</th>
+                                <th id='biglietti' scope='col'>Biglietti totali</th>
+                                <th id='azioni' scope='col'>Azioni</th>
                             </tr>";
                     } else {
                         echo "<article class=\"message is-info\">
