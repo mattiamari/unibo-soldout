@@ -22,9 +22,9 @@ function managerDontEnabledRow($organizzatore)
 {
 
     return "<tr>"
-        . "<td>{$organizzatore['id']}</td>"
-        . "<td>{$organizzatore['email']}</td>"
-        . "<td><a class=\"button is-primary\" href=abilitaOrganizzatori.php?id={$organizzatore['id']}>Abilita</button></td>"
+        . "<td headers='id'>{$organizzatore['id']}</td>"
+        . "<td headers='email'>{$organizzatore['email']}</td>"
+        . "<td headers='azioni'><a class=\"button is-primary\" href=abilitaOrganizzatori.php?id={$organizzatore['id']}>Abilita</button></td>"
         // . "<td><a class=button href=abilitaEventi.php?id={$evento['id']}>Disabilita</td>"
         . "</tr>";
 }
@@ -36,9 +36,9 @@ function managerEnabledRow($organizzatore)
   }
     $stato = $organizzatore["is_admin"] ? "Disabilita" : "Rendi amministratore";
     return "<tr>"
-        . "<td>{$organizzatore['id']}</td>"
-        . "<td>{$organizzatore['email']}</td>"
-        . "<td><a class=\"button is-primary\" href=abilitaOrganizzatori.php?id={$organizzatore['id']}&toggle_admin=1>{$stato}</button></td>"
+        . "<td headers='id'>{$organizzatore['id']}</td>"
+        . "<td headers='email'>{$organizzatore['email']}</td>"
+        . "<td headers='azioni'><a class=\"button is-primary\" href=abilitaOrganizzatori.php?id={$organizzatore['id']}&toggle_admin=1>{$stato}</button></td>"
         . "</tr>";
 }
 $managersDontEnabled = $db->getDontEnabledManagerList(0);
@@ -143,9 +143,9 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
                         if($managersDontEnabled!=null) {
                             echo 
                             "<tr>
-                                <th>Id</th>
-                                <th>Email</th>
-                                <th colspan=\"2\">Azione</th>
+                                <th id='id' scope='col'>Id</th>
+                                <th id='email' scope='col'>Email</th>
+                                <th id='azioni' scope='col' colspan=\"2\">Azione</th>
                             </tr>";
                         } else {
                             echo 
@@ -181,9 +181,9 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
                         if($managersEnabled!=null) {
                             echo 
                             "<tr>
-                                <th>Id</th>
-                                <th>Email</th>
-                                <th colspan=\"2\">Azione</th>
+                                <th id='id' scope='col'>Id</th>
+                                <th id='email' scope='col'>Email</th>
+                                <th id='azioni' scope='col' colspan=\"2\">Azione</th>
                             </tr>";
                         } else {
                             echo 

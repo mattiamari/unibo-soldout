@@ -48,7 +48,7 @@ if (isset($_GET["id"])) {
 	$countArtist = $db->countArtistWithShowById($id);
 	
 	
-  	if($countArtist['show_count'] > 0) {
+  	if($countArtist['show_count'] > 0 && $_SESSION["is_admin"]==0) {
     	$status = "disabled";
   }
 }

@@ -22,15 +22,15 @@ function artistRow($artist)
 {
   $status = "";
   $stringa = "Modifica";
-  if($artist['show_count'] > 0) {
+  if($artist['show_count'] > 0 && $_SESSION["is_admin"]==0) {
     $status = "disabled";
     $stringa = "Visualizza";
   }
     return "<tr>"
-        . "<td>{$artist['name']}</td>"
-        . "<td>{$artist['description']}</td>"
-        . "<td><a class=\"button is-info is-light \" href=creazioneArtista.php?id={$artist['id']}>$stringa</td>"
-        . "<td><a class=\"button is-danger is-light {$status} \"  {$status} href=visualizzaArtisti.php?id={$artist['id']}&action=deleteArtist>Elimina</td>"
+        . "<td headers='nome'>{$artist['name']}</td>"
+        . "<td headers='descrizione'>{$artist['description']}</td>"
+        . "<td headers='azione'><a class=\"button is-info is-light \" href=creazioneArtista.php?id={$artist['id']}>$stringa</td>"
+        . "<td headers='azione'><a class=\"button is-danger is-light {$status} \"  {$status} href=visualizzaArtisti.php?id={$artist['id']}&action=deleteArtist>Elimina</td>"
         . "</tr>";
 }
 $artist = $db->countArtistWithShow();
@@ -64,9 +64,9 @@ $artist = $db->countArtistWithShow();
             <table class="table is-striped">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Descrizione</th>
-                        <th colspan="2">Azioni</th>
+                        <th id="nome" scope="col">Nome</th>
+                        <th id="descrizione" scope="col">Descrizione</th>
+                        <th id="azione" scope="col" colspan="2">Azioni</th>
                     </tr>
                 </thead>
                 <tbody>

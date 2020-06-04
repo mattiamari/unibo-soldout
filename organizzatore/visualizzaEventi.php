@@ -35,15 +35,15 @@ function eventRow($evento)
       $evento['tickets_total'] = 0;
   }
     return "<tr>"
-        . "<td>{$evento['title']}</td>"
-        . "<td>{$evento['artist_name']}</td>"
-        . "<td>{$evento['venue_name']}</td>"
-        . "<td>{$evento['date']}</td>"
-        . "<td>{$stato}</td>"
-        . "<td>{$evento['tickets_sold']}/{$evento['tickets_total']}</td>"
-        . "<td><a class='button is-info is-light' href=statisticheEvento.php?id={$evento['id']}>Dettagli</button></td>"
-        . "<td><a class='button is-warning is-light' href=formEventi.php?id={$evento['id']}>Modifica</td>"
-        . "<td><a class='button is-danger is-light' href=eliminaEvento.php?id={$evento['id']}>Elimina</td>"
+        . "<td headers='titolo'>{$evento['title']}</td>"
+        . "<td headers='artista'>{$evento['artist_name']}</td>"
+        . "<td headers='luogo'>{$evento['venue_name']}</td>"
+        . "<td headers='data'>{$evento['date']}</td>"
+        . "<td headers='stato'>{$stato}</td>"
+        . "<td headers='biglietti'>{$evento['tickets_sold']}/{$evento['tickets_total']}</td>"
+        . "<td headers='azioni'><a class='button is-info is-light' href=statisticheEvento.php?id={$evento['id']}>Dettagli</button></td>"
+        . "<td headers='azioni'><a class='button is-warning is-light' href=formEventi.php?id={$evento['id']}>Modifica</td>"
+        . "<td headers='azioni'><a class='button is-danger is-light' href=eliminaEvento.php?id={$evento['id']}>Elimina</td>"
         . "</tr>";
 }
 
@@ -103,13 +103,13 @@ if($_SESSION["is_admin"]==1) {
                           </article>";
                     } else {
                       echo "<tr>
-                      <th>Titolo</th>
-                      <th>Artista</th>
-                      <th>Luogo</th>
-                      <th>Data</th>
-                      <th>Stato</th>
-                      <th>Biglietti venduti/biglietti totali</th>
-                      <th colspan=\"3\">Azioni</th>
+                      <th id='titolo' scope='col'>Titolo</th>
+                      <th id='artista' scope='col'>Artista</th>
+                      <th id='luogo' scope='col'>Luogo</th>
+                      <th id='data' scope='col'>Data</th>
+                      <th id='stato' scope='col'>Stato</th>
+                      <th id='biglietti' scope='col'>Biglietti venduti/biglietti totali</th>
+                      <th id='azioni' scope='col'colspan=\"3\">Azioni</th>
                   </tr>
               </thead>";
                     }
