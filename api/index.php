@@ -6,6 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Factory\AppFactory;
 
+require_once __DIR__ . '/../env-config.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/utils.php';
 require_once __DIR__ . '/middleware.php';
@@ -13,7 +14,6 @@ require_once __DIR__ . '/public_routes.php';
 require_once __DIR__ . '/user_routes.php';
 
 const COVER_IMAGE_TYPE = 'horizontal';
-const IMAGE_DIR = '/i/';
 
 
 $container = new Container();
@@ -30,7 +30,7 @@ $app->addErrorMiddleware(true, true, true);
 
 // Add db connection to DI container
 $container->set('db', function () {
-    $pdo = new PDO("mysql:dbname=soldout;host=db", "soldout", "soldout");
+    $pdo = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     return $pdo;
 });

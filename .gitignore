@@ -1,6 +1,8 @@
-node_modules
-vendor
 .DS_Store
 style.css
 style.css.map
-app/i
+/node_modules
+/vendor
+/app/i
+/env-config.php
+/images
