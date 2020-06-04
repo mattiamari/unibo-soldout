@@ -104,7 +104,7 @@ if (isset($eventId) && !$isEventNew) {
             $notificationId = generateId();
             $db->insertNewNotification($notificationId, "La data o l'ora dell'evento \"$title\" è cambiata.", "/show/$eventId");
             $customer = $db->getCustomerByEvent($eventId);
-            if ($customer != null) {
+            if ($customer) {
                 $db->insertNewUserNotification($notificationId, $customer);    
             }
         }
