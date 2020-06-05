@@ -44,8 +44,9 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
       <div class="field">
         <div id="control" class="control">
           <input id="artistId" type="hidden" name="id" value="<?php echo $id ?>">
+          <label for="search" class="label">Cerca artista</label>
           <p class="control has-icons-left">
-          <input id="search" name="search" class="input" type="text" placeholder="Cerca artista">
+          <input id="search" name="search" class="input" type="text">
             <span class="icon is-left">
               <i class="fas fa-search" aria-hidden="true"></i>
             </span>
@@ -56,38 +57,7 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
     </form>
     <form id="form" method="POST">
     <div>
-    
-    <?php
-    
-      if(isset($artists)) {
-        foreach($artists as $artist) {
-
-          echo "<div class='box'>
-          
-                    <article class=\"media\">
-                    <input type=\"radio\" name=\"artist\" value=\"{$artist['id']}\">
-                    <div class='media-left'>
-              <figure class='image is-64x64'>
-                <img src=\"/i/AmZaRLM0jWs/horizontal/Diodato.jpg\" alt=\"Image\">
-              </figure>
-            </div>
-            <div class=\"media-content\">
-              <div class=\"content\">
-              
-                <p>
-                <strong>{$artist['name']}</strong>
-                  <br>
-                  {$artist['description']}
-                </p>
-              </div>
-              
-            </div>
-          </article>
-        </div>";
-        }
-      }
-      
-    ?>
+  
     </div>
     <br>
     <a class="button is-danger is-light" href="./formEventi.php?id=<?php echo $id ?>">Annulla</a>

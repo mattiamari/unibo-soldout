@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <button class="button is-primary" type="submit">
           <span class="icon is-small">
-      			<i class="fas fa-check"></i>
+      			<em class="fas fa-check"></em>
     		</span>
     		<span><?php if (isset($idTicket)) echo "Salva"; else echo "Crea"?></span></button>
         <a class="button is-danger is-light" href="formEventi.php?id=<?php echo $id ?>">Torna indietro</a>

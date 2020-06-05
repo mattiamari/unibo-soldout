@@ -43,7 +43,7 @@ if (isset($_POST["date"]) && isset($_POST["time"])) {
     $time = DateTime::createFromFormat("H:i", $_POST["time"]);
    
     $merge = new DateTime($date->format('Y-m-d') .' ' .$time->format('H:i'));
-    $date = $merge->format("Y-m-d H:i:s");
+    $date = $merge->format("Y-m-d\TH:i");
 }
 
 if (isset($_POST["artist"])) {
@@ -83,7 +83,7 @@ if (isset($eventId) && !$isEventNew) {
         if (isset($_POST["date"])) {
             $oldDate = date_create($oldEvent["date"]);
             $oldDate = date_format($oldDate, 'Y-m-d\TH:i');
-            if ($oldDate != $_POST["date"]) {
+            if ($oldDate != $date) {
                 $isDateChanged = true;
             }
         }

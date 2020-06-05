@@ -19,7 +19,7 @@ $(document).ready(function() {
         var allVenueSet = document.querySelectorAll("input[type=radio]");
 
         var html="";
-        //form.innerHTML = "";
+        
         $.ajax({
             type: "GET",
             url: "./cercaLuogo.php?q=" + search.value,
@@ -59,8 +59,8 @@ $(document).ready(function() {
                                 </article>
                             </div>`;
                     });
-                    console.log(btn);
-                    form.innerHTML = html + btn;
+                    
+                    form.innerHTML = html + btn ;
                 }
                 
                 } else {

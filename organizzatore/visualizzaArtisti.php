@@ -18,8 +18,7 @@ if (isset($_GET["id"]) && isset($_GET["action"])) {
     }
 }
 
-function artistRow($artist)
-{
+function artistRow($artist) {
   $status = "";
   $stringa = "Modifica";
   if($artist['show_count'] > 0 && $_SESSION["is_admin"]==0) {

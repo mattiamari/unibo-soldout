@@ -28,7 +28,7 @@ if(isset($_GET["action"])) {
                 <p class="control has-icons-left has-icons-right">
                     <input class="input" id="email" name="email" type="email" required>
                     <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
+                        <em class="fas fa-envelope"></em>
                     </span>
                 </p>
             </div>
@@ -38,6 +38,9 @@ if(isset($_GET["action"])) {
             <div class="control">
                 <p class="control has-icons-left">
                     <input class="input" id="password" name="password" type="password" required>
+                    <span class="icon is-small is-left">
+                        <em class="fas fa-lock"></em>
+                    </span>
                 </p>
             </div>
         </div>
