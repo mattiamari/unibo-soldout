@@ -56,8 +56,8 @@ class Db {
                 sum(cart_item.quantity) AS tickets_sold, 
                 sum(cart_item.quantity * ticket_type.price) AS total_profit
             FROM `show`
-            JOIN artist ON artist.id = `show`.artist_id
-            JOIN venue ON venue.id = `show`.venue_id
+            LEFT JOIN artist ON artist.id = `show`.artist_id
+            LEFT JOIN venue ON venue.id = `show`.venue_id
             LEFT JOIN ticket_type ON ticket_type.show_id = `show`.id
             LEFT JOIN cart_item ON cart_item.ticket_type_id = ticket_type.id
             GROUP BY `show`.id");
