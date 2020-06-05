@@ -31,8 +31,8 @@ function venueRow($venue)
         . "<td headers='nome'>{$venue['name']}</td>"
         . "<td headers='descrizione'>{$venue['description']}</td>"
         . "<td headers='indirizzo'>{$venue['address']}</td>"
-        . "<td headers='azioni'><a class=\"button is-info is-light\"  href=creazioneLuogo.php?id={$venue['id']}>$stringa</td>"
-        . "<td headers='azioni'><a class=\"button is-danger is-light {$status}\" {$status} href=visualizzaLuoghi.php?id={$venue['id']}&action=deleteVenue>Elimina</td>"
+        . "<td headers='azioni'><a class=\"button\"  href=creazioneLuogo.php?id={$venue['id']}>$stringa</td>"
+        . "<td headers='azioni'><a class=\"button is-danger is-light is-outlined {$status}\" {$status} href=visualizzaLuoghi.php?id={$venue['id']}&action=deleteVenue>Elimina</td>"
         . "</tr>";
 }
 $venue = $db->countVenueWithShow();
