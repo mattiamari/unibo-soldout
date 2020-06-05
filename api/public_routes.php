@@ -5,10 +5,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 $showsSummaryByCategoryRoute = function (Request $request, ResponseInterface $response, $args) {
-    $imgPath = IMAGE_DIR;
+    $imgPath = IMAGE_URL;
     $sql = "SELECT `show`.id, `show`.title, `show`.date,
             CONCAT(city.name, ', ', country.name) AS location,
-            CONCAT('$imgPath', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
+            CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
             image.altText AS imageAlt
         FROM `show`
         JOIN venue ON venue.id = `show`.venue_id
@@ -31,10 +31,10 @@ $showCategoriesRoute = function (Request $request, ResponseInterface $response, 
 };
 
 $showsSummaryCategorizedRoute = function (Request $request, ResponseInterface $response, $args) {
-    $imgPath = IMAGE_DIR;
+    $imgPath = IMAGE_URL;
     $sql = "SELECT `show`.id, `show`.title, `show`.date, show_category.name AS category,
             CONCAT(city.name, ', ', country.name) AS location,
-            CONCAT('$imgPath', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
+            CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
             image.altText AS imageAlt
         FROM `show`
         JOIN show_category ON show_category.id = `show`.show_category_id
@@ -50,7 +50,7 @@ $showsSummaryCategorizedRoute = function (Request $request, ResponseInterface $r
 };
 
 $showSearchRoute = function (Request $request, ResponseInterface $response, $args) {
-    $imgPath = IMAGE_DIR;
+    $imgPath = IMAGE_URL;
 
     
     if (!isset($request->getQueryParams()['q'])) {
@@ -64,7 +64,7 @@ $showSearchRoute = function (Request $request, ResponseInterface $response, $arg
 
     $sql = "SELECT `show`.id, `show`.title, `show`.date, show_category.name AS category,
             CONCAT(city.name, ', ', country.name) AS location,
-            CONCAT('$imgPath', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
+            CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
             image.altText AS imageAlt
         FROM `show`
         JOIN show_category ON show_category.id = `show`.show_category_id
@@ -81,7 +81,7 @@ $showSearchRoute = function (Request $request, ResponseInterface $response, $arg
 };
 
 $showDetailsRoute = function (Request $request, ResponseInterface $response, $args) {
-    $imgPath = IMAGE_DIR;
+    $imgPath = IMAGE_URL;
 
     // Fetch Show
     $sql = "SELECT `show`.id, `show`.title, `show`.date,
@@ -111,7 +111,7 @@ $showDetailsRoute = function (Request $request, ResponseInterface $response, $ar
 
     // Fetch Images
     $sql = "SELECT `type`, altText AS alt,
-            CONCAT('$imgPath', :show_id, '/', image.type, '/', image.name) AS url
+            CONCAT('$imgPath', '/', :show_id, '/', image.type, '/', image.name) AS url
         FROM image
         WHERE subject_id = :show_id";
     $q = $this->get('db')->prepare($sql);
@@ -145,11 +145,11 @@ $showDetailsRoute = function (Request $request, ResponseInterface $response, $ar
 };
 
 $venueDetailsRoute = function (Request $request, ResponseInterface $response, $args) {
-    $imgPath = IMAGE_DIR;
+    $imgPath = IMAGE_URL;
 
     $sql = "SELECT venue.id, venue.name, venue.description,
             CONCAT(venue.address, ', ', city.name, ', ', country.name) AS location,
-            CONCAT('$imgPath', :venue_id, '/', image.type, '/', image.name) AS imageUrl,
+            CONCAT('$imgPath', '/', :venue_id, '/', image.type, '/', image.name) AS imageUrl,
             image.altText AS imageAlt
         FROM venue
         JOIN city ON city.id = venue.city_id
@@ -174,10 +174,10 @@ $venueDetailsRoute = function (Request $request, ResponseInterface $response, $a
 };
 
 $artistDetailsRoute = function (Request $request, ResponseInterface $response, $args) {
-    $imgPath = IMAGE_DIR;
+    $imgPath = IMAGE_URL;
 
     $sql = "SELECT artist.*,
-            CONCAT('$imgPath', :artist_id, '/', image.type, '/', image.name) AS imageUrl,
+            CONCAT('$imgPath', '/', :artist_id, '/', image.type, '/', image.name) AS imageUrl,
             image.altText AS imageAlt
         FROM artist
         LEFT JOIN image ON image.subject_id = artist.id AND image.subject = 'artist' AND image.type = 'horizontal'

@@ -1,8 +1,9 @@
 <?php
 
-require_once "../api/idgen.php";
+require_once __DIR__ . '/../env-config.php';
+require_once __DIR__ . '/../api/idgen.php';
 
-$imgPath = "/i/";
+$imgUrl = IMAGE_URL;
 
 class Evento {
     public $id;
@@ -55,8 +56,8 @@ class Db {
                 sum(cart_item.quantity) AS tickets_sold, 
                 sum(cart_item.quantity * ticket_type.price) AS total_profit
             FROM `show`
-            JOIN artist ON artist.id = `show`.artist_id
-            JOIN venue ON venue.id = `show`.venue_id
+            LEFT JOIN artist ON artist.id = `show`.artist_id
+            LEFT JOIN venue ON venue.id = `show`.venue_id
             LEFT JOIN ticket_type ON ticket_type.show_id = `show`.id
             LEFT JOIN cart_item ON cart_item.ticket_type_id = ticket_type.id
             GROUP BY `show`.id");
@@ -488,8 +489,8 @@ class Db {
     }
 
     function searchVenue($name) {
-        global $imgPath;
-        $sql = $this->pdo->prepare("SELECT venue.*, CONCAT('$imgPath', `venue`.id, '/', image.type, '/', image.name) AS imageUrl FROM venue
+        global $imgUrl;
+        $sql = $this->pdo->prepare("SELECT venue.*, CONCAT('$imgUrl', '/', `venue`.id, '/', image.type, '/', image.name) AS imageUrl FROM venue
         LEFT JOIN image ON image.subject_id = `venue`.id AND image.subject = 'venue' AND image.type = 'horizontal'
         WHERE venue.name like :name");
         $sql->bindValue(':name', "%" . $name . "%");
@@ -498,8 +499,8 @@ class Db {
     }
 
     function searchArtist($name) {
-        global $imgPath;
-        $sql = $this->pdo->prepare("SELECT artist.*, CONCAT('$imgPath', `artist`.id, '/', image.type, '/', image.name) AS imageUrl FROM artist
+        global $imgUrl;
+        $sql = $this->pdo->prepare("SELECT artist.*, CONCAT('$imgUrl', '/', `artist`.id, '/', image.type, '/', image.name) AS imageUrl FROM artist
         LEFT JOIN image ON image.subject_id = `artist`.id AND image.subject = 'artist' AND image.type = 'horizontal'
         WHERE artist.name like :name");
         $sql->bindValue(':name', "%" . $name . "%");
@@ -549,7 +550,7 @@ function saveImg($img, $subjectId ,$type) {
     }
 
     $imgName = urlencode($img["name"]);
-    $destPath = str_replace("/", DIRECTORY_SEPARATOR, "images/" . $subjectId . "/" . $type . "/");
+    $destPath = str_replace("/", DIRECTORY_SEPARATOR, IMAGE_SAVE_PATH . $subjectId . "/" . $type . "/");
     
     if (!file_exists($destPath)) {
         mkdir($destPath, 0755, true);
@@ -564,7 +565,7 @@ function saveImg($img, $subjectId ,$type) {
 try {
     // stringa di connessione al DBMS
     //$pdo = new PDO("mysql:host=localhost;dbname=soldout", 'root', '');
-    $pdo = new PDO("mysql:host=mattiamari.me;port=13306;dbname=soldout", 'soldout', 'IiseH73LQTyzTknBS03GYw');
+    $pdo = new PDO(DB_DSN, DB_USER, DB_PASSWORD);
     /*
     Avremmo potuto anche omettere dbname in questo modo:
     $connessione = new PDO("mysql:host=$host", $user, $password);
