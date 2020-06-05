@@ -55,7 +55,7 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Abilita organizzatore</title>
     <link rel="stylesheet" href="style.css">
-    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="./jquery-3.4.1.min.js"></script>
     <script src="./navbar.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>

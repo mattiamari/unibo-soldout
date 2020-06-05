@@ -47,7 +47,7 @@ $artist = $db->countArtistWithShow();
     <title>Elenco artisti</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="./jquery-3.4.1.min.js"></script>
     <script src="./navbar.js"></script>
     <script src="./disabilitaBottone.js"></script>
     
