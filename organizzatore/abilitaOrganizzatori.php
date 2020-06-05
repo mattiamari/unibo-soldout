@@ -80,11 +80,7 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
     <header class="navbar">
       <div class="container">
         <div class="navbar-brand">
-          <a class="navbar-item">
-              <!-- Inserire immagine soldout -->
-              <h1>SOLDOUT</h1>
-            <!--<img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">-->
-          </a>
+        <img width="200" height="200" id="logo" src="./logo.svg" alt="Logo">
           <span id="navbarMenuBurger" class="navbar-burger burger" data-target="navbarMenuHeroC">
             <span></span>
             <span></span>
@@ -93,6 +89,9 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
         </div>
         <div id="navbarMenuHeroC" class="navbar-menu">
           <div class="navbar-end">
+          <a href="./notifiche.php" class="navbar-item">
+              Notifiche
+            </a>
             <a href="./login.php?action=logout" class="navbar-item">
               Logout
             </a>

@@ -46,50 +46,17 @@ if (isset($_GET["search"]) && $_GET["search"] != "") {
     <div class="field">
       <div id="control" class="control">
         <input id="venueId" type="hidden" name="id" value="<?php echo $id ?>">
+        <label for="search" class="label">Cerca luogo</label>
         <p class="control has-icons-left">
-        <input id="search" name="search" class="input" type="text" placeholder="Cerca luogo">
+        <input id="search" name="search" class="input" type="text">
           <span class="icon is-left">
-              <i class="fas fa-search" aria-hidden="true"></i>
+              <em class="fas fa-search" aria-hidden="true"></em>
           </span>
         </p>
       </div>
     </div>
   </form>
   <form id="form" method="POST">
-    <?php
-    if (isset($venues)) {
-      foreach ($venues as $venue) {
-        /*echo "<label class=\"radio\">
-            <input type=\"radio\" name=\"venue\" value=\"{$venue['id']}\">
-            {$venue['name']}<br>
-            {$venue['address']}
-          </label><br>";*/
-          echo "<div class='box'>
-          
-                    <article class=\"media\">
-                    <input type=\"radio\" name=\"venue\" value=\"{$venue['id']}\">
-                    <div class='media-left'>
-              <figure class='image is-64x64'>
-                <img src=\"https://bulma.io/images/placeholders/128x128.png\" alt=\"Image\">
-              </figure>
-            </div>
-            <div class=\"media-content\">
-              <div class=\"content\">
-              
-                <p>
-                <strong>{$venue['name']}</strong>
-                  <br>
-                  {$venue['address']}
-                </p>
-              </div>
-              
-            </div>
-          </article>
-        </div>";
-      }
-    }
-
-    ?>
 
     <br>
     <a class="button is-danger is-light" href="./formEventi.php?id=<?php echo $id ?>">Annulla</a>
