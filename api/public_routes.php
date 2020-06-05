@@ -5,21 +5,20 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 $imgPath = IMAGE_URL;
-$showSummaryQuery = "";
+$showSummaryQuery = "SELECT `show`.id, `show`.title, `show`.date,
+    CONCAT(city.name, ', ', country.name) AS location,
+    CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
+    image.altText AS imageAlt
+    FROM `show`
+    JOIN venue ON venue.id = `show`.venue_id
+    JOIN city ON city.id = venue.city_id
+    JOIN country ON country.id = city.country_id
+    LEFT JOIN image ON image.subject_id = `show`.id AND image.subject = 'show' AND image.type = 'horizontal'
+    WHERE `show`.enabled=1 ";
 
 $showsSummaryByCategoryRoute = function (Request $request, ResponseInterface $response, $args) {
-    $imgPath = IMAGE_URL;
-    $sql = "SELECT `show`.id, `show`.title, `show`.date,
-            CONCAT(city.name, ', ', country.name) AS location,
-            CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
-            image.altText AS imageAlt
-        FROM `show`
-        JOIN venue ON venue.id = `show`.venue_id
-        JOIN city ON city.id = venue.city_id
-        JOIN country ON country.id = city.country_id
-        LEFT JOIN image ON image.subject_id = `show`.id AND image.subject = 'show' AND image.type = 'horizontal'
-        WHERE `show`.enabled=1
-            AND `show`.show_category_id = :category";
+    global $showSummaryQuery;
+    $sql = $showSummaryQuery . "AND `show`.show_category_id = :category";
 
     $q = $this->get('db')->prepare($sql);
     $q->bindValue(':category', $args['category_id'], PDO::PARAM_STR);
@@ -28,22 +27,12 @@ $showsSummaryByCategoryRoute = function (Request $request, ResponseInterface $re
 };
 
 $newShowsRoute = function (Request $request, ResponseInterface $response, $args) {
-    $imgPath = IMAGE_URL;
-    $sql = "SELECT `show`.id, `show`.title, `show`.date,
-            CONCAT(city.name, ', ', country.name) AS location,
-            CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
-            image.altText AS imageAlt
-        FROM `show`
-        JOIN venue ON venue.id = `show`.venue_id
-        JOIN city ON city.id = venue.city_id
-        JOIN country ON country.id = city.country_id
-        LEFT JOIN image ON image.subject_id = `show`.id AND image.subject = 'show' AND image.type = 'horizontal'
-        WHERE `show`.enabled=1
-        ORDER BY `show`.date DESC
+    global $showSummaryQuery;
+    $sql = $showSummaryQuery . "AND `show`.creation_date > DATE_SUB(NOW(), INTERVAL 30 DAY)
+        ORDER BY `show`.date
         LIMIT 12";
 
     $q = $this->get('db')->prepare($sql);
-
     return query($response, $q, 'shows');
 };
 
