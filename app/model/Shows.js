@@ -55,7 +55,7 @@ const Shows = {
     },
 
     getNewShows: async () => {
-        const res = await fetch('/api/shows/concerts');
+        const res = await fetch('/api/shows/new');
         const shows = (await res.json()).shows;
         return shows.map(e => Object.assign(new ShowSummary, e));
     },

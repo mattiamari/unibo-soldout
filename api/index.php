@@ -61,6 +61,7 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
 
 $app->get('/shows', $showsSummaryCategorizedRoute);
 $app->get('/shows/search', $showSearchRoute);
+$app->get('/shows/new', $newShowsRoute);
 $app->get('/shows/{category_id}', $showsSummaryByCategoryRoute);
 $app->get('/show-categories', $showCategoriesRoute);
 $app->get('/show/{id}', $showDetailsRoute);
