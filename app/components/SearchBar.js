@@ -6,29 +6,36 @@ import Language from '../model/Language.js';
 
 const ResultEntry = show => {
     return /*html*/`
-        <li>
-            <span>${show.title}</span>
-            <span>${Language.formatDateMedium(show.date)}</span>
-            <span>${show.location}</span>
+        <li class="searchbar-entry showSummary">
+            <div class="showSummary-title"><a href="#/show/${show.id}">${show.title}</a></div>
+            <div>
+                <span class="showSummary-date">${Language.formatDateMedium(show.date)}</span>
+                <span class="showSummary-location">${show.location}</span>
+            </div>
         </li>
     `;
 };
 
 class SearchBar {
     render() {
+        // searchbar-results-wrap has the additional "hidden" class to prevent
+        // the box from flashing on page load
         const template = /*html*/`
             <div class="searchbar-wrap">
                 <div class="searchbar">
                     <input type="search" placeholder="Trova un evento...">
                 </div>
-                <ul class="searchbar-results searchbar-results--hidden">
-                </ul>
+                <div class="searchbar-results-wrap searchbar-results--hidden hidden">
+                    <ul class="searchbar-results">
+                    </ul>
+                </div>
             </div>
         `;
 
         this.element = htmlToElement(template);
         const input = this.element.querySelector('input');
-        this.results = this.element.querySelector('.searchbar-results');
+        this.resultsWrap = this.element.querySelector('.searchbar-results-wrap');
+        this.results = this.resultsWrap.querySelector('.searchbar-results');
 
         input.addEventListener('input', () => this.search(input.value));
 
@@ -49,7 +56,7 @@ class SearchBar {
     }
 
     showResults(shows) {
-        this.results.classList.remove('searchbar-results--hidden');
+        this.resultsWrap.classList.remove('searchbar-results--hidden', 'hidden');
         
         if (!shows.length) {
             this.results.innerHTML = /*html*/`<span>Nessun risultato :(</span>`;
@@ -60,7 +67,7 @@ class SearchBar {
     }
 
     hideResults() {
-        this.results.classList.add('searchbar-results--hidden');
+        this.resultsWrap.classList.add('searchbar-results--hidden');
     }
 }
 
