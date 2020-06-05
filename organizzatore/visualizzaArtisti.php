@@ -28,8 +28,8 @@ function artistRow($artist) {
     return "<tr>"
         . "<td headers='nome'>{$artist['name']}</td>"
         . "<td headers='descrizione'>{$artist['description']}</td>"
-        . "<td headers='azione'><a class=\"button is-info is-light \" href=creazioneArtista.php?id={$artist['id']}>$stringa</td>"
-        . "<td headers='azione'><a class=\"button is-danger is-light {$status} \"  {$status} href=visualizzaArtisti.php?id={$artist['id']}&action=deleteArtist>Elimina</td>"
+        . "<td headers='azione'><a class=\"button \" href=creazioneArtista.php?id={$artist['id']}>$stringa</td>"
+        . "<td headers='azione'><a class=\"button is-danger is-light is-outlined {$status} \"  {$status} href=visualizzaArtisti.php?id={$artist['id']}&action=deleteArtist>Elimina</td>"
         . "</tr>";
 }
 $artist = $db->countArtistWithShow();

@@ -38,7 +38,7 @@ function managerEnabledRow($organizzatore)
     return "<tr>"
         . "<td headers='id'>{$organizzatore['id']}</td>"
         . "<td headers='email'>{$organizzatore['email']}</td>"
-        . "<td headers='azioni'><a class=\"button is-primary\" href=abilitaOrganizzatori.php?id={$organizzatore['id']}&toggle_admin=1>{$stato}</button></td>"
+        . "<td headers='azioni'><a class=\"button is-primary is-outlined\" href=abilitaOrganizzatori.php?id={$organizzatore['id']}&toggle_admin=1>{$stato}</button></td>"
         . "</tr>";
 }
 $managersDontEnabled = $db->getDontEnabledManagerList(0);

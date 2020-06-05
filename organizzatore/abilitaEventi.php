@@ -25,7 +25,7 @@ function eventRow($evento)
         . "<td headers='nome'>{$evento['title']}</td>"
         . "<td headers='data'>{$evento['date']}</td>"
         . "<td headers='biglietti'>{$evento['tickets_total']}</td>"
-        . "<td headers='azioni'><a class=\"button is-primary\" href=abilitaEventi.php?id={$evento['id']}>Abilita</button></td>"
+        . "<td headers='azioni'><a class=\"button is-primary is-outlined\" href=abilitaEventi.php?id={$evento['id']}>Abilita</button></td>"
         . "</tr>";
 }
 $events = $db->getDontEnabledEventList(0);

@@ -24,8 +24,10 @@ function eventRow($evento)
     /*$artist = $db->getArtistById($evento["artist_id"]);
     $venue = $db->getArtistById($evento["venue_id"]);*/
     $stato = "in attesa di approvazione";
+    $classButton = "tag is-danger is-light is-medium";
     if ($evento['enabled']) {
         $stato = "approvato";
+        $classButton = "tag is-success is-light is-medium";
     }
 
     if ($evento['tickets_sold'] == null) {
@@ -39,11 +41,11 @@ function eventRow($evento)
         . "<td headers='artista'>{$evento['artist_name']}</td>"
         . "<td headers='luogo'>{$evento['venue_name']}</td>"
         . "<td headers='data'>{$evento['date']}</td>"
-        . "<td headers='stato'>{$stato}</td>"
+        . "<td headers='stato'><span class='{$classButton}'>{$stato}</span></td>"
         . "<td headers='biglietti'>{$evento['tickets_sold']}/{$evento['tickets_total']}</td>"
-        . "<td headers='azioni'><a class='button is-info is-light' href=statisticheEvento.php?id={$evento['id']}>Dettagli</button></td>"
-        . "<td headers='azioni'><a class='button is-warning is-light' href=formEventi.php?id={$evento['id']}>Modifica</td>"
-        . "<td headers='azioni'><a class='button is-danger is-light' href=eliminaEvento.php?id={$evento['id']}>Elimina</td>"
+        . "<td headers='azioni'><a class='button is-outlined' href=statisticheEvento.php?id={$evento['id']}>Dettagli</button></td>"
+        . "<td headers='azioni'><a class='button is-outlined' href=formEventi.php?id={$evento['id']}>Modifica</td>"
+        . "<td headers='azioni'><a data-showid='{$evento['id']}' class='button elimina is-danger is-light is-outlined' >Elimina</td>"
         . "</tr>";
 }
 
@@ -70,6 +72,7 @@ if($_SESSION["is_admin"]==1) {
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
     <script src="./navbar.js"></script>
+    <script src="./eliminaEvento.js"></script>
 </head>
 
 <body>
@@ -87,6 +90,25 @@ if($_SESSION["is_admin"]==1) {
     </article>";
     } ?>
 <?php require "navbarEvento.php";?>
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Conferma</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+      <p>Sicuro di voler eliminare questo evento?</p>
+    </section>
+    <footer class="modal-card-foot">
+      <a class="button conferma is-success">Conferma</a>
+      <button class="button annulla">Annulla</button>
+    </footer>
+  </div>
+</div>
+    
+
     <section class="section container">
         <a id="newElementButton" href="./formEventi.php" class="button is-primary">Aggiungi evento</a>
     </section>
