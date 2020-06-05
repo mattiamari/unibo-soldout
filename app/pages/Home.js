@@ -8,14 +8,14 @@ import htmlToElement from '../utils/htmlToElement.js';
 import Statusbar from '../utils/statusbar.js';
 import TabbedContainer from '../components/TabbedContainer.js';
 import { CardSmall } from '../components/ShowCard.js';
-import SvgLogo from '../components/SvgLogo.js';
+import AppLogo from '../components/AppLogo.js';
 
 class HomePage {
     constructor() {
     }
 
     async render() {
-        const logo = SvgLogo();
+        const logo = AppLogo();
 
         const template = /*html*/`
             <div class="page page--home">
@@ -25,9 +25,7 @@ class HomePage {
                 <div class="header-layer header-bg-blend"></div>
 
                 <div class="header-layer header-content">
-                    <div class="app-logo">
-                        ${logo}
-                    </div>
+                    ${logo}
                 </div>
             </header>
 

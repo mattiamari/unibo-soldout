@@ -112,16 +112,9 @@ a {
 }
 
 .app-logo svg {
-    max-height: 200px;
+    max-width: 100%;
+    max-height: 80px;
     fill: #ffffff;
-}
-
-.logo-sold {
-    font-weight: 300;
-}
-
-.logo-out {
-    font-weight: 600;
 }
 
 /* 
@@ -580,7 +573,7 @@ ul.list {
 
 .page--home .header {
     height: 30%;
-    min-height: 200px;
+    min-height: 220px;
     max-height: 280px;
     max-width: none;
 }
@@ -1293,10 +1286,16 @@ a.orderList-row {
 }
 
 @media screen and (min-width: 768px) {
-    
+    .page--home .app-logo svg {
+        max-height: 100px;
+    }
 }
 
 @media screen and (min-width: 1024px) {
+    .page--home .app-logo svg {
+        max-height: 160px;
+    }
+
     .slider .slider-content {
         flex-wrap: wrap;
         justify-content: space-between;
@@ -1311,6 +1310,7 @@ a.orderList-row {
 
     .page--home .header {
         height: 50%;
+        min-height: 320px;
         max-height: unset;
         overflow: visible;
     }
