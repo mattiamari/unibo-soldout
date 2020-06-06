@@ -40,7 +40,11 @@ if (isset($_GET["search"]) && $_GET["search"] != "") {
 </head>
 
 <body>
+
+<?php require "navbarLuogo.php" ?>
+<br>
 <div id="container">
+
   <h1 class="title">Seleziona luogo</h1>
   <form>
     <div class="field">

@@ -4,6 +4,12 @@ require "db.php";
 require "../api/auth.php";
 session_start();
 
+
+if($_POST["password"] != $_POST["confirm-password"]) {
+    header("location: ./registrazione.php?action=fail");
+    die("conferma");
+}
+
 $salt = generateSalt();
 $password = hashPassword($_POST["password"], $salt);
 $userId = generateId();

@@ -37,7 +37,18 @@ if(isset($_GET["action"])) {
             <label class="label" for="password">Password</label>
             <div class="control">
                 <p class="control has-icons-left">
-                    <input class="input" id="password" name="password" type="password" required>
+                    <input class="input" minlength="8" id="password" name="password" type="password" required>
+                    <span class="icon is-small is-left">
+                        <em class="fas fa-lock"></em>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="confirm-password">Conferma password</label>
+            <div class="control">
+                <p class="control has-icons-left">
+                    <input class="input" minlength="8" id="confirm-password" name="confirm-password" type="password" required>
                     <span class="icon is-small is-left">
                         <em class="fas fa-lock"></em>
                     </span>
