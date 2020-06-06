@@ -144,7 +144,6 @@ $markReadNotificationsRoute = function (Request $request, ResponseInterface $res
     if (!$older) {
         $older = (new DateTime())->format('Y-m-d H:i:s');
     }
-    var_dump($older);
     $q->bindValue(':older', $older);
 
     if (!$q->execute()) {
