@@ -105,7 +105,8 @@ class BuyPage {
         const ticketTypeName = this.page.querySelector('.buyStep--quantity .ticketType');
         const btnGoQuantityStep = this.page.querySelector('#btnShowStepQuantity');
 
-        header.insertBefore((new NavBar()).render(), header.firstChild);
+        this.navbar = new NavBar();
+        header.insertBefore(this.navbar.render(), header.firstChild);
 
         for (let ticketRow of ticketTypes) {
             ticketTypeList.append(ticketRow.render());
@@ -142,6 +143,10 @@ class BuyPage {
 
     afterRender() {
         Statusbar.setColor('#d7487d');
+    }
+
+    destroy() {
+        this.navbar.destroy();
     }
 };
 

@@ -48,7 +48,8 @@ class SignupPage {
         const header = this.page.querySelector('header');
         const form = this.page.querySelector('form');
 
-        header.insertBefore((new NavBar).render(), header.firstChild);
+        this.navbar = new NavBar();
+        header.insertBefore(this.navbar.render(), header.firstChild);
 
         form.addEventListener('submit', async e => {
             e.preventDefault();
@@ -61,6 +62,10 @@ class SignupPage {
         });
 
         return this.page;
+    }
+
+    destroy() {
+        this.navbar.destroy();
     }
 }
 

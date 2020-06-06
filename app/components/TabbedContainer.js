@@ -128,7 +128,6 @@ class TabbedContainer {
     }
 
     destroy() {
-        this.element.remove()
         this.element = null;
     }
 }

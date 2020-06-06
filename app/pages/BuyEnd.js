@@ -29,13 +29,19 @@ class BuyEndPage {
 
         const page = htmlToElement(template);
         const header = page.querySelector('header');
-        header.insertBefore((new NavBar()).render(), header.firstChild);
+
+        this.navbar = new NavBar();
+        header.insertBefore(this.navbar.render(), header.firstChild);
 
         return page;
     }
 
     afterRender() {
         Statusbar.setColor('#d7487d');
+    }
+
+    destroy() {
+        this.navbar.destroy();
     }
 }
 

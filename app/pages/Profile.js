@@ -101,7 +101,9 @@ class ProfilePage {
         // Header
         this.page = htmlToElement(template);
         const header = this.page.querySelector('header');
-        header.insertBefore((new NavBar()).render(), header.firstChild);
+
+        this.navbar = new NavBar();
+        header.insertBefore(this.navbar.render(), header.firstChild);
 
         this.page.querySelector('button.btnLogout').addEventListener('click', () => Account.logout());
         
@@ -131,6 +133,10 @@ class ProfilePage {
 
     afterRender() {
 
+    }
+
+    destroy() {
+        this.navbar.destroy();
     }
 }
 

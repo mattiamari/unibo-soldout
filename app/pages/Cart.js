@@ -94,7 +94,9 @@ class CartPage {
         await Cart.init();
         this.page = htmlToElement(template);
         const header = this.page.querySelector('header');
-        header.insertBefore((new NavBar()).render(), header.firstChild);
+
+        this.navbar = new NavBar();
+        header.insertBefore(this.navbar.render(), header.firstChild);
 
         this.page.querySelector('button.btnNext').addEventListener('click', async () => {
             await Cart.placeOrder();
@@ -135,6 +137,10 @@ class CartPage {
 
     afterRender() {
         Statusbar.setColor('#d7487d');
+    }
+
+    destroy() {
+        this.navbar.destroy();
     }
 };
 

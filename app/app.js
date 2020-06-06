@@ -75,9 +75,9 @@ async function router() {
     }
 
     // FIXME: causes elements to disappear when API endpoint has latency
-    /* if (pageInstance && pageInstance.destroy) {
+    if (pageInstance && pageInstance.destroy) {
         pageInstance.destroy();
-    } */
+    }
     
     pageInstance = new page(params);
     const rendered = await pageInstance.render();

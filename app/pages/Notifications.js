@@ -51,12 +51,15 @@ class NotificationsPage {
 
         this.element = htmlToElement(template);
         const header = this.element.querySelector('header');
-        header.insertBefore((new NavBar).render(), header.firstChild);
+
+        this.navbar = new NavBar();
+        header.insertBefore(this.navbar.render(), header.firstChild);
 
         return this.element;
     }
 
     destroy() {
+        this.navbar.destroy();
         this.element = null;
     }
 }
