@@ -38,7 +38,8 @@ $ordersRoute = function (Request $request, ResponseInterface $response, $args) {
         JOIN ticket_type ON ticket_type.id = cart_item.ticket_type_id
         JOIN `show` ON `show`.id = ticket_type.show_id
         WHERE customer_id = :customer_id
-        GROUP BY `order`.cart_id";
+        GROUP BY `order`.cart_id
+        ORDER BY `order`.date DESC";
 
     $q = $this->get('db')->prepare($sql);
     $q->bindValue(':customer_id', $request->getAttribute('user_id'));
