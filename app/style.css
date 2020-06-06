@@ -81,6 +81,10 @@ h2 {
     display: none !important;
 }
 
+.noPointerEvents {
+    pointer-events: none;
+}
+
 a {
     color: var(--color-text);
 }
@@ -214,7 +218,6 @@ a {
 .searchbar-results--hidden {
     animation: slide-out-down .15s ease-in;
     animation-fill-mode: forwards;
-    pointer-events: none;
 }
 
 .searchbar-entry {

@@ -38,6 +38,8 @@ class SearchBar {
         this.results = this.resultsWrap.querySelector('.searchbar-results');
 
         input.addEventListener('input', () => this.search(input.value));
+        input.addEventListener('focusin', () => this.search(input.value));
+        input.addEventListener('focusout', () => this.hideResults());
 
         return this.element;
     }
@@ -56,7 +58,7 @@ class SearchBar {
     }
 
     showResults(shows) {
-        this.resultsWrap.classList.remove('searchbar-results--hidden', 'hidden');
+        this.resultsWrap.classList.remove('searchbar-results--hidden', 'hidden', 'noPointerEvents');
         
         if (!shows.length) {
             this.results.innerHTML = /*html*/`<span>Nessun risultato :(</span>`;
@@ -68,6 +70,11 @@ class SearchBar {
 
     hideResults() {
         this.resultsWrap.classList.add('searchbar-results--hidden');
+        
+        // timeout should be greater than .searchbar-results--hidden animation
+        setTimeout(() => {
+            this.resultsWrap.classList.add('noPointerEvents');
+        }, 100);
     }
 }
 
