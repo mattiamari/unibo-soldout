@@ -23,7 +23,7 @@ class SearchBar {
         const template = /*html*/`
             <div class="searchbar-wrap">
                 <div class="searchbar">
-                    <input type="search" placeholder="Trova un evento...">
+                    <input type="search" placeholder="Trova un evento..." aria-label="Trova un evento">
                 </div>
                 <div class="searchbar-results-wrap searchbar-results--hidden hidden">
                     <ul class="searchbar-results">

@@ -22,7 +22,7 @@ class NavBar {
         const template = /*html*/`
             <nav class="navbar">
                 ${backButtonTemplate}
-                <a class="homeButton" href="#/">${logo}</a>
+                <a class="homeButton" href="#/" aria-label="Homepage">${logo}</a>
                 <div class="navbar-buttons-right">
                     <a class="button button--icononly button-notifications" href="#/notifications" aria-label="Notifications">
                         <i class="button-icon fa fa-bell"></i>
