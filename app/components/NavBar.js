@@ -24,7 +24,7 @@ class NavBar {
                 ${backButtonTemplate}
                 <a class="homeButton" href="#/">${logo}</a>
                 <div class="navbar-buttons-right">
-                    <a class="button button--icononly" href="#/notifications" aria-label="Notifications">
+                    <a class="button button--icononly button-notifications" href="#/notifications" aria-label="Notifications">
                         <i class="button-icon fa fa-bell"></i>
                     </a>
                     <a class="button button--icononly" href="#/${Account.isLoggedIn ? 'profile' : 'login'}" aria-label="User profile">
@@ -54,13 +54,29 @@ class NavBar {
 
         window.addEventListener('scroll', this.onScroll);
 
+        this.notificationsButton = this.element.querySelector('.button-notifications');
+
+        this.notificationsUpdateTimer = setInterval(() => this.updateNotificationBadge(), 5000);
+        this.updateNotificationBadge();
+
         return this.element;
+    }
+
+    async updateNotificationBadge() {
+        const count = await Account.getUnreadNotificationsCount();
+            
+        if (count > 0) {
+            this.notificationsButton.classList.add('hasBadge');
+        } else {
+            this.notificationsButton.classList.remove('hasBadge');
+        }
     }
 
     destroy() {
         window.removeEventListener('scroll', this.onScroll);
         this.onScroll = null;
         this.element = null;
+        window.clearInterval(this.notificationsUpdateTimer);
     }
 }
 

@@ -211,6 +211,7 @@ DROP TABLE IF EXISTS `user_notification`;
 CREATE TABLE `user_notification` (
   `notification_id` varchar(11) NOT NULL,
   `user_id` varchar(11) NOT NULL,
+  `read` tinyint(1) NOT NULL DEFAULT 0,
   KEY `fk_user_notification_notification` (`notification_id`),
   KEY `fk_user_notification_user` (`user_id`),
   CONSTRAINT `fk_user_notification_notification` FOREIGN KEY (`notification_id`) REFERENCES `notification` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,

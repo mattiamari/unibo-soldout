@@ -108,6 +108,25 @@ const Account = {
         return res.notifications;
     },
 
+    async getUnreadNotificationsCount() {
+        let res = await fetch('/api/notifications/unread', {headers: this.authHeaders});
+        res = await res.json();
+        return res.unread_notifications_count;
+    },
+
+    async markReadNotifications() {
+        const req = new Request('/api/notifications/read', {
+            method: 'POST',
+            body: JSON.stringify({}),
+            headers: this.authHeaders
+        });
+        const res = await fetch(req);
+
+        if (!res.ok) {
+            return new Error('API returned ' + res.status);
+        }
+    },
+
     updateLocalStorage() {
         localStorage.setItem('user', JSON.stringify(this._user));
         localStorage.setItem('login', JSON.stringify(this._login));

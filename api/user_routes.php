@@ -104,14 +104,55 @@ $orderDetailsRoute = function (Request $request, ResponseInterface $response, $a
 };
 
 $notificationsRoute = function (Request $request, ResponseInterface $response, $args) {
-    $sql = "SELECT notification.* FROM user_notification
-        JOIN notification ON notification.id = user_notification.notification_id
+    $sql = "SELECT n.*, un.read FROM user_notification un
+        JOIN notification n ON n.id = un.notification_id
         WHERE user_id = :user_id";
     
     $q = $this->get('db')->prepare($sql);
     $q->bindValue(':user_id', $request->getAttribute('user_id'));
 
     return query($response, $q, 'notifications');
+};
+
+$unreadNotificationsCountRoute = function (Request $request, ResponseInterface $response, $args) {
+    $sql = "SELECT count(*) AS notifications_count FROM user_notification
+        WHERE `user_id` = :user_id AND `read` = 0";
+
+    $q = $this->get('db')->prepare($sql);
+    $q->bindValue(':user_id', $request->getAttribute('user_id'));
+
+    if (!$q->execute()) {
+        $response->getBody()->write(error($q->errorInfo()[2]));
+        return $response->withStatus(500);
+    }
+
+    $count = $q->fetchColumn();
+
+    return jsonResponse($response, 'unread_notifications_count', $count);
+};
+
+$markReadNotificationsRoute = function (Request $request, ResponseInterface $response, $args) {
+    $sql = "UPDATE user_notification un
+        JOIN notification n on n.id = un.notification_id
+        SET `read` = 1
+        WHERE `user_id` = :user_id AND `read` = 0 AND `date` <= :older";
+
+    $q = $this->get('db')->prepare($sql);
+    $q->bindValue(':user_id', $request->getAttribute('user_id'));
+
+    $older = $request->getParsedBody()['older'];
+    if (!$older) {
+        $older = (new DateTime())->format('Y-m-d H:i:s');
+    }
+    var_dump($older);
+    $q->bindValue(':older', $older);
+
+    if (!$q->execute()) {
+        $response->getBody()->write(error($q->errorInfo()[2]));
+        return $response->withStatus(500);
+    }
+
+    return $response->withStatus(200);
 };
 
 $loginRoute = function (Request $request, ResponseInterface $response, $args) {

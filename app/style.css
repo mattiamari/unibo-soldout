@@ -106,7 +106,7 @@ a {
 .header-content {
     display: flex;
     flex-direction: column;
-    padding-top: 56px; /* leave space for the navbar */
+    padding-top: 72px; /* leave space for the navbar */
 }
 
 .app-logo {
@@ -261,7 +261,7 @@ a {
     overflow-x: scroll;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    padding: 16px 0;
+    padding: 24px 0 16px 0;
     /* margin: 0 16px; */
 }
 
@@ -413,6 +413,22 @@ a.button {
     vertical-align: 25%;
 }
 
+.button.button--icononly.hasBadge {
+    position: relative;
+}
+
+.button.button--icononly.hasBadge::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--color-primary);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
 .buttons {
     display: flex;
     padding: 8px;
@@ -518,8 +534,8 @@ ul.list {
 }
 
 .list-item {
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column; */
     padding: 8px 16px;
     margin-bottom: 24px;
     /* background: var(--color-background-1); */
@@ -628,6 +644,10 @@ ul.list {
 
 .page--home .navbar .app-logo {
     display: none;
+}
+
+.page--home .button.button--icononly.hasBadge::after {
+    background: hsla(148, 80%, 46%, 1);
 }
 
 .page--home > main {
@@ -1086,6 +1106,19 @@ a.orderList-row {
     padding: 0 16px;
 }
 
+.page--notifications .list-item > div {
+    margin-top: 6px;
+}
+
+.notification-bullet {
+    display: inline-block;
+    background: var(--color-primary);
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    margin-left: 8px;
+}
+
 /*
     Order details page
 */
@@ -1332,7 +1365,7 @@ a.orderList-row {
     .slider .slider-content {
         flex-wrap: wrap;
         justify-content: space-between;
-        padding: 16px 16px;
+        padding: 24px 16px 16px 16px;
         overflow-x: hidden;
     }
 

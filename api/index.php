@@ -6,6 +6,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Slim\Factory\AppFactory;
 
+date_default_timezone_set(getenv('TZ'));
+
 require_once __DIR__ . '/../env-config.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/utils.php';
@@ -79,6 +81,12 @@ $app->get('/order/{order_id}', $orderDetailsRoute)
     ->add($authMiddleware);
 
 $app->get('/notifications', $notificationsRoute)
+    ->add($authMiddleware);
+
+$app->get('/notifications/unread', $unreadNotificationsCountRoute)
+    ->add($authMiddleware);
+
+$app->post('/notifications/read', $markReadNotificationsRoute)
     ->add($authMiddleware);
 
 $app->post('/login', $loginRoute);

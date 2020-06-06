@@ -11,10 +11,15 @@ const ListRow = notification => {
         link = /*html*/`<a href="#${notification.action}">${notification.content}</a>`;
     }
 
+    let bullet = /*html*/`<span class="notification-bullet"></span>`;
+
     return /*html*/ `
         <li class="list-item">
             ${link}
-            <span class="text--small">${Language.formatDateTime(notification.date)}</span>
+            <div class="text--small">
+                <span>${Language.formatDateTime(notification.date)}</span>
+                ${notification.read ? "" : bullet}
+            </div>
         </li>
     `;
 };
@@ -54,6 +59,8 @@ class NotificationsPage {
 
         this.navbar = new NavBar();
         header.insertBefore(this.navbar.render(), header.firstChild);
+
+        Account.markReadNotifications();
 
         return this.element;
     }
