@@ -4,5 +4,6 @@ style.css.map
 /node_modules
 /vendor
 /app/i
+/docker-compose.yml
 /env-config.php
 /images

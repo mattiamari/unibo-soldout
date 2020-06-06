@@ -12,18 +12,10 @@ services:
       - ./:/soldout/source:ro
       - app-data:/soldout/data:ro
       - ./docker/web/nginx.conf:/etc/nginx/nginx.conf:ro
-    networks:
-        - default
-        - web
     environment:
       TZ: Europe/Rome
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.soldout.rule=Host(`soldout.mattiamari.me`)
-      - traefik.http.routers.soldout.entrypoints=https
-      - traefik.http.services.soldout.loadbalancer.server.port=80
-      - traefik.http.routers.soldout.tls=true
-      - traefik.http.routers.soldout.tls.certresolver=mattiamari
+    ports:
+      - "80:80"
   php:
     build: ./docker/php
     restart: unless-stopped
@@ -32,8 +24,6 @@ services:
     volumes:
       - ./:/soldout/source:ro
       - app-data:/soldout/data
-    networks:
-      - default
     environment:
       TZ: Europe/Rome
   db:
@@ -45,25 +35,17 @@ services:
       - 13306:3306
     environment:
       TZ: Europe/Rome
-      MYSQL_ROOT_PASSWORD: WCPpFXAUcIjEfJ6LOEkmsA
+      MYSQL_ROOT_PASSWORD: soldout
       MYSQL_USER: soldout
-      MYSQL_PASSWORD: IiseH73LQTyzTknBS03GYw
+      MYSQL_PASSWORD: soldout
       MYSQL_DATABASE: soldout
   adminer:
     image: adminer
     restart: unless-stopped
+    ports:
+      - "8001:8080"
     depends_on:
       - db
-    networks:
-      - default
-      - web
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.soldoutdb.rule=(Host(`soldout.mattiamari.me`) && Path(`/db`))
-      - traefik.http.routers.soldoutdb.entrypoints=https
-      - traefik.http.services.soldoutdb.loadbalancer.server.port=8080
-      - traefik.http.routers.soldoutdb.tls=true
-      - traefik.http.routers.soldoutdb.tls.certresolver=mattiamari
   devtools:
     build:
       context: .
@@ -77,7 +59,3 @@ services:
 volumes:
   db-data:
   app-data:
-
-networks:
-    web:
-        external: true
