@@ -30,15 +30,6 @@ class NotificationsPage {
     }
 
     async render() {
-        let notifications = await Account.getNotifications();
-        notifications = notifications.map(e => {
-            e.date = new Date(e.date);
-            return e;
-        });
-        notifications.sort((a,b) => b.date.getTime() - a.date.getTime());
-
-        const listRows = notifications.map(e => ListRow(e)).join('\n');
-
         const template = /*html*/ `
             <div class="page page--notifications">
                 <header class="header">
@@ -48,7 +39,6 @@ class NotificationsPage {
                 </header>
                 <main>
                     <ul class="list list--flat">
-                        ${listRows}
                     </ul>
                 </main>
             </div>
@@ -57,16 +47,34 @@ class NotificationsPage {
         this.element = htmlToElement(template);
         const header = this.element.querySelector('header');
 
+        this.list = this.element.querySelector('ul');
+
         this.navbar = new NavBar();
         header.insertBefore(this.navbar.render(), header.firstChild);
 
+        await this.updateList();
         Account.markReadNotifications();
+
+        this.updateTimer = setInterval(() => this.updateList(), 5000);
 
         return this.element;
     }
 
+    async updateList() {
+        let notifications = await Account.getNotifications();
+        notifications = notifications.map(e => {
+            e.date = new Date(e.date);
+            return e;
+        });
+        notifications.sort((a,b) => b.date.getTime() - a.date.getTime());
+
+        const listRows = notifications.map(e => ListRow(e)).join('\n');
+        this.list.innerHTML = listRows;
+    }
+
     destroy() {
         this.navbar.destroy();
+        clearInterval(this.updateTimer);
         this.element = null;
     }
 }
