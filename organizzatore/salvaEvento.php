@@ -105,7 +105,7 @@ if (isset($eventId) && !$isEventNew) {
             }
         }
     }
-    $db->updateEventById($eventId, $title, $date, $description, $_SESSION["manager_id"], $show_category_id, $max_tickets, 0);
+    $db->updateEventById($eventId, $title, $date, $description, $_SESSION["manager_id"], $show_category_id, $max_tickets);
 } else {
     $db->insertNewShow($eventId, $title, $date, $description, $_SESSION["manager_id"], $show_category_id, $max_tickets, 0);
 }

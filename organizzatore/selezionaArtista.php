@@ -38,6 +38,8 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
     <script src="./cercaArtista.js"></script>
   </head>
   <body>
+  <?php require "navbarArtista.php" ?>
+  <br>
   <div id="container">
     <h1 class="title">Seleziona artista</h1>
     <form>
