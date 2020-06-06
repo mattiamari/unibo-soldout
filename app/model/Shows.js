@@ -60,6 +60,12 @@ const Shows = {
         return shows.map(e => Object.assign(new ShowSummary, e));
     },
 
+    getHotShows: async () => {
+        const res = await fetch('/api/shows/hot');
+        const shows = (await res.json()).shows;
+        return shows.map(e => Object.assign(new ShowSummary, e));
+    },
+
     getShowsCategorized: async () => {
         const res = await fetch('/api/shows');
         let shows = await res.json();

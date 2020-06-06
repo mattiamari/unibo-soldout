@@ -49,8 +49,8 @@ class HomePage {
         });
 
         const sliderNearYouShows = new ShowSlider({
-            title: 'Vicino a te',
-            shows: await Shows.getNewShows()
+            title: 'Popolari',
+            shows: await Shows.getHotShows()
         });
 
         const showsCategorized = (await Shows.getShowsCategorized()).map(category => {

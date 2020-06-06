@@ -36,6 +36,32 @@ $newShowsRoute = function (Request $request, ResponseInterface $response, $args)
     return query($response, $q, 'shows');
 };
 
+$hotShowsRoute = function (Request $request, ResponseInterface $response, $args) {
+    $imgPath = IMAGE_URL;
+    $sql =  "SELECT `show`.id, `show`.title, `show`.date,
+        CONCAT(city.name, ', ', country.name) AS location,
+        CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
+        image.altText AS imageAlt,
+        COUNT(`order`.cart_id) as orders
+        FROM `show`
+        JOIN venue ON venue.id = `show`.venue_id
+        JOIN city ON city.id = venue.city_id
+        JOIN country ON country.id = city.country_id
+        LEFT JOIN image ON image.subject_id = `show`.id AND image.subject = 'show' AND image.type = 'horizontal'
+        JOIN ticket_type tt on tt.show_id = `show`.id
+        JOIN cart_item ci on ci.ticket_type_id = tt.id
+        JOIN cart on cart.id = ci.cart_id
+        JOIN `order` on order.cart_id = cart.id
+        WHERE `show`.enabled=1 AND `show`.date > NOW()
+        GROUP BY `show`.id
+        ORDER BY orders DESC, `show`.date
+        LIMIT 12";
+
+    $q = $this->get('db')->prepare($sql);
+    return query($response, $q, 'shows');
+};
+
+
 $showCategoriesRoute = function (Request $request, ResponseInterface $response, $args) {
     $sql = "SELECT * FROM `show_category`";
     $q = $this->get('db')->prepare($sql);
