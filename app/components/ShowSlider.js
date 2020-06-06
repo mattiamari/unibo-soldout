@@ -13,7 +13,6 @@ class ShowSlider {
             <div class="slider">
                 <div class="slider-header">
                     <span class="slider-title">${this.content.title}</span>
-                    <a class="slider-showMore button button--flat" href="#">Vedi tutti</a>
                 </div>
                 <div class="slider-content">
                 </div>
