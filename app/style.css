@@ -147,6 +147,20 @@ a {
     margin-left: auto;
 }
 
+.navbar .app-logo {
+    width: initial;
+}
+
+.navbar .app-logo svg {
+    height: 56px;
+    width: auto;
+}
+
+.navbar .homeButton {
+    display: block;
+    margin-left: auto;
+}
+
 /*
     Searchbar
 */
@@ -607,6 +621,10 @@ ul.list {
 
 .page--home .navbar--raised {
     background-color: var(--color-primary);
+}
+
+.page--home .navbar .app-logo {
+    display: none;
 }
 
 .page--home > main {

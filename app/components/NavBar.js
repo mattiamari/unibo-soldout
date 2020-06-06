@@ -3,21 +3,26 @@
 import throttle from '../utils/throttle.js';
 import htmlToElement from '../utils/htmlToElement.js';
 import Account from '../model/Account.js';
+import AppLogo from './AppLogo.js'
 
 class NavBar {
     constructor() {
     }
 
     render() {
-        let backButtonTemplate = /*html*/`<button class="button button--icononly" id="btnBack" aria-label="Go back"><i class="button-icon fas fa-arrow-left"></i></button>`;
+        let backButtonTemplate = /*html*/`<button class="button button--icononly" id="btnBack" aria-label="Go back">
+            <i class="button-icon fas fa-arrow-left"></i></button>`;
+        
         if (location.hash == '' || location.hash == '#/') {
             backButtonTemplate = '';
         }
 
+        const logo = AppLogo();
+
         const template = /*html*/`
             <nav class="navbar">
                 ${backButtonTemplate}
-
+                <a class="homeButton" href="#/">${logo}</a>
                 <div class="navbar-buttons-right">
                     <a class="button button--icononly" href="#/notifications" aria-label="Notifications">
                         <i class="button-icon fa fa-bell"></i>
