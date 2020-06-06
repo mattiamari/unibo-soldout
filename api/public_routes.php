@@ -122,7 +122,7 @@ $showDetailsRoute = function (Request $request, ResponseInterface $response, $ar
     $imgPath = IMAGE_URL;
 
     // Fetch Show
-    $sql = "SELECT `show`.id, `show`.title, `show`.date,
+    $sql = "SELECT `show`.id, `show`.title, `show`.date, `show`.max_tickets_per_order AS maxTicketsPerOrder,
             CONCAT(venue.name, ', ', city.name, ', ', country.name) AS location,
             `show`.description,
             venue.id AS venueId,
