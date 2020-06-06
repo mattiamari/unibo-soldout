@@ -85,9 +85,22 @@ const Account = {
     },
 
     async updateUserInfo(userInfo) {
-        // TODO send new user info to API
+        const req = new Request('/api/account', {
+            method: 'POST',
+            body: JSON.stringify(userInfo),
+            headers: this.authHeaders
+        });
+        const res = await fetch(req);
 
-        return Promise.resolve();
+        if (!res.ok) {
+            return new Error('API returned ' + res.status);
+        }
+
+        let account = await fetch('/api/account', {headers: this.authHeaders});
+        account = await account.json();
+
+        this._user = account.account;
+        this.updateLocalStorage();
     },
 
     async getOrders() {

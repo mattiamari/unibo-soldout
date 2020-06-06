@@ -29,6 +29,32 @@ $accountDetailsRoute = function (Request $request, ResponseInterface $response, 
     return jsonResponse($response, 'account', $account);
 };
 
+$updateAccountDetailsRoute = function (Request $request, ResponseInterface $response, $args) {
+    $sql = "UPDATE `user` u
+        JOIN `customer` c on c.user_id = u.id
+        SET firstname = :firstname,
+            lastname = :lastname,
+            email = :email,
+            birthdate = :birthdate
+        WHERE u.id = :user_id";
+    
+    $q = $this->get('db')->prepare($sql);
+    $q->bindValue(':user_id', $request->getAttribute('user_id'));
+
+    $body = $request->getParsedBody();
+    $q->bindValue(':firstname', $body['firstname']);
+    $q->bindValue(':lastname', $body['lastname']);
+    $q->bindValue(':email', $body['email']);
+    $q->bindValue(':birthdate', $body['birthdate']);
+
+    if (!$q->execute()) {
+        $response->getBody()->write(error($q->errorInfo()[2]));
+        return $response->withStatus(500);
+    }
+
+    return $response->withStatus(201);
+};
+
 $ordersRoute = function (Request $request, ResponseInterface $response, $args) {
     $sql = "SELECT `order`.*, `show`.title AS contentSummary,
             COUNT(DISTINCT `show`.id) AS showsCount

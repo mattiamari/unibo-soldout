@@ -74,6 +74,9 @@ $app->get('/artist/{id}', $artistDetailsRoute);
 $app->get('/account', $accountDetailsRoute)
     ->add($authMiddleware);
 
+$app->post('/account', $updateAccountDetailsRoute)
+    ->add($authMiddleware);
+
 $app->get('/orders', $ordersRoute)
     ->add($authMiddleware);
 
