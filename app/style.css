@@ -638,6 +638,10 @@ ul.list {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, var(--color-background) 100%);
 }
 
+.page--home .header-content {
+    padding-top: 56px;
+}
+
 .page--home .navbar--raised {
     background-color: var(--color-primary);
 }
