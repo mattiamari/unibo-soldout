@@ -2,10 +2,10 @@ $(document).ready(function() {
     $(".elimina").not(".disabled").click(function() {
         button = $(this);
         
-        id = button.data("showid");
+        id = button.data("artistid");
         
         $(".modal").addClass("is-active");
-        $(".conferma").attr("href", "./eliminaEvento.php?id=" + id);
+        $(".conferma").attr("href", "./visualizzaArtisti.php?id=" + id + "&action=deleteArtist");
         
     });
 

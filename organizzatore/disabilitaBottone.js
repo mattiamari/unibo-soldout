@@ -29,11 +29,22 @@ $(document).ready(function() {
     ttBox.style.top = (coordY-100).toString() + "px";
 
     // add bubble content. Can include image or link
+    $entity = "evento"
+    if (window.location.href.includes("Artisti")) {
+        $entity = "artista";
+    } else if(window.location.href.includes("Luoghi")) {
+        $entity = "luogo";
+    }
+
     
-    $entity = window.location.href == "http://localhost/soldout/organizzatore/visualizzaArtisti.php" ? "artista" : "luogo";  
+    if($entity == "evento") {
+        ttBox.innerHTML = "Non è permesso eliminare " + "<br/>" + "un evento di cui sono stati già" +
+                 " acquistati biglietti.";
+    }else {
+        ttBox.innerHTML = "Non è permesso eliminare questo " + "<br/>" + $entity +
+                 " perché già associato ad un evento.";
+    }
     
-    ttBox.innerHTML = "Non è permesso modificare" + "<br/>" + "i dati o eliminare un " + $entity + "<br/>" +
-                 "se questo è già associato ad un evento.";
 
     // make bubble VISIBLE
     ttBox.style.visibility = "visible";

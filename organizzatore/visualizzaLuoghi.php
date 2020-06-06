@@ -21,18 +21,22 @@ if (isset($_GET["id"]) && isset($_GET["action"])) {
 function venueRow($venue)
 {
     $stringa = "Modifica";
+  $statusElimina = "";
   $status = "";
-  if($venue['show_count'] > 0 && $_SESSION["is_admin"]==0) {
-    $status = "disabled";
-    $stringa = "Visualizza";
-  }
+  if($venue['show_count'] > 0) {
+    $statusElimina = "disabled";
+    if ($_SESSION["is_admin"]==0) {
+        $stringa = "Visualizza";
+        $status = "";
+    }
+  }//href=visualizzaLuoghi.php?id={$venue['id']}&action=deleteVenue
 
     return "<tr>"
         . "<td headers='nome'>{$venue['name']}</td>"
         . "<td headers='descrizione'>{$venue['description']}</td>"
         . "<td headers='indirizzo'>{$venue['address']}</td>"
         . "<td headers='azioni'><a class=\"button\"  href=creazioneLuogo.php?id={$venue['id']}>$stringa</td>"
-        . "<td headers='azioni'><a class=\"button is-danger is-light is-outlined {$status}\" {$status} href=visualizzaLuoghi.php?id={$venue['id']}&action=deleteVenue>Elimina</td>"
+        . "<td headers='azioni'><a data-venueid='{$venue['id']}' class=\"button {$statusElimina} elimina is-danger is-light is-outlined {$statusElimina}\" {$statusElimina}>Elimina</td>"
         . "</tr>";
 }
 $venue = $db->countVenueWithShow();
@@ -52,9 +56,31 @@ $venue = $db->countVenueWithShow();
     <script src="./jquery-3.4.1.min.js"></script>
     <script src="./navbar.js"></script>
     <script src="./disabilitaBottone.js"></script>
+    <script src="./eliminaLuogo.js"></script>
 </head>
 
 <body>
+
+<div class="modal">
+        <div class="modal-background">
+
+        </div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Conferma</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+    <!-- Content ... -->
+                <p>Sicuro di voler eliminare questo luogo?</p>
+            </section>
+            <footer class="modal-card-foot">
+                <a class="button conferma is-success">Conferma</a>
+                <button class="button annulla">Annulla</button>
+            </footer>
+        </div>
+    </div>
+
 <?php require "navbarLuogo.php";?>
     <section class="section container">
         <a id="newElementButton" href="creazioneLuogo.php" class="button is-primary">Aggiungi luogo</a>

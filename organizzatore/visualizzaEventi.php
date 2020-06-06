@@ -29,9 +29,11 @@ function eventRow($evento)
         $stato = "approvato";
         $classButton = "tag is-success is-light is-medium";
     }
-
+    $status = "";
     if ($evento['tickets_sold'] == null) {
         $evento['tickets_sold'] = 0;
+    } else {
+      $status = "disabled";
     }
     if ($evento['tickets_total'] == null) {
       $evento['tickets_total'] = 0;
@@ -45,7 +47,7 @@ function eventRow($evento)
         . "<td headers='biglietti'>{$evento['tickets_sold']}/{$evento['tickets_total']}</td>"
         . "<td headers='azioni'><a class='button is-outlined' href=statisticheEvento.php?id={$evento['id']}>Dettagli</button></td>"
         . "<td headers='azioni'><a class='button is-outlined' href=formEventi.php?id={$evento['id']}>Modifica</td>"
-        . "<td headers='azioni'><a data-showid='{$evento['id']}' class='button elimina is-danger is-light is-outlined' >Elimina</td>"
+        . "<td headers='azioni'><a data-showid='{$evento['id']}' class='button {$status} elimina is-danger is-light is-outlined' {$status}>Elimina</td>"
         . "</tr>";
 }
 
@@ -73,6 +75,7 @@ if($_SESSION["is_admin"]==1) {
     <script src="./jquery-3.4.1.min.js"></script>
     <script src="./navbar.js"></script>
     <script src="./eliminaEvento.js"></script>
+    <script src="./disabilitaBottone.js"></script>
 </head>
 
 <body>

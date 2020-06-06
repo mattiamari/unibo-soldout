@@ -98,7 +98,7 @@ if (isset($_GET["id"])) {
     </div>
     <label  class="label">Seleziona Città</label>
     <div class="select">
-    <select name="country" class="countries" id="countryId">
+    <select required name="country" class="countries" id="countryId">
       <option value="">Seleziona Paese</option>
       <?php
       if ($id) {
@@ -111,7 +111,7 @@ if (isset($_GET["id"])) {
     </select>
     </div>
     <div class="select">
-    <select name="state" class="states" id="stateId">
+    <select required name="state" class="states" id="stateId">
       <option value="">Seleziona Stato/Regione</option>
       <?php
       if ($id) {
@@ -124,7 +124,7 @@ if (isset($_GET["id"])) {
     </select>
     </div>
     <div class="select">
-    <select name="city" class="cities" id="cityId">
+    <select required name="city" class="cities" id="cityId">
       <option value="">Seleziona città</option>
       <?php
       if ($id) {
