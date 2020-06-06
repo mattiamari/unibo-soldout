@@ -79,6 +79,7 @@ function ticketTypeRow($ticketType)
   <script src="app.js"></script>
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
   <script src="./navbar.js"></script>
+  <script src="./cercaNotifiche.js"></script>
 
 </head>
 

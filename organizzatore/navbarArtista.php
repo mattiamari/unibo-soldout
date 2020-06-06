@@ -15,7 +15,7 @@
         </div>
         <div id="navbarMenuHeroC" class="navbar-menu">
           <div class="navbar-end">
-          <a href="./notifiche.php" class="navbar-item">
+          <a id="notifica" href="./notifiche.php" class="navbar-item">
               Notifiche
             </a>
             <a href="./login.php?action=logout" class="navbar-item">

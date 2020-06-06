@@ -36,6 +36,7 @@ if(isset($_GET["search"]) && $_GET["search"]!="") {
     <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
     <script src="./selezionaArtista.js"></script>
     <script src="./cercaArtista.js"></script>
+    <script src="./cercaNotifiche.js"></script>
   </head>
   <body>
   <?php require "navbarArtista.php" ?>

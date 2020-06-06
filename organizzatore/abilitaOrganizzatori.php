@@ -24,7 +24,7 @@ function managerDontEnabledRow($organizzatore)
     return "<tr>"
         . "<td headers='id'>{$organizzatore['id']}</td>"
         . "<td headers='email'>{$organizzatore['email']}</td>"
-        . "<td headers='azioni'><a class=\"button is-primary\" href=abilitaOrganizzatori.php?id={$organizzatore['id']}>Abilita</button></td>"
+        . "<td headers='azioni'><a class=\"button is-primary is-outlined\" href=abilitaOrganizzatori.php?id={$organizzatore['id']}>Abilita</button></td>"
         // . "<td><a class=button href=abilitaEventi.php?id={$evento['id']}>Disabilita</td>"
         . "</tr>";
 }
@@ -58,6 +58,7 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
     <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
     <script src="./navbar.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="./cercaNotifiche.js"></script>
 </head>
 
 <body>

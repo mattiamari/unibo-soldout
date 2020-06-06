@@ -76,6 +76,7 @@ if (isset($_GET["id"])) {
   <script src="./navbar.js"></script>
   <script defer src="./location.js"></script>
   <script src="./disabilitaBottone.js"></script>
+  <script src="./cercaNotifiche.js"></script>
 </head>
 
 <body>

@@ -11,13 +11,26 @@ $manager_id = $_SESSION["manager_id"];
 
 $notification = $db->getNotificationsByManagerId($manager_id);
 
+$db->updateNotification(1);
+
+
+
 function notificationRow($notification) {
 
+    
+
     $event = str_replace("/show/", "", $notification["action"]);
+    
+    $read = "";
+    if($notification["read"] == 0) {
+        $read = "<span class=\"notification-bullet\"></span>";
+    }
 
     return "<tr>"
-        . "<td headers='contenuto'>{$notification['content']}</td>"
+        . "<td>$read</td>"
+        .   "<td headers='contenuto'>{$notification['content']}</td>"
         . "<td headers='data'>{$notification['date']}</td>"
+        . "<td headers='letta'>{$notification['read']}</td>"
         . "<td headers='azione'><a class=\"button is-info is-light \" href=./statisticheEvento.php?id={$event} </a>Dettagli evento</td>"
         . "</tr>";
 }
@@ -35,6 +48,7 @@ function notificationRow($notification) {
     <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="./navbar.js"></script>
+    <script src="./cercaNotifiche.js"></script>
 </head>
 
 <body>
@@ -48,8 +62,10 @@ function notificationRow($notification) {
                     if ($notification != null) {
                         echo "<thead>
                         <tr>
+                        <th></th>
                         <th id=\"contenuto\" scope=\"col\">Contenuto</th>
                         <th id=\"data\" scope=\"col\">Data</th>
+                        <th id=\"letta\" scope=\"col\">Letta</th>
                         <th id=\"azione\" scope=\"col\">Azioni</th>
                     </tr>
                     </thead>";

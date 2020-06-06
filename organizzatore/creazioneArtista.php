@@ -67,6 +67,7 @@ if (isset($_GET["id"])) {
 	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 	<script src="./navbar.js"></script>
 	<script src="./disabilitaBottone.js"></script>
+	<script src="./cercaNotifiche.js"></script>
 </head>
 
 <body>

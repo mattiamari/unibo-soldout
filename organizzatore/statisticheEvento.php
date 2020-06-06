@@ -27,6 +27,7 @@
     <title>Statistiche evento</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="./cercaNotifiche.js"></script>
 </head>
 <!-- query da fare
     1 numero di biglietti venduti per categoria (nome,numero biglietti venduti,ultima riga biglietti venduti totali)

@@ -56,6 +56,7 @@ $artist = $db->countArtistWithShow();
     <script src="./navbar.js"></script>
     <script src="./eliminaArtista.js"></script>
     <script src="./disabilitaBottone.js"></script>
+    <script src="./cercaNotifiche.js"></script>
     
 </head>
 

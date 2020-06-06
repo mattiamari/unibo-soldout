@@ -529,16 +529,22 @@ class Db {
     }
 
     function getNotificationsByManagerId($manager_id) {
-        /*
-        $sql = $this->pdo->prepare("SELECT country_id FROM geo_state WHERE id=:state_id");
-        $sql->bindParam(':state_id', $state_id, PDO::PARAM_INT);
-        $result = $sql->execute();
-        return $sql->fetch();
-        */
+       /*sql = "SELECT notification.*, user_notification.read FROM user_notification
+                JOIN notification ON notification.id = user_notification.notification_id
+                ORDER BY notification.date DESC";
+        $result = $this->pdo->query($sql);
+        return $result->fetchAll();*/
         $sql = $this->pdo->prepare("SELECT notification.* FROM user_notification
                                     JOIN notification ON notification.id = user_notification.notification_id
                                     WHERE user_id = :user_id");
         $sql->bindParam(':user_id', $manager_id);
+        $result = $sql->execute();
+        return $sql->fetch();
+    }
+
+    function updateNotification($read) {
+        $sql = $this->pdo->prepare("UPDATE `user_notification` SET `user_notification`.read = :read");
+        $sql->bindParam(':read', $read, PDO::PARAM_INT);
         $result = $sql->execute();
         return $sql->fetch();
     }
