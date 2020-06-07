@@ -80,7 +80,8 @@ $showsSummaryCategorizedRoute = function (Request $request, ResponseInterface $r
         JOIN city ON city.id = venue.city_id
         JOIN country ON country.id = city.country_id
         LEFT JOIN image ON image.subject_id = `show`.id AND image.subject = 'show' AND image.type = 'horizontal'
-        WHERE `show`.enabled=1";
+        WHERE `show`.enabled=1
+        ORDER BY `show`.date";
 
     $q = $this->get('db')->prepare($sql);
 
