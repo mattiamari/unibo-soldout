@@ -93,9 +93,24 @@ input[type='radio'] {
     .input {
         max-width: 600px;
     }
+
     textarea:not([rows]) {
         min-width: 30em;
         min-height: 6em;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .hasBadge::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background: hsla(148, 80%, 46%, 1);
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
     }
 }
 
