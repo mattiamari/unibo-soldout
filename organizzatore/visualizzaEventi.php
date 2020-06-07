@@ -32,7 +32,7 @@ function eventRow($evento)
     $status = "";
     if ($evento['tickets_sold'] == null) {
         $evento['tickets_sold'] = 0;
-    } else {
+    } else if($evento['tickets_sold']>0) {
       $status = "disabled";
     }
     if ($evento['tickets_total'] == null) {
