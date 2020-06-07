@@ -8,7 +8,7 @@ $(document).ready(function() {
     if (window.innerWidth < 1024 && navbarMenuBurger.className == "navbar-burger burger") {
         navbarMenuBurger.classList.add("is-active");
         navbarMenu.classList.add("is-active");
-        notifiche.classList.remove("hasBadge");
+        //notifiche.classList.remove("hasBadge");
     } else {
 
         navbarMenuBurger.classList.remove("is-active");
