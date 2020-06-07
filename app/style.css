@@ -1412,4 +1412,8 @@ a.orderList-row {
     .searchbar-wrap {
         width: 800px;
     }
+
+    .tabbedContainer-slides {
+        overflow-x: hidden;
+    }
 }
