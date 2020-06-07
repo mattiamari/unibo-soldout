@@ -18,7 +18,6 @@ $(document).ready(function() {
 
     $(window).resize(function() {
         if (window.innerWidth > 1024) {
-            notifiche.classList.add("hasBadge");
             navbarMenuBurger.classList.remove("is-active");
             navbarMenu.classList.remove("is-active");
         }
