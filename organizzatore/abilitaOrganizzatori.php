@@ -132,12 +132,12 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
 <br>
 <br>
     <section class="section container">
-      <div class="columns is-centered">
+      <div class="is-centered">
         <h1 class="title">Da abilitare</h1>
       </div>
       <br>
-        <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
-            <table class="table is-striped">
+        <div class="columns is-centered">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-striped">
                 <thead>
                     <?php 
                         if($managersDontEnabled!=null) {
@@ -170,12 +170,12 @@ $managersEnabled = $db->getDontEnabledManagerList(1);
     </section>
 <br><br>
     <section class="section container">
-      <div class="columns is-centered">
+      <div class="is-centered">
         <h1 class="title">Organizzatori</h1>
       </div>
       <br>
-        <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
-            <table class="table is-striped">
+        <div class="columns is-centered">
+            <table class="table is-bordered is-striped is-narrow is-hoverable">
                 <thead>
                     <?php 
                         if($managersEnabled!=null) {

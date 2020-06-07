@@ -87,7 +87,7 @@ $artist = $db->countArtistWithShow();
         <a id="newElementButton" href="creazioneArtista.php" class="button is-primary">Aggiungi artista</a>
     </section>
     <section class="section container">
-        <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
+        <div class="table-container">
             <table class="table is-striped">
                 <thead>
                     <tr>

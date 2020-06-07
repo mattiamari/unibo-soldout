@@ -87,7 +87,7 @@ $venue = $db->countVenueWithShow();
         <a id="newElementButton" href="creazioneLuogo.php" class="button is-primary">Aggiungi luogo</a>
     </section>
     <section class="section container">
-        <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
+        <div class="table-container">
             <table class="table is-striped">
                 <thead>
                     <tr>

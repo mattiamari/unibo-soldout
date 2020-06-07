@@ -42,7 +42,7 @@
         <section id="secttionTable" class="section container">
             <h1 class="title">Statistiche dell'evento <?php  echo $evento["title"]; ?> </h1>
             <section id="sectionTable"  class="section container">
-                <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
+                <div class="table-container columns is-centered">
                     <table class="table is-striped">
                         <thead>
                             <?php

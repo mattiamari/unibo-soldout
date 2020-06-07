@@ -117,7 +117,7 @@ if($_SESSION["is_admin"]==1) {
         <a id="newElementButton" href="./formEventi.php" class="button is-primary">Aggiungi evento</a>
     </section>
     <section id="secttionTable"  class="section container">
-        <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">
+        <div class="table-container">
             <table class="table is-striped">
                 <thead>
                 <?php

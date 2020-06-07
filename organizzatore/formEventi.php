@@ -192,8 +192,8 @@ function ticketTypeRow($ticketType)
         <button type="submit" formaction="salvaEvento.php?redir=popupBiglietto.php%3F" class="button">Nuova tipologia</button>
     </div>
     <br>
-    <div class="table is-bordered is-striped is-narrow is-hoverable columns is-centered">
-        <table class="table-container">
+    <div class="table-container">
+        <table class="table is-striped">
             <thead>
                 <?php 
                     if ($ticketTypes!=null) {
