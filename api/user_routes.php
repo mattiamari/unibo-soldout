@@ -427,6 +427,8 @@ function getSoldoutShows($db) {
         FROM `show` s
         JOIN `ticket_type` tt ON tt.show_id = s.id
         JOIN `cart_item` ci ON ci.ticket_type_id = tt.id
+        JOIN `cart` c ON c.id = ci.cart_id
+        JOIN `order` o ON o.cart_id = c.id
         GROUP BY s.id, tt.id
         HAVING quantity_sold >= max_tickets";
     
