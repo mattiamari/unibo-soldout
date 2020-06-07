@@ -112,11 +112,15 @@ function ticketTypeRow($ticketType)
     </div>
     <label for="show_category" class="label">Categoria Evento</label>
     <div class="select">
-        <select required name="show_category" id="">
+        <select required name="show_category" >
         <?php
         if ($showCategory != NULL) {
           foreach ($showCategory as $category) {
-            echo "<option value={$category['id']}>{$category['name']}</option>";
+              $selected = "";
+              if ($isEventSet && $category['id']==$event["show_category_id"]) {
+                $selected = "selected";
+              }
+            echo "<option selected=$selected value={$category['id']}>{$category['name']}</option>";
           }
         }
         ?>
