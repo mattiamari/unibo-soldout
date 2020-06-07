@@ -51,7 +51,7 @@ function notificationRow($notification) {
 </head>
 
 <body>
-    <?php  require "navbarEvento.php"?>
+    <?php  require "navbarNotifica.php"?>
 
     <section class="section container">
         <div class="table-container is-bordered is-striped is-narrow is-hoverable columns is-centered">

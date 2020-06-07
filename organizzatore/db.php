@@ -533,16 +533,23 @@ class Db {
     }
 
     function getNotificationsByManagerId($manager_id) {
-       /*sql = "SELECT notification.*, user_notification.read FROM user_notification
-                JOIN notification ON notification.id = user_notification.notification_id
-                ORDER BY notification.date DESC";
-        $result = $this->pdo->query($sql);
-        return $result->fetchAll();*/
         $sql = $this->pdo->prepare("SELECT notification.*, user_notification.read FROM user_notification
                                     JOIN notification ON notification.id = user_notification.notification_id
                                     WHERE user_id = :user_id
                                     ORDER BY notification.date DESC");
         $sql->bindParam(':user_id', $manager_id);
+        $result = $sql->execute();
+        return $sql->fetchAll();
+    }
+
+    function getNotificationsUnreadByManagerId($manager_id, $read) {
+        $sql = $this->pdo->prepare("SELECT notification.*, user_notification.read FROM user_notification
+                                    JOIN notification ON notification.id = user_notification.notification_id
+                                    WHERE user_id = :user_id
+                                    AND user_notification.read = :read
+                                    ORDER BY notification.date DESC");
+        $sql->bindParam(':user_id', $manager_id);
+        $sql->bindParam(':read', $read, PDO::PARAM_INT);
         $result = $sql->execute();
         return $sql->fetchAll();
     }

@@ -7,7 +7,7 @@ $notification = "";
 $id = "";
 if(isset($_SESSION["manager_id"])) {
     $id = $_SESSION["manager_id"];
-    $notification = $db->getNotificationsByManagerId($id);
+    $notification = $db->getNotificationsUnreadByManagerId($id, 0);
 }
 
 
