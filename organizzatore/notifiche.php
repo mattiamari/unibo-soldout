@@ -30,7 +30,6 @@ function notificationRow($notification) {
         . "<td>$read</td>"
         .   "<td headers='contenuto'>{$notification['content']}</td>"
         . "<td headers='data'>{$notification['date']}</td>"
-        . "<td headers='letta'>{$notification['read']}</td>"
         . "<td headers='azione'><a class=\"button is-info is-light \" href=./statisticheEvento.php?id={$event} </a>Dettagli evento</td>"
         . "</tr>";
 }
@@ -65,7 +64,6 @@ function notificationRow($notification) {
                         <th></th>
                         <th id=\"contenuto\" scope=\"col\">Contenuto</th>
                         <th id=\"data\" scope=\"col\">Data</th>
-                        <th id=\"letta\" scope=\"col\">Letta</th>
                         <th id=\"azione\" scope=\"col\">Azioni</th>
                     </tr>
                     </thead>";
