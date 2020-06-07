@@ -120,7 +120,7 @@ function ticketTypeRow($ticketType)
               if ($isEventSet && $category['id']==$event["show_category_id"]) {
                 $selected = "selected";
               }
-            echo "<option selected=$selected value={$category['id']}>{$category['name']}</option>";
+            echo "<option $selected value=\"{$category['id']}\">{$category['name']}</option>";
           }
         }
         ?>
