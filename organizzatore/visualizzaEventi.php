@@ -76,6 +76,7 @@ if($_SESSION["is_admin"]==1) {
     <script src="./navbar.js"></script>
     <script src="./eliminaEvento.js"></script>
     <script src="./disabilitaBottone.js"></script>
+    <script src="./cercaNotifiche.js"></script>
 </head>
 
 <body>

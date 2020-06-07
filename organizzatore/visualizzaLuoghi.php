@@ -57,6 +57,7 @@ $venue = $db->countVenueWithShow();
     <script src="./navbar.js"></script>
     <script src="./disabilitaBottone.js"></script>
     <script src="./eliminaLuogo.js"></script>
+    <script src="./cercaNotifiche.js"></script>
 </head>
 
 <body>

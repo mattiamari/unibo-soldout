@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <script src="./jquery-3.4.1.min.js"></script>
   <script src="./navbar.js"></script>
+  <script src="./cercaNotifiche.js"></script>
 </head>
 
 <body>

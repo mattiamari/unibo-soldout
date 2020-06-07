@@ -41,8 +41,28 @@ input[type='radio'] {
 
   }
 
-#logo {
-    
+
+
+.hasBadge::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 38px;
+    right: 8px;
+    background: hsla(148, 80%, 46%, 1);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.notification-bullet {
+    content: '';
+    display: block;
+    margin-top: 7px;
+    background: hsla(148, 80%, 46%, 1);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
 }
 
 #container {
