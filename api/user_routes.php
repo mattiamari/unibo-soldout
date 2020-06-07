@@ -413,8 +413,54 @@ $makeOrderRoute = function (Request $request, ResponseInterface $response, $args
         return $response->withStatus(500);
     }
 
+    $soldoutShows = getSoldoutShows($this->get('db'));
+    foreach ($soldoutShows as $show) {
+        sendSoldoutNotification($this->get('db'), $show);
+    }
+
     return $response->withStatus(201);
 };
+
+function getSoldoutShows($db) {
+    $sql = "SELECT s.id AS show_id, s.title, s.date, s.manager_id, tt.id AS ticket_type_id,
+        tt.name AS ticket_type_name, tt.max_tickets, SUM(ci.quantity) AS quantity_sold
+        FROM `show` s
+        JOIN `ticket_type` tt ON tt.show_id = s.id
+        JOIN `cart_item` ci ON ci.ticket_type_id = tt.id
+        GROUP BY s.id, tt.id
+        HAVING quantity_sold >= max_tickets";
+    
+    $res = $db->query($sql);
+
+    if (!$res) {
+        return null;
+    }
+
+    return $res->fetchAll();
+}
+
+function sendSoldoutNotification($db, $show) {
+    $sql = "INSERT INTO notification (id, content, `action`) VALUES (:id, :content, :action)";
+    $q = $db->prepare($sql);
+
+    $id = generateId();
+    $notification = sprintf("I biglietti per l'evento '%s', tipologia '%s' sono terminati", $show['title'], $show['ticket_type_name']);
+
+    $q->bindValue(':id', $id);
+    $q->bindValue(':content', $notification);
+    $q->bindValue(':action', '/show/' . $show['show_id']);
+    
+    if (!$q->execute()) {
+        return false;
+    }
+
+    $sql = "INSERT INTO user_notification (notification_id, user_id) VALUES (:notification_id, :user_id)";
+    $q = $db->prepare($sql);
+    $q->bindValue(':notification_id', $id);
+    $q->bindValue(':user_id', $show['manager_id']);
+
+    return $q->execute();
+}
 
 /**
  * Returns the current cart_id or creates a new one
