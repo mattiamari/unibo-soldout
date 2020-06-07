@@ -20,10 +20,18 @@ class TicketTypeRow {
     }
 
     render() {
+        const isSoldout = this.ticketType.quantitySold >= this.ticketType.maxTickets;
+        
+        let soldoutTag = '';
+        if (isSoldout) {
+            soldoutTag = /*html*/`<span class="tag">Esaurito</span>`;
+        }
+
         const template = /*html*/`
-            <li>
+            <li class="${isSoldout ? 'ticketType--disabled' : ''}">
                 <span class="ticketType-name" aria-label="Ticket type">${this.ticketType.name}</span>
-                <span class="ticketType-price" aria-label="Ticket price">${Language.formatCurrency(this.ticketType.price)}</span>
+                ${soldoutTag}
+                <span class="ticketType-price" aria-label="Ticket price">${Language.formatCurrency(this.ticketType.price)}</>
             </li>
         `;
 

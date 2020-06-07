@@ -591,6 +591,17 @@ ul.list {
 }
 
 /*
+    Tags
+*/
+.tag {
+    display: inline-block;
+    background-color: var(--color-background-3);
+    font-size: 0.8em;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/*
     All pages
 */
 .page {
@@ -828,8 +839,13 @@ ul.showInfoList {
     background-color: var(--color-background-1);
     box-shadow: var(--shadow-1);
     border-left: 2px solid transparent;
+    cursor: pointer;
 
     transition: background-color .1s ease, box-shadow .1s ease, border-left .1s ease;
+}
+
+.ticketTypeList > li.ticketType--disabled {
+    pointer-events: none;
 }
 
 .ticketTypeList > li.ticketType--selected {
