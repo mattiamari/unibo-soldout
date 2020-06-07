@@ -52,14 +52,16 @@ class Db {
 
     function getEventList() {
         $sql = ("SELECT `show`.id, `show`.title, `show`.date, `show`.enabled, artist.name AS artist_name, venue.name AS venue_name,
-                sum(ticket_type.max_tickets) AS tickets_total, 
-                sum(cart_item.quantity) AS tickets_sold, 
+                sum(DISTINCT ticket_type.max_tickets) AS tickets_total, 
+                sum( IF(`order`.cart_id IS NOT NULL, cart_item.quantity, 0) ) AS tickets_sold,
                 sum(cart_item.quantity * ticket_type.price) AS total_profit
             FROM `show`
             LEFT JOIN artist ON artist.id = `show`.artist_id
             LEFT JOIN venue ON venue.id = `show`.venue_id
             LEFT JOIN ticket_type ON ticket_type.show_id = `show`.id
             LEFT JOIN cart_item ON cart_item.ticket_type_id = ticket_type.id
+            LEFT JOIN cart ON cart.id = cart_item.cart_id
+            LEFT JOIN `order` ON `order`.cart_id = cart.id
             GROUP BY `show`.id");
         $result = $this->pdo->query($sql);
         return $result->fetchAll();
@@ -67,14 +69,16 @@ class Db {
 
     function getEventListByManagerId($manager_id) {
         $sql = $this->pdo->prepare("SELECT `show`.id, `show`.title, `show`.date, `show`.enabled, artist.name AS artist_name, venue.name AS venue_name,
-                sum(ticket_type.max_tickets) AS tickets_total, 
-                sum(cart_item.quantity) AS tickets_sold, 
+                sum(DISTINCT ticket_type.max_tickets) AS tickets_total, 
+                sum( IF(`order`.cart_id IS NOT NULL, cart_item.quantity, 0) ) AS tickets_sold, 
                 sum(cart_item.quantity * ticket_type.price) AS total_profit
             FROM `show`
-            JOIN artist ON artist.id = `show`.artist_id
-            JOIN venue ON venue.id = `show`.venue_id
+            LEFT JOIN artist ON artist.id = `show`.artist_id
+            LEFT JOIN venue ON venue.id = `show`.venue_id
             LEFT JOIN ticket_type ON ticket_type.show_id = `show`.id
             LEFT JOIN cart_item ON cart_item.ticket_type_id = ticket_type.id
+            LEFT JOIN cart ON cart.id = cart_item.cart_id
+            LEFT JOIN `order` ON `order`.cart_id = cart.id
             WHERE `show`.manager_id=:manager_id
             GROUP BY `show`.id");
             $sql->bindParam(':manager_id', $manager_id);
