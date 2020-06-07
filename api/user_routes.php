@@ -469,7 +469,7 @@ function sendSoldoutNotification($db, $show) {
  */
 function getCurrentCart($db, $userId) {
     $sql = "SELECT cart.id FROM cart
-       WHERE cart.id NOT IN (SELECT cart_id FROM `order`)
+        WHERE cart.id NOT IN (SELECT cart_id FROM `order`)
         AND cart.customer_id = :user_id";
     $q = $db->prepare($sql);
     $q->bindValue(':user_id', $userId);
