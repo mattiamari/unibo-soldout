@@ -538,12 +538,13 @@ class Db {
                 ORDER BY notification.date DESC";
         $result = $this->pdo->query($sql);
         return $result->fetchAll();*/
-        $sql = $this->pdo->prepare("SELECT notification.* FROM user_notification
+        $sql = $this->pdo->prepare("SELECT notification.*, user_notification.read FROM user_notification
                                     JOIN notification ON notification.id = user_notification.notification_id
-                                    WHERE user_id = :user_id");
+                                    WHERE user_id = :user_id
+                                    ORDER BY notification.date DESC");
         $sql->bindParam(':user_id', $manager_id);
         $result = $sql->execute();
-        return $sql->fetch();
+        return $sql->fetchAll();
     }
 
     function updateNotification($read) {
