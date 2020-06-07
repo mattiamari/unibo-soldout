@@ -163,9 +163,15 @@ $showDetailsRoute = function (Request $request, ResponseInterface $response, $ar
     $images = $q->fetchAll();
 
     // Fetch TicketTypes
-    $sql = "SELECT id, name, description, price
-        FROM ticket_type
-        WHERE show_id = :show_id";
+    $sql = "SELECT s.id AS showId, tt.id, tt.name, tt.description, tt.price, tt.max_tickets as maxTickets,
+        SUM( IF(o.cart_id IS NOT NULL, ci.quantity, 0) ) AS quantitySold
+        FROM `show` s
+        JOIN `ticket_type` tt ON tt.show_id = s.id
+        LEFT JOIN `cart_item` ci ON ci.ticket_type_id = tt.id
+        LEFT JOIN `cart` c ON c.id = ci.cart_id
+        LEFT JOIN `order` o ON o.cart_id = c.id
+        WHERE show_id = :show_id
+        GROUP BY s.id, tt.id";
     $q = $this->get('db')->prepare($sql);
     $q->bindValue(':show_id', $args['id'], PDO::PARAM_STR);
 

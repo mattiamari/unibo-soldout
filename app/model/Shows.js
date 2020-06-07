@@ -9,6 +9,10 @@ class Show {
         return Math.min(...this.ticketTypes.map(e => e.price));
     }
 
+    get isSoldout() {
+        return this.ticketTypes.every(e => e.quantitySold >= e.maxTickets);
+    }
+
     getImage(type = false) {
         if (!this.images.length) {
             return defaultImage;

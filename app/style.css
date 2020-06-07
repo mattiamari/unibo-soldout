@@ -361,6 +361,10 @@ a.button {
     pointer-events: none;
 }
 
+.button--raised.button--disabled {
+    background: transparent;
+}
+
 .button--flat {
     border: 1px solid transparent;
     border-radius: 4px;

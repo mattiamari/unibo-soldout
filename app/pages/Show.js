@@ -15,6 +15,11 @@ class ShowPage {
     async render() {
         const show = await Shows.getShowDetails(this.showId);
 
+        let buyButton = /*html*/`<a class="button button--raised" href="#/show/${show.id}/buy">Acquista ora</a>`;
+        if (show.isSoldout) {
+            buyButton = /*html*/`<a class="button button--raised button--disabled" href="">Biglietti esauriti</a>`;
+        }
+
         const template = /*html*/`
             <div class="page page--show">
                 <header class="header">
@@ -28,7 +33,7 @@ class ShowPage {
 
                 <main>
                     <div class="buyButtonContainer">
-                        <a class="button button--raised" href="#/show/${show.id}/buy">Acquista ora</a>
+                        ${buyButton}
                     </div>
 
                     <article>
