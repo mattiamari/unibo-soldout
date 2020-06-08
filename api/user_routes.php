@@ -100,7 +100,7 @@ $orderDetailsRoute = function (Request $request, ResponseInterface $response, $a
         return $response->withStatus(404);
     }
 
-    $sql = "SELECT `show`.title, `show`.date,
+    $sql = "SELECT `show`.title, DATE_FORMAT(`show`.date, '%Y-%m-%dT%H:%i:%s.000Z') AS `date`,
             CONCAT(venue.name, ', ', city.name, ', ', country.name) AS location,
             ticket_type.name AS `type`,
             ticket_type.price

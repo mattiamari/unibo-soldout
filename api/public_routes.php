@@ -5,7 +5,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 $imgPath = IMAGE_URL;
-$showSummaryQuery = "SELECT `show`.id, `show`.title, `show`.date,
+$showSummaryQuery = "SELECT `show`.id, `show`.title, DATE_FORMAT(`show`.date, '%Y-%m-%dT%H:%i:%s.000Z') AS `date`,
     CONCAT(city.name, ', ', country.name) AS location,
     CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
     image.altText AS imageAlt
@@ -38,7 +38,7 @@ $newShowsRoute = function (Request $request, ResponseInterface $response, $args)
 
 $hotShowsRoute = function (Request $request, ResponseInterface $response, $args) {
     $imgPath = IMAGE_URL;
-    $sql =  "SELECT `show`.id, `show`.title, `show`.date,
+    $sql =  "SELECT `show`.id, `show`.title, DATE_FORMAT(`show`.date, '%Y-%m-%dT%H:%i:%s.000Z') AS `date`,
         CONCAT(city.name, ', ', country.name) AS location,
         CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
         image.altText AS imageAlt,
@@ -70,7 +70,8 @@ $showCategoriesRoute = function (Request $request, ResponseInterface $response, 
 
 $showsSummaryCategorizedRoute = function (Request $request, ResponseInterface $response, $args) {
     $imgPath = IMAGE_URL;
-    $sql = "SELECT `show`.id, `show`.title, `show`.date, show_category.name AS category,
+    $sql = "SELECT `show`.id, `show`.title, DATE_FORMAT(`show`.date, '%Y-%m-%dT%H:%i:%s.000Z') AS `date`,
+            show_category.name AS category,
             CONCAT(city.name, ', ', country.name) AS location,
             CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
             image.altText AS imageAlt
@@ -101,7 +102,8 @@ $showSearchRoute = function (Request $request, ResponseInterface $response, $arg
         return jsonResponse($response, 'shows', []);
     }
 
-    $sql = "SELECT `show`.id, `show`.title, `show`.date, show_category.name AS category,
+    $sql = "SELECT `show`.id, `show`.title, DATE_FORMAT(`show`.date, '%Y-%m-%dT%H:%i:%s.000Z') AS `date`,
+            show_category.name AS category,
             CONCAT(city.name, ', ', country.name) AS location,
             CONCAT('$imgPath', '/', `show`.id, '/', image.type, '/', image.name) AS imageUrl,
             image.altText AS imageAlt
@@ -123,7 +125,8 @@ $showDetailsRoute = function (Request $request, ResponseInterface $response, $ar
     $imgPath = IMAGE_URL;
 
     // Fetch Show
-    $sql = "SELECT `show`.id, `show`.title, `show`.date, `show`.max_tickets_per_order AS maxTicketsPerOrder,
+    $sql = "SELECT `show`.id, `show`.title, DATE_FORMAT(`show`.date, '%Y-%m-%dT%H:%i:%s.000Z') AS `date`,
+            `show`.max_tickets_per_order AS maxTicketsPerOrder,
             CONCAT(venue.name, ', ', city.name, ', ', country.name) AS location,
             `show`.description,
             venue.id AS venueId,
