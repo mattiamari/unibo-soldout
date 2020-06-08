@@ -63,6 +63,10 @@ class NavBar {
     }
 
     async updateNotificationBadge() {
+        if (!Account.isLoggedIn()) {
+            return;
+        }
+        
         const count = await Account.getUnreadNotificationsCount();
             
         if (count > 0) {
