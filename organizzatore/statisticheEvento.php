@@ -27,7 +27,9 @@
     <title>Statistiche evento</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="./jquery-3.4.1.min.js"></script>
     <script src="./cercaNotifiche.js"></script>
+    <script src="./navbar.js"></script>
 </head>
 <!-- query da fare
     1 numero di biglietti venduti per categoria (nome,numero biglietti venduti,ultima riga biglietti venduti totali)
@@ -59,13 +61,16 @@
                         <tbody>
                             <?php 
                                 if($ticketSoldByCategories!= null) {
+                                    $total = 0;
                                     foreach($ticketSoldByCategories as $ticketSoldByCategory) {
+                                        $total += $ticketSoldByCategory['profit'];
                                         echo "<tr>
                                         <td headers='nome'>{$ticketSoldByCategory['name']}</td>
                                         <td headers='biglietti'>{$ticketSoldByCategory['total_sold']}/{$ticketSoldByCategory['max_tickets']}</td>
                                         <td headers='profitto'>{$ticketSoldByCategory['profit']}€</td>
                                         </tr>";
                                     }
+                                    echo "<tr><td></td><td></td><td><p>Totale: {$total}€</p></td></tr>";
                                 } else {
                                     echo "<article class=\"message is-info\">
                                     <div class=\"message-body\">
