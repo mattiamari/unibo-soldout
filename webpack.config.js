@@ -11,7 +11,25 @@ module.exports = {
       template: 'app/index.template.html'
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+        use: [
+          'file-loader',
+        ],
+      },
+    ]
+  },
   optimization: {
+    usedExports: true,
     minimize: true,
     minimizer: [new TerserPlugin()],
   },

@@ -9,8 +9,11 @@ const CardSmall = show => {
             <div class="card-content">
                 <div class="showSummary">
                     <div class="showSummary-title">${show.title}</div>
-                    <div>
+                    <div class="showSummary-info">
+                        <i class="showSummary-icon fa fa-calendar-alt"></i>
                         <span class="showSummary-date">${Language.formatDateMedium(show.date)}</span>
+
+                        <i class="showSummary-icon fa fa-map-marker-alt"></i>
                         <span class="showSummary-location">${show.location}</span>
                     </div>
                 </div>
@@ -28,8 +31,11 @@ const CardBig = show => {
                 <div class="card-content">
                     <div class="showSummary">
                         <div class="showSummary-title">${show.title}</div>
-                        <div>
+                        <div class="showSummary-info">
+                            <i class="showSummary-icon fa fa-calendar-alt"></i>
                             <span class="showSummary-date">${Language.formatDateMedium(show.date)}</span>
+
+                            <i class="showSummary-icon fa fa-map-marker-alt">
                             <span class="showSummary-location">${show.location}</span>
                         </div>
                     </div>

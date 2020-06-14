@@ -11,7 +11,7 @@ class NavBar {
 
     render() {
         let backButtonTemplate = /*html*/`<button class="button button--icononly" id="btnBack" aria-label="Go back">
-            <i class="button-icon fas fa-arrow-left"></i></button>`;
+            <i class="button-icon fa fa-arrow-left"></i></button>`;
         
         if (location.hash == '' || location.hash == '#/') {
             backButtonTemplate = '';

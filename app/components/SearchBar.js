@@ -8,8 +8,11 @@ const ResultEntry = show => {
     return /*html*/`
         <li class="searchbar-entry showSummary">
             <div class="showSummary-title"><a href="#/show/${show.id}">${show.title}</a></div>
-            <div>
+            <div class="showSummary-info">
+                <i class="showSummary-icon fa fa-calendar-alt"></i>
                 <span class="showSummary-date">${Language.formatDateMedium(show.date)}</span>
+
+                <i class="showSummary-icon fa fa-map-marker-alt"></i>
                 <span class="showSummary-location">${show.location}</span>
             </div>
         </li>

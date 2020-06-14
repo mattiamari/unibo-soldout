@@ -561,17 +561,25 @@ ul.list {
     font-size: 1em;
 }
 
+.showSummary-info {
+    font-size: 0.7em;
+}
+
+.showSummary-info > .showSummary-icon {
+    margin-left: 4px;
+    font-size: 0.9em;
+}
+
 .showSummary-location,
 .showSummary-date {
     display: inline-block;
-    font-size: 0.7em;
 }
 
 .showSummary-date {
     margin-right: 0.5em;
 }
 
-.showSummary-location::before,
+/* .showSummary-location::before,
 .showSummary-date::before {
     display: inline-block;
     content: '\f3c5';
@@ -588,7 +596,7 @@ ul.list {
 
 .showSummary-date::before {
     content: '\f073';
-}
+} */
 
 /*
     Tags

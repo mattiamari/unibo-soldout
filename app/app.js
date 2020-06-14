@@ -15,6 +15,8 @@ import OrderDetailsPage from './pages/OrderDetails.js';
 import VenuePage from './pages/Venue.js';
 import ArtistPage from './pages/Artist.js';
 
+import '@fortawesome/fontawesome-free/css/all.css';
+
 const routes = {
     '/': HomePage,
     '/404': Error404,
