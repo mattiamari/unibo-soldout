@@ -4,22 +4,21 @@ version: '3.2'
 
 services:
   web:
-    image: soldout-web-dev:latest
+    image: soldout-web:latest
     depends_on:
       - php
     volumes:
-      - ./:/soldout/www:ro
       - app-data:/soldout/data:ro
     environment:
       TZ: Europe/Rome
     ports:
-      - "9080:80"
+      - "80:80"
   php:
-    image: soldout-php-dev:latest
+    image: soldout-php:latest
     depends_on:
       - db
     volumes:
-      - ./:/soldout/www:ro
+      - ./env-config.php:/soldout/www/env-config.php:ro
       - app-data:/soldout/data
     environment:
       TZ: Europe/Rome

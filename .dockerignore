@@ -1,0 +1,6 @@
+node_modules
+vendor
+demo
+docker
+app/dist
+env-config.php
