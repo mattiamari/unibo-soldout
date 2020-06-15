@@ -35,7 +35,7 @@ const CardBig = show => {
                             <i class="showSummary-icon fa fa-calendar-alt"></i>
                             <span class="showSummary-date">${Language.formatDateMedium(show.date)}</span>
 
-                            <i class="showSummary-icon fa fa-map-marker-alt">
+                            <i class="showSummary-icon fa fa-map-marker-alt"></i>
                             <span class="showSummary-location">${show.location}</span>
                         </div>
                     </div>
