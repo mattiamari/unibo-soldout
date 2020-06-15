@@ -11,8 +11,10 @@ WORKDIR /build
 # Copy and install dependencies BEFORE copying the rest of the code so we can cache
 # the layer, not having to download all deps again if a source file changes
 COPY package.json package-lock.json composer.json composer.lock ./
-RUN npm i && \
-    composer install
+
+# Running composer before npm as php dependencies change less often
+RUN composer install
+RUN npm i
 
 COPY . .
 
