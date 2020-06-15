@@ -2,7 +2,7 @@ $primary: #D7487D;//hsl(217, 71%, 53%);//#D7487D;
 $table-row-active-background-color: #D7487D;
 //$table-color:#F77853;
 
-@import "bulma/bulma.sass";
+@import "../node_modules/bulma/bulma.sass";
 
 .hero {
     background: linear-gradient(160deg, #D7487D 0%, #F77853 100% );
