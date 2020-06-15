@@ -1,10 +1,8 @@
-FROM ubuntu:latest AS build
+FROM alpine:latest AS build
 
 ENV TZ=Europe/Rome
-ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && \
-    apt-get install -y npm composer zip
+RUN apk add --no-cache npm composer php7-tokenizer php7-zip
 
 WORKDIR /build
 
