@@ -31,5 +31,6 @@ COPY --from=build build/app/favicon.ico build/app/manifest.json build/app/style.
 COPY --from=build build/manager/*.php manager/
 COPY --from=build build/manager/*.js manager/
 COPY --from=build build/manager/style.css manager/
+COPY --from=build build/manager/logo.svg manager/
 
 COPY --from=build build/vendor vendor
