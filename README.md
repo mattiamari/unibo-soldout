@@ -6,8 +6,8 @@ A (pretend) ticket selling platform.
 Through a web app, SoldOut allows customers to buy tickets for shows and concerts.  
 Tickets may have many types, each one with a different price, such as "adult" or "child".
 
-The web app is built using vanilla Javascript because one of the constraints was that we couldn't use frameworks,
-and communicates with the backend through a REST API.
+The web app is built as a single page application using vanilla Javascript because one of the
+constraints was that we couldn't use frameworks, and communicates with the backend through a REST API.
 
 The API makes use of the [Slim framework](http://www.slimframework.com/) and it's written in PHP (another constraint).
 
